@@ -36,12 +36,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4805415546032570}
   - component: {fileID: 212728497725504814}
-  - component: {fileID: 114217735629116498}
   - component: {fileID: 50959488254454434}
   - component: {fileID: 61180781393521568}
+  - component: {fileID: 114401088826593620}
   m_Layer: 0
   m_Name: Meteor
-  m_TagString: Item
+  m_TagString: Powerup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,7 +118,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.77, y: 0.74}
   m_EdgeRadius: 0
---- !u!114 &114217735629116498
+--- !u!114 &114401088826593620
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1815016828587668}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95ccdb46155138f41a2630d502afcc44, type: 3}
+  m_Script: {fileID: 11500000, guid: ca95858afb7c1cc41b8f42f6a81db330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0}
@@ -136,7 +136,8 @@ MonoBehaviour:
   rotationSpeed: 0
   itemState: 0
   rigidbody2d: {fileID: 0}
-  itemTier: 3
+  itemTier: 0
+  powerup: 0
 --- !u!212 &212728497725504814
 SpriteRenderer:
   m_ObjectHideFlags: 1

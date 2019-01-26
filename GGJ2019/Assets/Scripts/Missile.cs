@@ -11,11 +11,11 @@ public class Missile : MonoBehaviour {
     public float mass;
     public float teamId;
 
-    private float maxGravDist = 20f;
-    private float maxGravity = 25f;
+    private float maxGravDist = 15f;
+    private float maxGravity = 50f;
 
     private float maxGravDistItems = 10f;
-    private float maxGravityItems = 1f;
+    private float maxGravityItems = 2f;
 
     void Awake()
     {

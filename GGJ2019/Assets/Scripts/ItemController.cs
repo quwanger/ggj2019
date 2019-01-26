@@ -10,19 +10,19 @@ public class ItemController : MonoBehaviour {
 
     public float rotationSpeed;
 
-    private GameObject[] planets;
+    protected GameObject[] planets;
 
     public ItemManager.ItemState itemState = ItemManager.ItemState.Idle;
 
     [SerializeField]
-    private Rigidbody2D rigidbody2d;
+    protected Rigidbody2D rigidbody2d;
 
     [SerializeField]
     private int itemTier;
 
     private Planet homePlanet = null;
 
-    IEnumerator removeIfOutOBounds() {
+    protected IEnumerator removeIfOutOBounds() {
         while(true) {
             if (homePlanet) {
                 yield return new WaitForSeconds(3f);
@@ -45,7 +45,7 @@ public class ItemController : MonoBehaviour {
         }
     }
 
-    public void Setup(int _id, Vector2 _direction, float _speed, float _mass)
+    public virtual void Setup(int _id, Vector2 _direction, float _speed, float _mass)
     {
         teamId = _id;
         direction = _direction;
@@ -73,7 +73,7 @@ public class ItemController : MonoBehaviour {
         rigidbody2d = transform.GetComponent<Rigidbody2D>();
 	}
 
-    void OnCollisionEnter2D(Collision2D col)
+    protected virtual void OnCollisionEnter2D(Collision2D col)
     {
         //if the current item is exploding or stuck, we don't care what it hits
         if(itemState == ItemManager.ItemState.Exploding || itemState == ItemManager.ItemState.Stuck)
@@ -120,7 +120,7 @@ public class ItemController : MonoBehaviour {
         }
     }
 
-    public void Explode(int targetLevel)
+    public virtual void Explode(int targetLevel)
     {
         itemTier -= targetLevel;
 
@@ -153,7 +153,7 @@ public class ItemController : MonoBehaviour {
             if (dist <= p.MaxGravDist)
             {
                 Vector3 v = planet.transform.position - transform.position;
-                Vector2 gravForce = v.normalized * (1.0f - (dist / p.MaxGravDist)) * (p.MaxGravity/mass);
+                Vector2 gravForce = v.normalized * (1.0f - (dist / p.MaxGravDist)) * (p.MaxGravity*mass);
                 rigidbody2d.AddForce(gravForce);
             }
         }

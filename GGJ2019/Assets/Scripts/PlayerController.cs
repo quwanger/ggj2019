@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour {
 
     public bool isReady = false;
 
+    public int missileCount = 5;
+
     public SpriteRenderer spriteRenderer;
 
     public GameObject missilePrefab;
@@ -48,10 +50,18 @@ public class PlayerController : MonoBehaviour {
 
     private void SpawnMissile()
     {
-        GameObject missile = Instantiate(missilePrefab, transform.GetChild(0).transform.position, transform.GetChild(0).transform.rotation, null);
-        //TODO: Set the proper direction of the missile based on the crosshair
-        Vector2 facingDirection = transform.GetChild(0).right.normalized;
-        missile.GetComponent<Missile>().Setup(this, facingDirection, 400f, teamId);
-        Destroy(missile, 10f);
+        if (missileCount > 0)
+        {
+            GameObject missile = Instantiate(missilePrefab, transform.GetChild(0).transform.position, transform.GetChild(0).transform.rotation, null);
+            //TODO: Set the proper direction of the missile based on the crosshair
+            Vector2 facingDirection = transform.GetChild(0).right.normalized;
+            missile.GetComponent<Missile>().Setup(this, facingDirection, 400f, teamId);
+            Destroy(missile, 10f);
+            missileCount--;
+        }
+        else
+        {
+            // NO MISSILES!
+        }
     }
 }

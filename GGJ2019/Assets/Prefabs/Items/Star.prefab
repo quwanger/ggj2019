@@ -20,12 +20,12 @@ GameObject:
   m_Component:
   - component: {fileID: 4177662119102960}
   - component: {fileID: 212498160278680420}
-  - component: {fileID: 114161449013567846}
   - component: {fileID: 50716707964363300}
   - component: {fileID: 61528798323401040}
+  - component: {fileID: 114532315156904094}
   m_Layer: 0
   m_Name: Star
-  m_TagString: Item
+  m_TagString: Powerup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,7 +118,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.33, y: 0.35}
   m_EdgeRadius: 0
---- !u!114 &114161449013567846
+--- !u!114 &114532315156904094
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,7 +126,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1147181808604390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95ccdb46155138f41a2630d502afcc44, type: 3}
+  m_Script: {fileID: 11500000, guid: ca95858afb7c1cc41b8f42f6a81db330, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   direction: {x: 0, y: 0}
@@ -135,8 +135,9 @@ MonoBehaviour:
   mass: 0
   rotationSpeed: 0
   itemState: 0
-  rigidbody2d: {fileID: 0}
-  itemTier: 1
+  rigidbody2d: {fileID: 50716707964363300}
+  itemTier: 0
+  powerup: 0
 --- !u!212 &212161254487496130
 SpriteRenderer:
   m_ObjectHideFlags: 1
