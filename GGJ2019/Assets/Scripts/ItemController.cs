@@ -38,7 +38,7 @@ public class ItemController : MonoBehaviour {
                 itemPosition.y < bottomLeftOfScreen.y - 2||
                 itemPosition.x > topRightOfScreen.x + 2||
                 itemPosition.x < bottomLeftOfScreen.x - 2) {
-                Destroy(this.gameObject);
+                DestroyItem();
             } 
 
             yield return new WaitForSeconds(3f);
@@ -127,8 +127,13 @@ public class ItemController : MonoBehaviour {
         if (itemTier <= 0)
         {
             if (homePlanet) homePlanet.RemoveItemFromPlanet(this);
-            Destroy(this.gameObject);
+            DestroyItem();
         }
+    }
+
+    public void DestroyItem() {
+        GameManager.instance.ItemManager.items.Remove(this.gameObject);
+        Destroy(this.gameObject);
     }
 
     private void Stick(Planet planet)

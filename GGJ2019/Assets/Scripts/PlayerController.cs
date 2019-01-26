@@ -9,6 +9,8 @@ public class PlayerController : MonoBehaviour {
     public int speed = 5;
     public int teamId = 0;
 
+    public GameObject readyCheckObject;
+
     public bool isReady = false;
 
     public int missileCount = 5;

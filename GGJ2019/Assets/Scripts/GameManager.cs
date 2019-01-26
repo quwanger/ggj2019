@@ -1,9 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
+
+    public ItemManager ItemManager { get { return itemManager; } }
+
+    public GameObject ui;
 
     private ItemManager itemManager;
 
@@ -11,6 +17,9 @@ public class GameManager : MonoBehaviour {
 
     public List<PlayerController> team1 = new List<PlayerController>();
     public List<PlayerController> team2 = new List<PlayerController>();
+
+    public GameObject[] team1ReadyChecks;
+    public GameObject[] team2ReadyChecks;
 
     public Planet planet1;
     public Planet planet2;
@@ -33,26 +42,20 @@ public class GameManager : MonoBehaviour {
         DontDestroyOnLoad(gameObject);
 
         itemManager = GetComponent<ItemManager>();
-
-		InitializeGame();
-	}
-
-	void InitializeGame() {
-		itemManager.Setup();
 	}
 
     void StartGame()
     {
-        //TODO: reset items
         gameInProgress = true;
-        Debug.Log("STARTING GAME");
+        ui.SetActive(false);
+		itemManager.Setup();
     }
 
     public void EndGame(Planet losingPlanet)
     {
-        //TODO: stop items
         Debug.Log(losingPlanet.name + " LOSES!");
         gameInProgress = false;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
 	void Start () {
@@ -91,6 +94,7 @@ public class GameManager : MonoBehaviour {
     private void ReadyUpPlayer(PlayerController p)
     {
         p.isReady = true;
+        p.readyCheckObject.GetComponent<Image>().color = Color.green;
         if(CheckAllPlayersReady())
         {
             //start game
@@ -113,26 +117,19 @@ public class GameManager : MonoBehaviour {
         return true;
     }
 
-    private void SpawnPlayer(int controllerId)
-    {
-        foreach(PlayerController p in team1)
-        {
-            if (p.controllerId == controllerId)
-            {
-                if(!p.isReady)
-                {
+    private void SpawnPlayer(int controllerId) {
+        foreach(PlayerController p in team1) {
+            if (p.controllerId == controllerId) {
+                if(!p.isReady) {
                     ReadyUpPlayer(p);
                 }
                 return;
             }
         }
 
-        foreach (PlayerController p in team2)
-        {
-            if (p.controllerId == controllerId)
-            {
-                if (!p.isReady)
-                {
+        foreach (PlayerController p in team2) {
+            if (p.controllerId == controllerId) {
+                if (!p.isReady) {
                     ReadyUpPlayer(p);
                 }
                 return;
@@ -143,17 +140,32 @@ public class GameManager : MonoBehaviour {
         PlayerController player = Instantiate(playerPrefab, onTeam1 ? planet1.transform.position : planet2.transform.position, Quaternion.identity, onTeam1 ? planet1.transform : planet2.transform);
         player.transform.SetParent(null);
         player.controllerId = controllerId;
-        if (onTeam1)
-        {
+        
+        if (onTeam1) {
             team1.Add(player);
             player.teamId = 1;
             player.spriteRenderer.color = planet1.teamColor;
-        }
-        else
-        {
+
+            if(team1.Count == 1) {
+                team1ReadyChecks[0].GetComponent<Image>().color = planet1.teamColor;
+                player.readyCheckObject = team1ReadyChecks[0];
+            } else {
+                team1ReadyChecks[1].GetComponent<Image>().color = planet1.teamColor;
+                player.readyCheckObject = team1ReadyChecks[1];
+            }
+
+        } else {
             team2.Add(player);
             player.teamId = 2;
             player.spriteRenderer.color = planet2.teamColor;
+
+            if(team1.Count == 1) {
+                team2ReadyChecks[0].GetComponent<Image>().color = planet2.teamColor;
+                player.readyCheckObject = team2ReadyChecks[0];
+            } else {
+                team2ReadyChecks[1].GetComponent<Image>().color = planet2.teamColor;
+                player.readyCheckObject = team2ReadyChecks[1];
+            }
         }
     }
 }

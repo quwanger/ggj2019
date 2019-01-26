@@ -24,6 +24,8 @@ public class ItemManager : MonoBehaviour {
     private float powerupSpawnTime = 4f;
 	public GameObject[] itemTypes;
 
+    public List<GameObject> items = new List<GameObject>();
+
     public GameObject missile;
     public GameObject asteroid;
     public GameObject star;
@@ -200,6 +202,7 @@ public class ItemManager : MonoBehaviour {
         
         // Instantiate item with the random x and y parameters
         GameObject item = Instantiate (itemTypes[randomItemIndex], spawnPosition, Quaternion.identity);
+        items.Add(item);
         ItemController itemController = item.GetComponent<ItemController>();
         itemController.Setup(Random.Range(1, 3), direction, Random.Range(5f, 15f), Random.Range(1f, 5f));
 	}
