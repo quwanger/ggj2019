@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 50716707964363300}
   - component: {fileID: 61528798323401040}
   m_Layer: 0
-  m_Name: Toilet 1
+  m_Name: Microwave
   m_TagString: Item
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -109,14 +109,14 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.25, y: 1.31}
+    oldSize: {x: 1.39, y: 1.03}
     newSize: {x: 5.12, y: 5.12}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8}
+  m_Size: {x: 0.89, y: 0.55}
   m_EdgeRadius: 0
 --- !u!114 &114161449013567846
 MonoBehaviour:
@@ -126,16 +126,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 1147181808604390}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 790e1a280c7196948928161b52f3d44d, type: 3}
+  m_Script: {fileID: 11500000, guid: 95ccdb46155138f41a2630d502afcc44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 3.2783704, y: 5}
-  speed: 9
-  teamId: 1
-  mass: 1
+  direction: {x: 0, y: 0}
+  speed: 0
+  teamId: 0
+  mass: 0
   rotationSpeed: 0
   itemState: 0
-  rigidbody2d: {fileID: 50716707964363300}
+  rigidbody2d: {fileID: 0}
   itemTier: 2
 --- !u!212 &212161254487496130
 SpriteRenderer:
@@ -172,7 +172,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 754464822d64fb94684c2c549623ba10, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 359918c0ae3558a4ab1e3338cf4a982a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -218,7 +218,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2e4c317cf819a2b4ab625fb9e47fd515, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fe7e4cbf07f37b645b769c20c004151b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

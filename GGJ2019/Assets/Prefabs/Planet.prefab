@@ -491,8 +491,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a0502fed55e4f48a15e4828010d7bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planetId: 0
   rotationSpeed: 10
-  gravitationalPull: 100
   atmosphereRadius: 2
   teamColor: {r: 0, g: 0, b: 0, a: 0}
   spritePlanet: {fileID: 212831168628719066}
@@ -1195,8 +1195,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: b2bf6efb274a6ff4d8eb862343aad7fe, type: 3}
-  m_Color: {r: 0.3372549, g: 0.47450984, b: 0.8196079, a: 0.28627452}
+  m_Sprite: {fileID: 21300000, guid: e4461a4fd3504d04bb75290646cc30f6, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.28627452}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
