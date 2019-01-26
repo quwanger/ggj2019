@@ -38,7 +38,12 @@ public class PlayerController : MonoBehaviour {
     {
         transform.Rotate(new Vector3(0f, 0f, -speed * Input.GetAxis(controller.joyLeftVert)));
 
-        transform.GetChild(0).transform.Rotate(new Vector3(0f, 0f, -speed * Input.GetAxis(controller.joyRightHori)));
+
+
+        transform.GetChild(0).transform.eulerAngles = new Vector3(0, 0, -Mathf.Atan2(Input.GetAxis(controller.joyRightVert), Input.GetAxis(controller.joyRightHori)) * 180 / Mathf.PI);
+
+        //transform.GetChild(0).transform.Rotate(new Vector3(0f, 0f, -speed * Input.GetAxis(controller.joyRightHori)));
+
 
         if(Input.GetButtonDown(controller.x))
         {

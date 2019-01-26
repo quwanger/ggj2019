@@ -19,14 +19,14 @@ public class RobotArm : MonoBehaviour {
     public Transform origin;
     public Vector3 destination;
 
-    public float goSpeed = 6f;
-    public float returnSpeed = 1f;
+    public float goSpeed;
+    public float returnSpeed;
 
     public bool grabMode = true;
     public bool pushMode = false;
 
-    public float grabRadius = 0.5f;
-    public float pushRadius = 2f;
+    public float grabRadius;
+    public float pushRadius; 
 
     //radius of inactive grab to avoid grabbing objects that are already in the atmosphere (extremely close to the player)
     public float inactiveGrabRadius = 2f;
@@ -42,7 +42,13 @@ public class RobotArm : MonoBehaviour {
     void Start () {
 
         pController = this.gameObject.GetComponentInParent<PlayerController>();
-        robotArm = GetComponent<LineRenderer>(); 
+        robotArm = GetComponent<LineRenderer>();
+
+        goSpeed = 6f;
+        returnSpeed = 1.5f;
+        grabRadius = 1f;
+        pushRadius = 2f;
+
 
 
         if (destination == null)
@@ -57,11 +63,13 @@ public class RobotArm : MonoBehaviour {
 
 
         GameObject.FindGameObjectWithTag("1_crosshair").transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
-
+        Debug.Log(Input.GetButtonDown(pController.controller.rt));
 
         //to be replaced with controller
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) || Input.GetButtonDown(pController.controller.a))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) || Input.GetAxis(pController.controller.rt) > 0 )
         {
+
+            Debug.Log(Input.GetButtonDown(pController.controller.rt));
             /*destination = GameObject.FindGameObjectWithTag("1_crosshair").transform;
             Vector3 staticDestination = destination.position;*/
             destination = GameObject.FindGameObjectWithTag("1_crosshair").transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
