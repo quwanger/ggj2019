@@ -3,7 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class ItemSpawnerController : MonoBehaviour {
-	public float spawnTime = 3f; // How long between each spawn.
+    public enum ItemState
+    {
+        Idle,
+        Atmosphere_Friendly,
+        Atmosphere_Enemy,
+        Stuck,
+        Exploding
+    }
+
+    public float spawnTime = 3f; // How long between each spawn.
 	public ItemController[] itemTypes;
 
 	public Transform[] spawnPoints; // An array of the spawn points the item can spawn from.
