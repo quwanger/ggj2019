@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Planet : MonoBehaviour {
 
+    public int planetId;
+
     public float rotationSpeed = 10f;
     public float gravitationalPull = 100f;
     [Range(1.5f, 2.5f)]

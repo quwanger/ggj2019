@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-
-	public List<GameObject> playerSpawnPoints = new List<GameObject>();
-	public List<GameObject> itemSpawnPoints = new List<GameObject>();
+	private ItemManager itemManager;
 
     public PlayerController[] playerPrefabs;
 
 	public float time;
+
+	void Awake () {
+		itemManager = GetComponent<ItemManager>();
+
+		InitializeGame();
+	}
+
+	void InitializeGame() {
+		itemManager.Setup();
+	}
 
 	void Start () {
 		time = 0.0f;

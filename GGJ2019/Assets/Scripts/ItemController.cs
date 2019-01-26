@@ -28,7 +28,7 @@ public class ItemController : MonoBehaviour {
         planets = GameObject.FindGameObjectsWithTag("Planet");
 
         rigidbody2d = transform.GetComponent<Rigidbody2D>();
-        Setup(0, new Vector2(Random.Range(-1, 1), Random.Range(-1, 1)), Random.Range(5, 15), Random.Range(1,5));
+        Setup(0, direction, speed, mass);
 	}
 
     GameObject[] planets;
