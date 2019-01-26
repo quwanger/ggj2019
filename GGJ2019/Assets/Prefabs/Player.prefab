@@ -78,14 +78,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1996182729484562}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3cbe5908f413cb4ca2eca17a4f56abb, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c8bdca36113e074c857133b9d26a72e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   controllerId: 0
   speed: 5
   teamId: 0
   isReady: 0
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 212806340168921528}
   missilePrefab: {fileID: 1614476470475634, guid: cfd3feacd0c3a1041b28823f5b91307c,
     type: 2}
 --- !u!212 &212806340168921528
