@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RobotArm : MonoBehaviour {
 
+    private GameObject[] planets;
     private LineRenderer robotArm;
     private float counter;
     private float dist;
@@ -41,19 +42,30 @@ public class RobotArm : MonoBehaviour {
 
     void Start () {
 
+
+
+        planets = GameObject.FindGameObjectsWithTag("Planet");
+
         pController = this.gameObject.GetComponentInParent<PlayerController>();
         robotArm = GetComponent<LineRenderer>();
+
+        foreach (GameObject p in planets)
+        {
+            Planet planet = p.GetComponent<Planet>();
+            if (planet.planetId == pController.teamId)
+            {
+                robotArm.material.color = planet.teamColor;
+                break;
+            }
+        }
 
         goSpeed = 9f;
         returnSpeed = 3f;
         grabRadius = 1f;
         pushRadius = 1f;
 
-
         //get glove object
         GameObject glove = null;
-
-
 
         foreach (Transform child in this.transform)
         {
@@ -91,10 +103,18 @@ public class RobotArm : MonoBehaviour {
         }
 
 
-    
+
+       //get target.
+        foreach (Transform child in this.gameObject.transform)
+        {
+            if (child.tag == "1_crosshair")
+                child.gameObject.transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
+        }
+
+        //GameObject.FindGameObjectWithTag("1_crosshair").transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
+        Debug.Log(Input.GetButtonDown(pController.controller.rt));
 
 
-        GameObject.FindGameObjectWithTag("1_crosshair").transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
         Debug.Log(Input.GetButtonDown(pController.controller.rt));
 
         //to be replaced with controller
@@ -165,7 +185,7 @@ public class RobotArm : MonoBehaviour {
         Vector3 pointA = Vector3.zero;
 
         if (pushMode)
-            dist = dist * 0.5f;
+            dist = dist * 0.65f;
 
         //Launch the arm
         if (goForward)
