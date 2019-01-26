@@ -8,17 +8,22 @@ public class RobotArm : MonoBehaviour {
     private float counter;
     private float dist;
 
+    private bool goForward = true;
+    private bool isArmShooting = false;
+
+    private GameObject grabbedObject;
+
     public Transform origin;
     public Transform destination;
-
-    public GameObject grabbedObject;
 
     public float goSpeed = 6f;
     public float returnSpeed = 1f;
 
-    public bool goForward = false;
+    public bool grabMode = true;
+    public bool pushMode = false;
 
-    public bool isArmShooting = false;
+    //allows player to move the arm after grabbing an object
+    public bool canMoveAndGrab = true;
 
 	void Start () {
 
@@ -27,15 +32,12 @@ public class RobotArm : MonoBehaviour {
 
     void Update() {
 
-
+        //to be replaced with controller
         if (Input.GetKeyDown(KeyCode.Space))
             isArmShooting = true;
 
         if(isArmShooting)
-        {
-            LaunchArm();
-        }
-           
+            LaunchArm();           
     }
 
     /// <summary>
@@ -79,6 +81,7 @@ public class RobotArm : MonoBehaviour {
 
             float x = Mathf.Lerp(0, dist, counter);
 
+
             pointA = origin.position;
             pointB = destination.position;
 
@@ -117,7 +120,8 @@ public class RobotArm : MonoBehaviour {
 
 
             //grab the object
-            grabbedObject.transform.position = pointAlongLine;
+            if(grabbedObject != null)
+                grabbedObject.transform.position = pointAlongLine;
 
              myLength = pointAlongLine - pointA;
             if (myLength.magnitude == 0)
