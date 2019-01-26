@@ -13,53 +13,98 @@ public class RobotArm : MonoBehaviour {
 
     public GameObject grabbedObject;
 
-    public float drawSpeed = 6f;
+    public float goSpeed = 6f;
+    public float returnSpeed = 1f;
 
-    public bool goForward = true;
+    public bool goForward = false;
 
-	// Use this for initialization
+    public bool isArmShooting = false;
+
 	void Start () {
 
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.SetPosition(0, origin.position);
-        lineRenderer.SetWidth(0.45f, 0.45f);       
+        lineRenderer = GetComponent<LineRenderer>();    
 	}
 
-    // Update is called once per frame
     void Update() {
+
+
+        if (Input.GetKeyDown(KeyCode.Space))
+            isArmShooting = true;
+
+        if(isArmShooting)
+        {
+            LaunchArm();
+        }
+           
+    }
+
+    /// <summary>
+    /// Create a shockwave that pushes rigidbodies away (direction dependent)
+    /// </summary>
+    /// <param name="center"></param>
+    /// <param name="radius"></param>
+    /// <param name="direction"></param>
+    void PushRadius(Vector2 center, float radius, Vector2 direction)
+    {
+        
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(center, radius);
+
+        int i = 0;
+        while (i < hitColliders.Length)
+        {
+            hitColliders[i].SendMessage("Push", direction.normalized * 10);
+            i++;
+        }
+    }
+
+    /// <summary>
+    /// function launches arm and returns it to it's origin.
+    /// </summary>
+    void LaunchArm()
+    {
+
+        lineRenderer.SetPosition(0, origin.position);
+        lineRenderer.SetWidth(0.45f, 0.45f);
 
         dist = Vector3.Distance(origin.position, destination.position);
 
+        Vector3 myLength = Vector3.zero;
 
-        Vector3 pointA = Vector3.zero ;
+        Vector3 pointA = Vector3.zero;
         Vector3 pointB = Vector3.zero;
 
         if (goForward)
         {
-            counter += 0.06f;
+            counter += goSpeed / 100;
 
             float x = Mathf.Lerp(0, dist, counter);
 
-             pointA = origin.position;
-             pointB = destination.position;
+            pointA = origin.position;
+            pointB = destination.position;
 
             //get the unit vector in the desired direction, multiply by the desired length and add the starting point.
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
             lineRenderer.SetPosition(1, pointAlongLine);
+         
+            if(Vector3.Distance(origin.position,pointAlongLine) > 3f)
+                GrabObject(pointAlongLine, 1f);
 
-            Vector3 myLength = pointAlongLine - pointA;
+            myLength = pointAlongLine - pointA;
 
+            //max distance
             if (goForward && myLength.magnitude == dist)
             {
                 Debug.Log("line complete");
                 goForward = false;
-                PushRadius(destination.position, 1f, destination.position - origin.position);
             }
+
+            //push as you move along...
+           // PushRadius(destination.position, 2f, destination.position - origin.position);
 
         }
         else
         {
-            counter -= 0.009f;
+            counter -= returnSpeed / 100;
 
             float x = Mathf.Lerp(0, dist, counter);
 
@@ -70,29 +115,47 @@ public class RobotArm : MonoBehaviour {
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
             lineRenderer.SetPosition(1, pointAlongLine);
 
-           
-            Vector3 myLength = pointAlongLine - pointA;
 
             //grab the object
             grabbedObject.transform.position = pointAlongLine;
 
+             myLength = pointAlongLine - pointA;
+            if (myLength.magnitude == 0)
+            {
+                Debug.Log("Launch Complete");
+                goForward = true;
+                isArmShooting = false;
+                grabbedObject = null;
+            }
 
-            
         }
-
     }
 
-
-    void PushRadius(Vector2 center, float radius, Vector2 direction)
+    /// <summary>
+    ///  Grab closest object within radius
+    /// </summary>
+    /// <param name="center"></param>
+    /// <param name="radius"></param>
+    void GrabObject(Vector2 center, float radius)
     {
-        
+
+
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(center, radius);
 
-        int i = 0;
-        while (i < hitColliders.Length)
+     
+        Collider2D cMin = null;
+        float minDist = Mathf.Infinity;
+        foreach (Collider2D c in hitColliders)
         {
-            hitColliders[i].SendMessage("Push", direction.normalized * 100);
-            i++;
+            float dist = Vector3.Distance(c.gameObject.transform.position, center);
+            if (dist < minDist)
+            {
+                cMin = c;
+                minDist = dist;
+                grabbedObject = cMin.gameObject;
+                hitColliders = new Collider2D[0];
+                goForward = false;
+            }
         }
     }
 
