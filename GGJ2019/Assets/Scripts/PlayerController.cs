@@ -25,10 +25,8 @@ public class PlayerController : MonoBehaviour {
 
     private void ControllerInput()
     {
+        Mathf.Clamp(this.transform.rotation.z, 0, 0);
+
         transform.RotateAround(this.transform.position, Vector3.back, speed * Input.GetAxis(controller.joyLeftVert));
-
-        //Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-        //transform.rotation = Quaternion.LookRotation(this.transform.position - mousePosition, Vector3.forward);
     }
 }
