@@ -80,6 +80,7 @@ public class RobotArm : MonoBehaviour {
         Vector3 pointA = Vector3.zero;
         Vector3 pointB = Vector3.zero;
 
+        //Launch the arm
         if (goForward)
         {
             counter += goSpeed / 10;
@@ -112,6 +113,7 @@ public class RobotArm : MonoBehaviour {
              PushRadius(destination.position, pushRadius, destination.position - origin.position);
 
         }
+        //Return the arm
         else
         {
            
