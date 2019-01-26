@@ -7,8 +7,7 @@ public class AudioManager : MonoBehaviour {
     public AudioClip[] pushes;
     public AudioClip[] pulls;
     public AudioClip[] explosions;
-    public AudioClip[] cheers;
-    public AudioClip[] boos;
+    public AudioClip[] missiles;
 
     public AudioSource[] sources;
 
@@ -18,7 +17,7 @@ public class AudioManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         sources = GetComponents<AudioSource>();
-        //sfx = sources[0];
+        sfx = sources[0];
 	}
 	
 	// Update is called once per frame
@@ -39,11 +38,8 @@ public class AudioManager : MonoBehaviour {
             case "explosions":
                 sfx.PlayOneShot(explosions[Random.Range(0, explosions.Length)]);
                 break;
-            case "cheers":
-                sfx.PlayOneShot(cheers[Random.Range(0, cheers.Length)]);
-                break;
-            case "boos":
-                sfx.PlayOneShot(boos[Random.Range(0, boos.Length)]);
+            case "missiles":
+                sfx.PlayOneShot(missiles[Random.Range(0, missiles.Length)]);
                 break;
         }
     }
