@@ -12,12 +12,39 @@ public class ItemController : MonoBehaviour {
 
     private GameObject[] planets;
 
-    public ItemManager.ItemState itemState = ItemManager.ItemState.Idle;
+    public ItemManager.ItemState itemState = ItemManager.ItemState.Recently_Spawned;
 
     [SerializeField]
     private Rigidbody2D rigidbody2d;
 
     private Planet homePlanet = null;
+
+    void OnBecameVisible() {
+        itemState = ItemManager.ItemState.Idle;
+    }
+
+    IEnumerator removeIfOutOBounds() {
+        while(true) {
+            if (homePlanet || itemState == ItemManager.ItemState.Recently_Spawned) {
+                yield return new WaitForSeconds(3f);
+            }
+
+            Vector3 itemPosition = transform.position;
+
+            Camera camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            Vector3 topRightOfScreen = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane));
+            Vector3 bottomLeftOfScreen = camera.ViewportToWorldPoint(new Vector3(0, 0, camera.nearClipPlane));
+
+            if (itemPosition.y > topRightOfScreen.y ||
+                itemPosition.y < bottomLeftOfScreen.y ||
+                itemPosition.x > topRightOfScreen.x ||
+                itemPosition.x < bottomLeftOfScreen.x) {
+                Destroy(this.gameObject);
+            } 
+
+            yield return new WaitForSeconds(3f);
+        }
+    }
 
     public void Setup(int _id, Vector2 _direction, float _speed, float _mass)
     {
@@ -38,6 +65,8 @@ public class ItemController : MonoBehaviour {
                 break;
             }
         }
+
+        StartCoroutine (removeIfOutOBounds());
     }
 	void Awake ()
     {
