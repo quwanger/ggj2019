@@ -73,25 +73,32 @@ public class RobotArm : MonoBehaviour {
         }
 	}
 
-    void Update() {
+    private bool m_isAxisInUse = false;
 
-        if (Input.GetAxis(pController.controller.rt) > 0)
+    void Update()
+    {
+
+        if (Input.GetAxis(pController.controller.rt) != 0)
         {
             grabMode = true;
             pushMode = false;
         }
 
-        if (Input.GetAxis(pController.controller.lt) > 0)
+        if (Input.GetAxis(pController.controller.lt) != 0)
         {
             grabMode = false;
             pushMode = true;
         }
 
+
+    
+
+
         GameObject.FindGameObjectWithTag("1_crosshair").transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
         Debug.Log(Input.GetButtonDown(pController.controller.rt));
 
         //to be replaced with controller
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) || Input.GetAxis(pController.controller.rt) > 0  || Input.GetAxis(pController.controller.lt) > 0)
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) || (Input.GetAxis(pController.controller.rt) > 0 && !m_isAxisInUse) || (Input.GetAxis(pController.controller.lt) > 0 && !m_isAxisInUse))
         {
 
             Debug.Log(Input.GetButtonDown(pController.controller.rt));
@@ -99,22 +106,27 @@ public class RobotArm : MonoBehaviour {
             Vector3 staticDestination = destination.position;*/
             destination = GameObject.FindGameObjectWithTag("1_crosshair").transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
             isArmShooting = true;
-
-            if(pushMode)
+            m_isAxisInUse = true;
+            if (pushMode)
             {
 
-               glove = GameObject.FindGameObjectWithTag("Glove");
+                glove = GameObject.FindGameObjectWithTag("Glove");
 
                 glove.GetComponent<SpriteRenderer>().enabled = true;
                 glove.GetComponent<BoxCollider2D>().enabled = true;
             }
         }
 
-        
-        if(isArmShooting)
+
+        if (isArmShooting)
         {
-           LaunchArm(destination); 
-        }     
+            LaunchArm(destination);
+        }
+        if (Input.GetAxis(pController.controller.rt) == 0 && Input.GetAxis(pController.controller.lt) == 0 && !isArmShooting)
+        {
+
+            m_isAxisInUse = false;
+        }
     }
 
     /// <summary>
