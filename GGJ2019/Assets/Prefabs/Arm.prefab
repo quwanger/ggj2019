@@ -53,13 +53,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   origin: {fileID: 0}
-  destination: {fileID: 0}
+  destination: {x: 0, y: 0, z: 0}
   goSpeed: 6
   returnSpeed: 1
   grabMode: 0
   pushMode: 0
-  grabRadius: 0
-  pushRadius: 0
+  grabRadius: 1
+  pushRadius: 2
   inactiveGrabRadius: 2
   pushForce: 10
   canMoveAndGrab: 1

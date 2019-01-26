@@ -17,7 +17,7 @@ public class RobotArm : MonoBehaviour {
     private float grabbedObjectWeight = 1f;
 
     public Transform origin;
-    public Transform destination;
+    public Vector3 destination;
 
     public float goSpeed = 6f;
     public float returnSpeed = 1f;
@@ -35,32 +35,45 @@ public class RobotArm : MonoBehaviour {
     //allows player to move the arm after grabbing an object
     public bool canMoveAndGrab = true;
 
+    PlayerController pController = null;
 
-	void Start () {
 
+
+    void Start () {
+
+        pController = this.gameObject.GetComponentInParent<PlayerController>();
         robotArm = GetComponent<LineRenderer>(); 
-        
-        if(destination == null)
+
+
+        if (destination == null)
         {
-            destination = GameObject.FindGameObjectWithTag("1_crosshair").transform;
+            //  destination = GameObject.FindGameObjectWithTag("1_crosshair").transform;
+
+            //destination = pController.transform.GetChild(0).transform;
         }
 	}
 
     void Update() {
 
+
+        GameObject.FindGameObjectWithTag("1_crosshair").transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
+
+
         //to be replaced with controller
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) || Input.GetButtonDown(pController.controller.a))
         {
             /*destination = GameObject.FindGameObjectWithTag("1_crosshair").transform;
             Vector3 staticDestination = destination.position;*/
+            destination = GameObject.FindGameObjectWithTag("1_crosshair").transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
             isArmShooting = true;
-           
         }
 
+        
         if(isArmShooting)
         {
 
-           LaunchArm(destination.position);
+           LaunchArm(destination);
+          
         }     
     }
 
@@ -92,7 +105,6 @@ public class RobotArm : MonoBehaviour {
         dist = Vector3.Distance(origin.position, pointB);
 
         Vector3 myLength = Vector3.zero;
-
         Vector3 pointA = Vector3.zero;
     
 
@@ -127,7 +139,7 @@ public class RobotArm : MonoBehaviour {
             //push as you move along...
 
             if(pushMode)
-             PushRadius(destination.position, pushRadius, destination.position - origin.position);
+             PushRadius(destination, pushRadius, destination - origin.position);
 
         }
         //Return the arm
