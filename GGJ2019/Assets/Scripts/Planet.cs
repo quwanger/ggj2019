@@ -24,7 +24,7 @@ public class Planet : MonoBehaviour {
     [SerializeField]
     private Transform atmosphere;
 
-    // private List<House> houses = new List<House>();
+    private List<House> houses = new List<House>();
 
     private List<ItemController> defensiveObjects = new List<ItemController>();
 

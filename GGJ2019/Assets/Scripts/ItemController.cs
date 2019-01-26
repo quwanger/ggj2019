@@ -12,7 +12,7 @@ public class ItemController : MonoBehaviour {
 
     private GameObject[] planets;
 
-    public ItemManager.ItemState itemState = ItemManager.ItemState.Recently_Spawned;
+    public ItemManager.ItemState itemState = ItemManager.ItemState.Idle;
 
     [SerializeField]
     private Rigidbody2D rigidbody2d;
@@ -22,13 +22,9 @@ public class ItemController : MonoBehaviour {
 
     private Planet homePlanet = null;
 
-    void OnBecameVisible() {
-        itemState = ItemManager.ItemState.Idle;
-    }
-
     IEnumerator removeIfOutOBounds() {
         while(true) {
-            if (homePlanet || itemState == ItemManager.ItemState.Recently_Spawned) {
+            if (homePlanet) {
                 yield return new WaitForSeconds(3f);
             }
 
@@ -73,7 +69,7 @@ public class ItemController : MonoBehaviour {
             }
         }
 
-        StartCoroutine (removeIfOutOBounds());
+        // StartCoroutine (removeIfOutOBounds());
     }
 	void Awake ()
     {

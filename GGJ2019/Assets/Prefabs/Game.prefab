@@ -20,7 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4733705756419802}
   - component: {fileID: 114201211847986174}
-  - component: {fileID: 114486922246214324}
+  - component: {fileID: 114485237156804784}
   m_Layer: 0
   m_Name: Game
   m_TagString: Untagged
@@ -49,7 +49,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1839163010821548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1730fde7295dd2a47af8e688d2f4c3b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 03050f9e70600ec4cb796dbd4f473797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerPrefab: {fileID: 114280194526037902, guid: fe4ba68704fd2d342ab4a674f965a61f,
@@ -58,8 +58,9 @@ MonoBehaviour:
   team2: []
   planet1: {fileID: 0}
   planet2: {fileID: 0}
+  gameInProgress: 0
   time: 0
---- !u!114 &114486922246214324
+--- !u!114 &114485237156804784
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -67,10 +68,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1839163010821548}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5939ecc1511fb4749a50ef048ab5d70b, type: 3}
+  m_Script: {fileID: 11500000, guid: acfda053137bb654986992697c3b3eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spawnTime: 1
   itemTypes:
   - {fileID: 1815016828587668, guid: 5f88dffc29042b74da615bfc2231a410, type: 2}
-  spawnPoints: []

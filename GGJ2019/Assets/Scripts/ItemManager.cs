@@ -4,8 +4,7 @@ using UnityEngine;
 public class ItemManager : MonoBehaviour {
     public enum ItemState
     {	
-		Recently_Spawned,
-        Idle,
+		Idle,
         Atmosphere_Friendly,
         Atmosphere_Enemy,
         Stuck,
