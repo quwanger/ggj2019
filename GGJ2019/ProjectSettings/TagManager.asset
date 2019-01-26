@@ -10,6 +10,7 @@ TagManager:
   - Item
   - Missile
   - House
+  - Powerup
   layers:
   - Default
   - TransparentFX
