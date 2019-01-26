@@ -12,7 +12,7 @@ public class Planet : MonoBehaviour {
     public Color teamColor;
 
     // this value is the distance from the planet center to the edge of the atmosphere
-    private float maxGravDist = 14.5f;
+    private float maxGravDist = 5.5f;
     public float MaxGravDist { get { return maxGravDist; } }
     private float maxGravity = 1.25f;
     public float MaxGravity { get { return maxGravity; } }
