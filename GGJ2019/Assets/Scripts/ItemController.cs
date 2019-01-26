@@ -51,11 +51,7 @@ public class ItemController : MonoBehaviour {
         direction = _direction;
         speed = _speed;
         rotationSpeed = Random.Range(-10f, 10f);
-
-        //TODO: Assign Tiers Manually
-        itemTier = Random.Range(1, 4);
         mass = itemTier * itemTier;
-        transform.localScale *= (itemTier / 3f);
 
         rigidbody2d.AddForce(direction.normalized * speed);
 
