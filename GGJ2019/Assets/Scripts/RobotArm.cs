@@ -117,7 +117,6 @@ public class RobotArm : MonoBehaviour {
             }
         }
 
-
         if (isArmShooting)
         {
             LaunchArm(destination);
@@ -165,6 +164,9 @@ public class RobotArm : MonoBehaviour {
         Vector3 myLength = Vector3.zero;
         Vector3 pointA = Vector3.zero;
 
+        if (pushMode)
+            dist = dist * 0.5f;
+
         //Launch the arm
         if (goForward)
         {
@@ -190,7 +192,7 @@ public class RobotArm : MonoBehaviour {
             myLength = pointAlongLine - pointA;
 
             //max distance
-            if (goForward && myLength.magnitude == dist)
+            if (goForward && myLength.magnitude >= dist)
             {
                 //Debug.Log("line complete");
                 goForward = false;
@@ -201,9 +203,6 @@ public class RobotArm : MonoBehaviour {
                     glove.transform.position = origin.position;
                 }
             }
-
-         
-
         }
         //Return the arm
         else
