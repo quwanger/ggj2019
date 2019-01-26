@@ -37,8 +37,8 @@ GameObject:
   - component: {fileID: 4673397444362528}
   - component: {fileID: 212617172268982430}
   - component: {fileID: 50993377678164840}
-  - component: {fileID: 61459133212944874}
   - component: {fileID: 114093531024237640}
+  - component: {fileID: 70013607998582946}
   m_Layer: 0
   m_Name: Missile
   m_TagString: Powerup
@@ -54,7 +54,7 @@ Transform:
   m_GameObject: {fileID: 1893291002855184}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.1303695, y: 0.1303695, z: 0.1303695}
   m_Children:
   - {fileID: 4959459212563116}
   m_Father: {fileID: 0}
@@ -93,8 +93,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61459133212944874
-BoxCollider2D:
+--- !u!70 &70013607998582946
+CapsuleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -106,18 +106,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 0.5}
-    newSize: {x: 0.5, y: 0.5}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.33, y: 0.35}
-  m_EdgeRadius: 0
+  m_Size: {x: 4.94, y: 3.3}
+  m_Direction: 1
 --- !u!114 &114093531024237640
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -173,7 +163,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e48983c9839b6e74bb783c0b9a56df4d, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -181,7 +171,7 @@ SpriteRenderer:
   m_Size: {x: 0.5, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!212 &212914619917685302
@@ -219,7 +209,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: e48983c9839b6e74bb783c0b9a56df4d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 607b8f042e0ab304f9717874e062fa7f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

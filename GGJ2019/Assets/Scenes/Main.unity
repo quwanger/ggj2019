@@ -399,6 +399,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114201211847986174, guid: 30d3ffc6409d94997af40f99bf7dab52,
+        type: 2}
+      propertyPath: ships.Array.size
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4733705756419802, guid: 30d3ffc6409d94997af40f99bf7dab52, type: 2}
       propertyPath: m_LocalPosition.x
       value: 0.010251206
@@ -471,6 +476,18 @@ Prefab:
       value: 
       objectReference: {fileID: 1890408729338072, guid: bf5da26dd3685f54988c896e99c8c6c1,
         type: 2}
+    - target: {fileID: 114201211847986174, guid: 30d3ffc6409d94997af40f99bf7dab52,
+        type: 2}
+      propertyPath: ships.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: 6c9f33472e35e864f969a350e2f4b6b2,
+        type: 3}
+    - target: {fileID: 114201211847986174, guid: 30d3ffc6409d94997af40f99bf7dab52,
+        type: 2}
+      propertyPath: ships.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: eafe1b08fe7603244b0f3d3dd9865502,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30d3ffc6409d94997af40f99bf7dab52, type: 2}
   m_IsPrefabAsset: 0
