@@ -8,6 +8,7 @@ public class House : MonoBehaviour {
     void Start()
     {
         homePlanet = transform.parent.parent.GetComponent<Planet>();
+        homePlanet.RegisterHouse(this);
     }
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -22,6 +23,8 @@ public class House : MonoBehaviour {
             {
                 //it is a BAD item
                 // blow up house
+                item.Explode(3);
+                homePlanet.DestroyHouse(this);
             }
         }
     }
