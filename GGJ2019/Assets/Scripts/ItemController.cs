@@ -34,10 +34,10 @@ public class ItemController : MonoBehaviour {
             Vector3 topRightOfScreen = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane));
             Vector3 bottomLeftOfScreen = camera.ViewportToWorldPoint(new Vector3(0, 0, camera.nearClipPlane));
 
-            if (itemPosition.y > topRightOfScreen.y ||
-                itemPosition.y < bottomLeftOfScreen.y ||
-                itemPosition.x > topRightOfScreen.x ||
-                itemPosition.x < bottomLeftOfScreen.x) {
+            if (itemPosition.y > topRightOfScreen.y + 2 ||
+                itemPosition.y < bottomLeftOfScreen.y - 2||
+                itemPosition.x > topRightOfScreen.x + 2||
+                itemPosition.x < bottomLeftOfScreen.x - 2) {
                 Destroy(this.gameObject);
             } 
 
@@ -69,7 +69,7 @@ public class ItemController : MonoBehaviour {
             }
         }
 
-        // StartCoroutine (removeIfOutOBounds());
+        StartCoroutine (removeIfOutOBounds());
     }
 	void Awake ()
     {
