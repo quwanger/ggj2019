@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour {
     public static GameManager instance = null;
 
     private ItemManager itemManager;
+    public ItemManager ItemManager { get { return itemManager; } }
 
     public PlayerController playerPrefab;
 
@@ -148,12 +149,14 @@ public class GameManager : MonoBehaviour {
             team1.Add(player);
             player.teamId = 1;
             player.spriteRenderer.color = planet1.teamColor;
+            player.homePlanet = planet1;
         }
         else
         {
             team2.Add(player);
             player.teamId = 2;
             player.spriteRenderer.color = planet2.teamColor;
+            player.homePlanet = planet2;
         }
     }
 }

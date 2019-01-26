@@ -11,10 +11,13 @@ public class Planet : MonoBehaviour {
     public float atmosphereRadius = 2f;
     public Color teamColor;
 
+    private int missileCount = 5;
+    public int MissileCount { get { return missileCount; } }
+
     // this value is the distance from the planet center to the edge of the atmosphere
-    private float maxGravDist = 5.5f;
+    private float maxGravDist = 8f;
     public float MaxGravDist { get { return maxGravDist; } }
-    private float maxGravity = 1.25f;
+    private float maxGravity = 0.75f;
     public float MaxGravity { get { return maxGravity; } }
 
     [SerializeField]
@@ -56,6 +59,17 @@ public class Planet : MonoBehaviour {
         {
             defensiveObjects.Remove(item);
         }
+    }
+
+    public void ConsumeMissile()
+    {
+        missileCount--;
+    }
+
+    public void GetMissiles(int missiles)
+    {
+        missileCount += missiles;
+        Debug.Log("Total Missiles: " + missileCount);
     }
 
     public void RegisterHouse(House h)

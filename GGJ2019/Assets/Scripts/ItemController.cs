@@ -128,6 +128,7 @@ public class ItemController : MonoBehaviour {
         {
             if (homePlanet) homePlanet.RemoveItemFromPlanet(this);
             Destroy(this.gameObject);
+            Instantiate(GameManager.instance.ItemManager.itemExplosion, transform.position, Quaternion.identity);
         }
     }
 

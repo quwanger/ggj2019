@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
     public int controllerId;
     public int speed = 5;
     public int teamId = 0;
+    public Planet homePlanet;
 
     public bool isReady = false;
 
@@ -50,14 +51,14 @@ public class PlayerController : MonoBehaviour {
 
     private void SpawnMissile()
     {
-        if (missileCount > 0)
+        if (homePlanet.MissileCount > 0)
         {
             GameObject missile = Instantiate(missilePrefab, transform.GetChild(0).transform.position, transform.GetChild(0).transform.rotation, null);
             //TODO: Set the proper direction of the missile based on the crosshair
             Vector2 facingDirection = transform.GetChild(0).right.normalized;
             missile.GetComponent<Missile>().Setup(this, facingDirection, 400f, teamId);
             Destroy(missile, 10f);
-            missileCount--;
+            homePlanet.ConsumeMissile();
         }
         else
         {

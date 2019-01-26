@@ -5,6 +5,7 @@ using UnityEngine;
 public class Atmosphere : MonoBehaviour {
 
     private Planet homePlanet;
+    public Planet HomePlanet { get { return homePlanet; } }
 
     void Start()
     {
