@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour {
 
     public SpriteRenderer spriteRenderer;
 
+    public GameObject missilePrefab;
+
     void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -38,9 +40,18 @@ public class PlayerController : MonoBehaviour {
 
         transform.GetChild(0).transform.Rotate(new Vector3(0f, 0f, -speed * Input.GetAxis(controller.joyRightHori)));
 
-        if(Input.GetButtonDown(controller.a))
+        if(Input.GetButtonDown(controller.x))
         {
-            Debug.Log("hit a");
+            SpawnMissile();
         }
+    }
+
+    private void SpawnMissile()
+    {
+        GameObject missile = Instantiate(missilePrefab, transform.GetChild(0).transform.position, transform.GetChild(0).transform.rotation, null);
+        //TODO: Set the proper direction of the missile based on the crosshair
+        Vector2 facingDirection = transform.GetChild(0).right.normalized;
+        Debug.Log(facingDirection);
+        missile.GetComponent<Missile>().Setup(this, facingDirection, 400f);
     }
 }

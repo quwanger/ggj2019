@@ -132,7 +132,7 @@ public class ItemController : MonoBehaviour {
             if (dist <= p.MaxGravDist)
             {
                 Vector3 v = planet.transform.position - transform.position;
-                Vector2 gravForce = v.normalized * (1.0f - dist / p.MaxGravDist) * (p.MaxGravity/mass);
+                Vector2 gravForce = v.normalized * (1.0f - (dist / p.MaxGravDist)) * (p.MaxGravity/mass);
                 rigidbody2d.AddForce(gravForce);
             }
         }

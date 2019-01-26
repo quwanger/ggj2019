@@ -96,6 +96,7 @@ MonoBehaviour:
   rotationSpeed: 0
   itemState: 0
   rigidbody2d: {fileID: 50959488254454434}
+  itemTier: 0
 --- !u!212 &212728497725504814
 SpriteRenderer:
   m_ObjectHideFlags: 1
