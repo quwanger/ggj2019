@@ -40,7 +40,7 @@ public class Planet : MonoBehaviour {
         // add random rotation direction
         rotationSpeed = Random.Range(0f, 1f) > 0.5f ? rotationSpeed : rotationSpeed * -1f;
         //assign new values to world objects
-        atmosphere.transform.localScale = new Vector3(atmosphereRadius, atmosphereRadius, atmosphereRadius);
+        //atmosphere.transform.localScale = new Vector3(atmosphereRadius, atmosphereRadius, atmosphereRadius);
         spritePlanet.color = teamColor;
         spriteAtmosphere.color = new Color(teamColor.r, teamColor.g, teamColor.b, 0.35f);
     }
