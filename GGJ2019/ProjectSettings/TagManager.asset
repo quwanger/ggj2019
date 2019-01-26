@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Planet
   - Atmosphere
+  - HouseBorder
+  - Item
   layers:
   - Default
   - TransparentFX
