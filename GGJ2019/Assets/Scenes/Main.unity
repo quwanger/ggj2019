@@ -260,7 +260,34 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 3.56
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 212664668614763782, guid: f7dc216cdbde26b49a8f955943844a6c,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b2bf6efb274a6ff4d8eb862343aad7fe,
+        type: 3}
+    - target: {fileID: 212664668614763782, guid: f7dc216cdbde26b49a8f955943844a6c,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 7.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 212664668614763782, guid: f7dc216cdbde26b49a8f955943844a6c,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 7.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 212664668614763782, guid: f7dc216cdbde26b49a8f955943844a6c,
+        type: 2}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212664668614763782, guid: f7dc216cdbde26b49a8f955943844a6c,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 0.05882353
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114977618252838970, guid: f7dc216cdbde26b49a8f955943844a6c, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: f7dc216cdbde26b49a8f955943844a6c, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &1420394774
@@ -370,7 +397,34 @@ Prefab:
       propertyPath: m_LocalPosition.z
       value: 3.56
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 212664668614763782, guid: f7dc216cdbde26b49a8f955943844a6c,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b2bf6efb274a6ff4d8eb862343aad7fe,
+        type: 3}
+    - target: {fileID: 212664668614763782, guid: f7dc216cdbde26b49a8f955943844a6c,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 7.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 212664668614763782, guid: f7dc216cdbde26b49a8f955943844a6c,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 7.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 212664668614763782, guid: f7dc216cdbde26b49a8f955943844a6c,
+        type: 2}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212664668614763782, guid: f7dc216cdbde26b49a8f955943844a6c,
+        type: 2}
+      propertyPath: m_Color.a
+      value: 0.05882353
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114977618252838970, guid: f7dc216cdbde26b49a8f955943844a6c, type: 2}
   m_SourcePrefab: {fileID: 100100000, guid: f7dc216cdbde26b49a8f955943844a6c, type: 2}
   m_IsPrefabAsset: 0
 --- !u!1001 &2145254238
@@ -438,13 +492,19 @@ Prefab:
         type: 2}
       propertyPath: missile
       value: 
-      objectReference: {fileID: 1815016828587668, guid: 06f66f615d664584abbbff33c71a56dc,
+      objectReference: {fileID: 1893291002855184, guid: e90221b7839f29844908d7e63262338d,
         type: 2}
     - target: {fileID: 114485237156804784, guid: 30d3ffc6409d94997af40f99bf7dab52,
         type: 2}
       propertyPath: moon
       value: 
       objectReference: {fileID: 1147181808604390, guid: 7b01dbd59cf592e478628245cc3536c5,
+        type: 2}
+    - target: {fileID: 114485237156804784, guid: 30d3ffc6409d94997af40f99bf7dab52,
+        type: 2}
+      propertyPath: itemExplosion
+      value: 
+      objectReference: {fileID: 1890408729338072, guid: bf5da26dd3685f54988c896e99c8c6c1,
         type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30d3ffc6409d94997af40f99bf7dab52, type: 2}
