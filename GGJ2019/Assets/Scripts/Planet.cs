@@ -58,8 +58,31 @@ public class Planet : MonoBehaviour {
         }
     }
 
+    public void RegisterHouse(House h)
+    {
+        houses.Add(h);
+    }
+
+    public void DestroyHouse(House h)
+    {
+        houses.Remove(h);
+        Destroy(h.gameObject);
+    }
+
     void FixedUpdate()
     {
         transform.Rotate(0, 0, Time.deltaTime * rotationSpeed);
+    }
+
+    void Update()
+    {
+        if(GameManager.instance.gameInProgress)
+        {
+            if(houses.Count <= 0)
+            {
+                //GAME OVER, THIS TEAM LOSES
+                GameManager.instance.EndGame(this);
+            }
+        }
     }
 }

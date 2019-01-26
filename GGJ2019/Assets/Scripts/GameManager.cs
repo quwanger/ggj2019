@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour {
-	private ItemManager itemManager;
+    public static GameManager instance = null;
+
+    private ItemManager itemManager;
 
     public PlayerController playerPrefab;
 
@@ -13,10 +15,19 @@ public class GameManager : MonoBehaviour {
     public Planet planet1;
     public Planet planet2;
 
+    public bool gameInProgress = false;
+
     public float time;
 
 	void Awake () {
-		itemManager = GetComponent<ItemManager>();
+        if (instance == null)
+            instance = this;
+        else if (instance != this)
+            Destroy(gameObject);
+
+        DontDestroyOnLoad(gameObject);
+
+        itemManager = GetComponent<ItemManager>();
 
 		InitializeGame();
 	}
@@ -25,12 +36,29 @@ public class GameManager : MonoBehaviour {
 		itemManager.Setup();
 	}
 
+    void StartGame()
+    {
+        //TODO: reset items
+        gameInProgress = true;
+        Debug.Log("STARTING GAME");
+    }
+
+    public void EndGame(Planet losingPlanet)
+    {
+        //TODO: stop items
+        Debug.Log(losingPlanet.name + " LOSES!");
+        gameInProgress = false;
+    }
+
 	void Start () {
 		time = 0.0f;
 	}
 	
 	void Update () {
-        SetupPlayers();
+        if (!gameInProgress)
+        {
+            SetupPlayers();
+        }
 
 		time += Time.deltaTime;
 	}
@@ -55,16 +83,55 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    private void SpawnPlayer(int controllerId)
+    private void ReadyUpPlayer(PlayerController p)
     {
-        foreach(PlayerController p in team1)
+        p.isReady = true;
+        if(CheckAllPlayersReady())
         {
-            if (p.controllerId == controllerId) return;
+            //start game
+            StartGame();
+        }
+    }
+
+    private bool CheckAllPlayersReady()
+    {
+        foreach (PlayerController p in team1)
+        {
+            if (!p.isReady) return false;
         }
 
         foreach (PlayerController p in team2)
         {
-            if (p.controllerId == controllerId) return;
+            if (!p.isReady) return false;
+        }
+
+        return true;
+    }
+
+    private void SpawnPlayer(int controllerId)
+    {
+        foreach(PlayerController p in team1)
+        {
+            if (p.controllerId == controllerId)
+            {
+                if(!p.isReady)
+                {
+                    ReadyUpPlayer(p);
+                }
+                return;
+            }
+        }
+
+        foreach (PlayerController p in team2)
+        {
+            if (p.controllerId == controllerId)
+            {
+                if (!p.isReady)
+                {
+                    ReadyUpPlayer(p);
+                }
+                return;
+            }
         }
 
         bool onTeam1 = team1.Count == team2.Count;
@@ -75,11 +142,13 @@ public class GameManager : MonoBehaviour {
         {
             team1.Add(player);
             player.teamId = 1;
+            player.spriteRenderer.color = planet1.teamColor;
         }
         else
         {
             team2.Add(player);
             player.teamId = 2;
+            player.spriteRenderer.color = planet2.teamColor;
         }
     }
 }

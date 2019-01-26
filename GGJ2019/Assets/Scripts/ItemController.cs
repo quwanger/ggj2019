@@ -17,6 +17,9 @@ public class ItemController : MonoBehaviour {
     [SerializeField]
     private Rigidbody2D rigidbody2d;
 
+    [SerializeField]
+    private int itemTier;
+
     private Planet homePlanet = null;
 
     public void Setup(int _id, Vector2 _direction, float _speed, float _mass)
@@ -24,8 +27,12 @@ public class ItemController : MonoBehaviour {
         teamId = _id;
         direction = _direction;
         speed = _speed;
-        mass = _mass;
         rotationSpeed = Random.Range(-10f, 10f);
+
+        //TODO: Assign Tiers Manually
+        itemTier = Random.Range(1, 4);
+        mass = itemTier * itemTier;
+        transform.localScale *= (itemTier / 3f);
 
         rigidbody2d.AddForce(direction.normalized * speed);
 
@@ -59,7 +66,7 @@ public class ItemController : MonoBehaviour {
             if (itemState == ItemManager.ItemState.Atmosphere_Enemy)
             {
                 //explode
-                Explode();
+                Explode(3);
             }
             else if (itemState == ItemManager.ItemState.Atmosphere_Friendly)
             {
@@ -75,23 +82,32 @@ public class ItemController : MonoBehaviour {
             {
                 if(item.teamId == teamId)
                 {
-                    // same team, stick item to rest of shield
-                    Stick(item.homePlanet);
+                    if (itemState != ItemManager.ItemState.Idle)
+                    {
+                        // same team, stick item to rest of shield
+                        Stick(item.homePlanet);
+                    }
                 }
                 else
                 {
                     // destroy item and item it hits
-                    Explode();
-                    item.Explode();
+                    int currentItemTier = itemTier;
+                    Explode(item.itemTier);
+                    item.Explode(currentItemTier);
                 }
             }
         }
     }
 
-    private void Explode()
+    public void Explode(int targetLevel)
     {
-        if(homePlanet) homePlanet.RemoveItemFromPlanet(this);
-        Destroy(this.gameObject);
+        itemTier -= targetLevel;
+
+        if (itemTier <= 0)
+        {
+            if (homePlanet) homePlanet.RemoveItemFromPlanet(this);
+            Destroy(this.gameObject);
+        }
     }
 
     private void Stick(Planet planet)

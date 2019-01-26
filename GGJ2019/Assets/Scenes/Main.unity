@@ -141,7 +141,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &79801409 stripped
 GameObject:
@@ -171,7 +171,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &157639629 stripped
 GameObject:
@@ -201,7 +201,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &214875193 stripped
 GameObject:
@@ -231,7 +231,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &269815594 stripped
 GameObject:
@@ -261,7 +261,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &270133418 stripped
 GameObject:
@@ -291,7 +291,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &278616700 stripped
 GameObject:
@@ -321,7 +321,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &302340947 stripped
 GameObject:
@@ -376,7 +376,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &354560883 stripped
 GameObject:
@@ -406,7 +406,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &437365377 stripped
 GameObject:
@@ -436,7 +436,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &509150524 stripped
 GameObject:
@@ -579,7 +579,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &739997595 stripped
 GameObject:
@@ -609,7 +609,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &838199497 stripped
 GameObject:
@@ -639,7 +639,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!114 &1080302222 stripped
 MonoBehaviour:
@@ -675,7 +675,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &1303694504 stripped
 GameObject:
@@ -805,7 +805,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &1405962674 stripped
 GameObject:
@@ -835,7 +835,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &1439512175 stripped
 GameObject:
@@ -865,7 +865,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1001 &1483002888
 Prefab:
@@ -953,7 +953,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!114 &1831653672 stripped
 MonoBehaviour:
@@ -1064,7 +1064,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &1897145101 stripped
 GameObject:
@@ -1094,7 +1094,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 7.72, y: 6.7}
+  m_Size: {x: 6.46, y: 5.83}
   m_EdgeRadius: 0
 --- !u!1 &2025253381 stripped
 GameObject:
