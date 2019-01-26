@@ -50,6 +50,14 @@ public class Planet : MonoBehaviour {
         defensiveObjects.Add(item);
     }
 
+    public void RemoveItemFromPlanet(ItemController item)
+    {
+        if(defensiveObjects.Contains(item))
+        {
+            defensiveObjects.Remove(item);
+        }
+    }
+
     void FixedUpdate()
     {
         transform.Rotate(0, 0, Time.deltaTime * rotationSpeed);

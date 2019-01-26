@@ -76,12 +76,14 @@ public class ItemController : MonoBehaviour {
             {
                 if(item.teamId == teamId)
                 {
-                    // same team
+                    // same team, stick item to rest of shield
                     Stick(item.homePlanet);
                 }
                 else
                 {
+                    // destroy item and item it hits
                     Explode();
+                    item.Explode();
                 }
             }
         }
@@ -89,6 +91,7 @@ public class ItemController : MonoBehaviour {
 
     private void Explode()
     {
+        if(homePlanet) homePlanet.RemoveItemFromPlanet(this);
         Destroy(this.gameObject);
     }
 
