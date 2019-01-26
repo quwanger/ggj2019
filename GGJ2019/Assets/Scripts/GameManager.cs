@@ -15,6 +15,11 @@ public class GameManager : MonoBehaviour {
     public Planet planet1;
     public Planet planet2;
 
+    public enum HouseState {
+        Alive,
+        Destroyed
+    }
+
     public bool gameInProgress = false;
 
     public float time;

@@ -65,8 +65,13 @@ public class Planet : MonoBehaviour {
 
     public void DestroyHouse(House h)
     {
-        houses.Remove(h);
-        Destroy(h.gameObject);
+        foreach(House House in houses) {
+            if(House.houseState == GameManager.HouseState.Alive) {
+                return;
+            }
+        }
+
+        GameManager.instance.EndGame(this);
     }
 
     void FixedUpdate()
@@ -76,13 +81,5 @@ public class Planet : MonoBehaviour {
 
     void Update()
     {
-        if(GameManager.instance.gameInProgress)
-        {
-            if(houses.Count <= 0)
-            {
-                //GAME OVER, THIS TEAM LOSES
-                GameManager.instance.EndGame(this);
-            }
-        }
     }
 }

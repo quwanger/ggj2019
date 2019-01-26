@@ -5,6 +5,9 @@ using UnityEngine;
 public class House : MonoBehaviour {
 
     private Planet homePlanet;
+
+    public GameManager.HouseState houseState = GameManager.HouseState.Alive;
+
     public Planet HomePlanet { get { return homePlanet; } }
     void Start()
     {
@@ -25,13 +28,29 @@ public class House : MonoBehaviour {
                 //it is a BAD item
                 // blow up house
                 item.Explode(3);
-                homePlanet.DestroyHouse(this);
+
+                if(houseState == GameManager.HouseState.Alive) {
+                    DestroyHouse();
+                }
             }
         }
         else if(col.CompareTag("Missile"))
         {
             col.GetComponent<Missile>().Explode();
-            homePlanet.DestroyHouse(this);
+            if(houseState == GameManager.HouseState.Alive) {
+                DestroyHouse();
+            }
         }
+    }
+
+    void DestroyHouse() {
+        houseState = GameManager.HouseState.Destroyed;
+        SpriteRenderer spriteR = this.GetComponent<SpriteRenderer>();
+        Object[] rubbleSprites = Resources.LoadAll("Rubble", typeof(Sprite));
+        int randomIndex = Random.Range(0, rubbleSprites.Length);
+
+        spriteR.sprite = (Sprite)rubbleSprites[randomIndex];
+
+        homePlanet.DestroyHouse(this);
     }
 }
