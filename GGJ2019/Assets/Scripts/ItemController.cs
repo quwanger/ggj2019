@@ -22,17 +22,36 @@ public class ItemController : MonoBehaviour {
 
     private Planet homePlanet = null;
 
+    IEnumerator removeIfOutOBounds() {
+        while(true) {
+            if (homePlanet) {
+                yield return new WaitForSeconds(3f);
+            }
+
+            Vector3 itemPosition = transform.position;
+
+            Camera camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+            Vector3 topRightOfScreen = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane));
+            Vector3 bottomLeftOfScreen = camera.ViewportToWorldPoint(new Vector3(0, 0, camera.nearClipPlane));
+
+            if (itemPosition.y > topRightOfScreen.y + 2 ||
+                itemPosition.y < bottomLeftOfScreen.y - 2||
+                itemPosition.x > topRightOfScreen.x + 2||
+                itemPosition.x < bottomLeftOfScreen.x - 2) {
+                Destroy(this.gameObject);
+            } 
+
+            yield return new WaitForSeconds(3f);
+        }
+    }
+
     public void Setup(int _id, Vector2 _direction, float _speed, float _mass)
     {
         teamId = _id;
         direction = _direction;
         speed = _speed;
         rotationSpeed = Random.Range(-10f, 10f);
-
-        //TODO: Assign Tiers Manually
-        itemTier = Random.Range(1, 4);
         mass = itemTier * itemTier;
-        transform.localScale *= (itemTier / 3f);
 
         rigidbody2d.AddForce(direction.normalized * speed);
 
@@ -45,6 +64,8 @@ public class ItemController : MonoBehaviour {
                 break;
             }
         }
+
+        StartCoroutine (removeIfOutOBounds());
     }
 	void Awake ()
     {
