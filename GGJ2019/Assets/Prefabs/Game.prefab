@@ -20,8 +20,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4733705756419802}
   - component: {fileID: 114201211847986174}
+  - component: {fileID: 114486922246214324}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: Game
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51,6 +52,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1730fde7295dd2a47af8e688d2f4c3b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ItemController: {fileID: 0}
   playerPrefabs: []
+  planet01: {fileID: 0}
   time: 0
+--- !u!114 &114486922246214324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1839163010821548}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5939ecc1511fb4749a50ef048ab5d70b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnTime: 1
+  itemTypes:
+  - {fileID: 1815016828587668, guid: 5f88dffc29042b74da615bfc2231a410, type: 2}
+  spawnPoints: []
