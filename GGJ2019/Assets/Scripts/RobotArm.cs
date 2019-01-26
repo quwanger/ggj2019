@@ -38,17 +38,30 @@ public class RobotArm : MonoBehaviour {
 
 	void Start () {
 
-        robotArm = GetComponent<LineRenderer>();    
+        robotArm = GetComponent<LineRenderer>(); 
+        
+        if(destination == null)
+        {
+            destination = GameObject.FindGameObjectWithTag("1_crosshair").transform;
+        }
 	}
 
     void Update() {
 
         //to be replaced with controller
         if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0))
+        {
+            /*destination = GameObject.FindGameObjectWithTag("1_crosshair").transform;
+            Vector3 staticDestination = destination.position;*/
             isArmShooting = true;
+           
+        }
 
         if(isArmShooting)
-            LaunchArm();           
+        {
+
+           LaunchArm(destination.position);
+        }     
     }
 
     /// <summary>
@@ -66,22 +79,24 @@ public class RobotArm : MonoBehaviour {
             hitColliders[a].SendMessage("Push", direction.normalized * pushForce);
         }
     }
-
+    Vector3 staticDestination = Vector3.zero;
     /// <summary>
     /// function launches arm and returns it to it's origin.
     /// </summary>
-    void LaunchArm()
+    void LaunchArm(Vector3 pointB)
     {
 
         robotArm.SetPosition(0, origin.position);
         robotArm.SetWidth(0.45f, 0.45f);
 
-        dist = Vector3.Distance(origin.position, destination.position);
+        dist = Vector3.Distance(origin.position, pointB);
 
         Vector3 myLength = Vector3.zero;
 
         Vector3 pointA = Vector3.zero;
-        Vector3 pointB = Vector3.zero;
+    
+
+        
 
         //Launch the arm
         if (goForward)
@@ -91,7 +106,7 @@ public class RobotArm : MonoBehaviour {
             float x = Mathf.MoveTowards(0, dist, counter);
 
             pointA = origin.position;
-            pointB = destination.position;
+           
 
             //get the unit vector in the desired direction, multiply by the desired length and add the starting point.
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
@@ -124,8 +139,7 @@ public class RobotArm : MonoBehaviour {
             float x = Mathf.MoveTowards(0, dist, counter);
 
             pointA = origin.position;
-            pointB = destination.position;
-
+            
             //get the unit vector in the desired direction, multiply by the desired length and add the starting point.
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
             robotArm.SetPosition(1, pointAlongLine);
@@ -162,20 +176,23 @@ public class RobotArm : MonoBehaviour {
         float minDist = Mathf.Infinity;
         foreach (Collider2D c in hitColliders)
         {
+
+           
             float dist = Vector3.Distance(c.gameObject.transform.position, center);
 
-            if (dist < minDist)
+            if (dist < minDist && c.gameObject.tag.Equals("Item"))
             {
                 cMin = c;
                 minDist = dist;
                 grabbedObject = cMin.gameObject;
                 hitColliders = new Collider2D[0];
-                
                 //return the arm once it's grabbed an object
                 goForward = false;
+
+
             }
         }
     }
 
-}
+} 
 

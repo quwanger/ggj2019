@@ -56,10 +56,11 @@ MonoBehaviour:
   destination: {fileID: 0}
   goSpeed: 6
   returnSpeed: 1
-  grabMode: 1
+  grabMode: 0
   pushMode: 0
   grabRadius: 0
   pushRadius: 0
+  inactiveGrabRadius: 2
   pushForce: 10
   canMoveAndGrab: 1
 --- !u!120 &120878745369117204

@@ -8,6 +8,7 @@ TagManager:
   - Atmosphere
   - HouseBorder
   - Item
+  - 1_crosshair
   layers:
   - Default
   - TransparentFX
