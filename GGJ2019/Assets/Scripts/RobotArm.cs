@@ -30,14 +30,14 @@ public class RobotArm : MonoBehaviour {
 
     //radius of inactive grab to avoid grabbing objects that are already in the atmosphere (extremely close to the player)
     public float inactiveGrabRadius = 2f;
-    public float pushForce = 50f;
+    public float pushForce = 100f;
 
     //allows player to move the arm after grabbing an object
     public bool canMoveAndGrab = true;
 
     PlayerController pController = null;
 
-
+    GameObject glove;
 
     void Start () {
 
@@ -50,6 +50,20 @@ public class RobotArm : MonoBehaviour {
         pushRadius = 1f;
 
 
+        //get glove object
+        GameObject glove = null;
+
+
+
+        foreach (Transform child in this.transform)
+        {
+            if (child.tag == "Glove")
+                glove = child.gameObject;
+        }
+
+
+        glove.GetComponent<SpriteRenderer>().enabled = false;
+        glove.GetComponent<BoxCollider2D>().enabled = false;
 
         if (destination == null)
         {
@@ -85,6 +99,15 @@ public class RobotArm : MonoBehaviour {
             Vector3 staticDestination = destination.position;*/
             destination = GameObject.FindGameObjectWithTag("1_crosshair").transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
             isArmShooting = true;
+
+            if(pushMode)
+            {
+
+               glove = GameObject.FindGameObjectWithTag("Glove");
+
+                glove.GetComponent<SpriteRenderer>().enabled = true;
+                glove.GetComponent<BoxCollider2D>().enabled = true;
+            }
         }
 
         
@@ -100,16 +123,20 @@ public class RobotArm : MonoBehaviour {
     /// <param name="center"></param>
     /// <param name="radius"></param>
     /// <param name="direction"></param>
-    void PushRadius(Vector2 center, float radius, Vector2 direction)
+    void PushRadius(Vector2 currentPosition, float radius, Vector2 direction)
     {
 
-        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(center, radius);
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(currentPosition, radius);
 
         for  (int a = 0; a < hitColliders.Length; a++)
         {
             if (hitColliders[a].gameObject.tag.Equals("Item"))
              hitColliders[a].SendMessage("Push", direction.normalized * pushForce);
+            //set the glove to the position of the end of the line
+            glove.transform.position = currentPosition;
         }
+
+
     }
     Vector3 staticDestination = Vector3.zero;
     /// <summary>
@@ -119,7 +146,7 @@ public class RobotArm : MonoBehaviour {
     {
 
         robotArm.SetPosition(0, origin.position);
-        robotArm.SetWidth(0.45f, 0.45f);
+        robotArm.SetWidth(0.3f, 0.3f);
 
         dist = Vector3.Distance(origin.position, pointB);
 
@@ -136,6 +163,7 @@ public class RobotArm : MonoBehaviour {
             pointA = origin.position;
 
 
+            
             //get the unit vector in the desired direction, multiply by the desired length and add the starting point.
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
             robotArm.SetPosition(1, pointAlongLine);
@@ -144,7 +172,7 @@ public class RobotArm : MonoBehaviour {
                 GrabObject(pointAlongLine, grabRadius);
 
             //push as you move along...
-            if (pushMode)
+           if (pushMode)
                 PushRadius(pointAlongLine, pushRadius, destination - origin.position);
 
             myLength = pointAlongLine - pointA;
@@ -154,6 +182,12 @@ public class RobotArm : MonoBehaviour {
             {
                 //Debug.Log("line complete");
                 goForward = false;
+                if(pushMode)
+                {
+                    glove.GetComponent<SpriteRenderer>().enabled = false;
+                    glove.GetComponent<BoxCollider2D>().enabled = false;
+                    glove.transform.position = origin.position;
+                }
             }
 
          
@@ -167,7 +201,8 @@ public class RobotArm : MonoBehaviour {
             float x = Mathf.MoveTowards(0, dist, counter);
 
             pointA = origin.position;
-            
+
+          
             //get the unit vector in the desired direction, multiply by the desired length and add the starting point.
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
             robotArm.SetPosition(1, pointAlongLine);

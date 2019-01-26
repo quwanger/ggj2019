@@ -10,6 +10,7 @@ TagManager:
   - Item
   - 1_crosshair
   - Missile
+  - Glove
   layers:
   - Default
   - TransparentFX
