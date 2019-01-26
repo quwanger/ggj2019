@@ -1,10 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class ItemManager : MonoBehaviour {
-	public float spawnTime;
+    public enum ItemState
+    {
+        Idle,
+        Atmosphere_Friendly,
+        Atmosphere_Enemy,
+        Stuck,
+        Exploding
+    }
+
+    public float spawnTime;
 	public GameObject[] itemTypes;
+
+	public Transform[] spawnPoints; // An array of the spawn points the item can spawn from.
 
 	void Start () {
 	}
