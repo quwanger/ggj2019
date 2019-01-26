@@ -9,6 +9,7 @@ TagManager:
   - HouseBorder
   - Item
   - 1_crosshair
+  - Missile
   layers:
   - Default
   - TransparentFX

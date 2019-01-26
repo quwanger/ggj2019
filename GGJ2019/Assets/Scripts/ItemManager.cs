@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 public class ItemManager : MonoBehaviour {
     public enum ItemState
-    {
-        Idle,
+    {	
+		Idle,
         Atmosphere_Friendly,
         Atmosphere_Enemy,
         Stuck,
@@ -13,8 +13,6 @@ public class ItemManager : MonoBehaviour {
 
     public float spawnTime;
 	public GameObject[] itemTypes;
-
-	public Transform[] spawnPoints; // An array of the spawn points the item can spawn from.
 
 	void Start () {
 	}
@@ -26,13 +24,7 @@ public class ItemManager : MonoBehaviour {
 	
 	void Spawn () {
 		// Random item type
-		int randomIndex = Random.Range(0, itemTypes.Length);
-
-		// Get 2d camera's position in world space
-		Camera camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
-		Vector3 topRightCorner = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane));
-		Vector3 bottomLeftCorner = camera.ViewportToWorldPoint(new Vector3(0, 0, camera.nearClipPlane));
-		
+		int randomItemIndex = Random.Range(0, itemTypes.Length);
 		
 		// Get the left and right bounds of where we can spawn the item
 		GameObject[] planets = GameObject.FindGameObjectsWithTag("Atmosphere");
@@ -49,26 +41,28 @@ public class ItemManager : MonoBehaviour {
 		}
 
 		// Random position within those bounds
-		float xPosition = Random.Range(leftBound, rightBound);
-		float xPositionDirection = Random.Range(leftBound, rightBound);
+		float spawnPositionX = Random.Range(leftBound, rightBound);
+		float targetPositionX = Random.Range(leftBound+1, rightBound-1);
 
-		// Get the cameras world space upper and lower bounds
-		int index = Random.Range(0, 2);
-		float[] yPositions = { bottomLeftCorner.y, topRightCorner.y };
+		// Get the cameras top and bottom bound, and randomly choose one
+		// Get 2d camera's position in world space
+		Camera camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+		Vector3 topRightCorner = camera.ViewportToWorldPoint(new Vector3(1, 1, camera.nearClipPlane));
+		Vector3 bottomLeftCorner = camera.ViewportToWorldPoint(new Vector3(0, 0, camera.nearClipPlane));
 
-		// Random position within those bounds
-		float yPosition = yPositions[index];
-
-		
+		float[] yPositions = { bottomLeftCorner.y - 1, topRightCorner.y + 1 };
+		float spawnPositionY = yPositions[Random.Range(0, 2)];
 
 		// Move the new item towards a random point between the planets along the middle of the screen
-		Vector2 targetPosition = new Vector2(xPositionDirection, 0f);
-		Vector3 spawnPosition = new Vector3(xPosition, yPosition, 0);
+		Vector2 targetPosition = new Vector2(targetPositionX, 0f);
+		Vector3 spawnPosition = new Vector3(spawnPositionX, spawnPositionY, 0);
 
-		Vector2 direction = targetPosition - new Vector2(spawnPosition.x, spawnPosition.y);
+		Vector2 direction = targetPosition - new Vector2(spawnPositionX, spawnPositionY);
+
+		Debug.DrawLine(spawnPosition, targetPosition, Color.green, 2);
         
         // Instantiate item with the random x and y parameters
-        GameObject item = Instantiate (itemTypes[randomIndex], spawnPosition, Quaternion.identity);
+        GameObject item = Instantiate (itemTypes[randomItemIndex], spawnPosition, Quaternion.identity);
         ItemController itemController = item.GetComponent<ItemController>();
         itemController.Setup(Random.Range(1, 3), direction, Random.Range(5f, 15f), Random.Range(1f, 5f));
 	}
