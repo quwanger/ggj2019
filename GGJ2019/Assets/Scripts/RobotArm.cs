@@ -30,14 +30,18 @@ public class RobotArm : MonoBehaviour {
 
         dist = Vector3.Distance(origin.position, destination.position);
 
+
+        Vector3 pointA = Vector3.zero ;
+        Vector3 pointB = Vector3.zero;
+
         if (goForward)
         {
             counter += 0.06f;
 
             float x = Mathf.Lerp(0, dist, counter);
 
-            Vector3 pointA = origin.position;
-            Vector3 pointB = destination.position;
+             pointA = origin.position;
+             pointB = destination.position;
 
             //get the unit vector in the desired direction, multiply by the desired length and add the starting point.
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
@@ -49,28 +53,48 @@ public class RobotArm : MonoBehaviour {
             {
                 Debug.Log("line complete");
                 goForward = false;
+                PushRadius(destination.position, 1f, destination.position - origin.position);
             }
 
         }
         else
         {
-            counter -= 0.001f;
+            counter -= 0.009f;
 
             float x = Mathf.Lerp(0, dist, counter);
 
-            Vector3 pointA = origin.position;
-            Vector3 pointB = destination.position;
+            pointA = origin.position;
+            pointB = destination.position;
 
             //get the unit vector in the desired direction, multiply by the desired length and add the starting point.
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
             lineRenderer.SetPosition(1, pointAlongLine);
+
+           
+            Vector3 myLength = pointAlongLine - pointA;
+
+            //grab the object
             grabbedObject.transform.position = pointAlongLine;
 
-            Vector3 myLength = pointAlongLine - pointA;
-          
 
+            
+        }
+
+    }
+
+
+    void PushRadius(Vector2 center, float radius, Vector2 direction)
+    {
+        
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(center, radius);
+
+        int i = 0;
+        while (i < hitColliders.Length)
+        {
+            hitColliders[i].SendMessage("Push", direction.normalized * 100);
+            i++;
         }
     }
-    
+
 }
 
