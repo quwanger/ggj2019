@@ -30,7 +30,7 @@ public class RobotArm : MonoBehaviour {
 
     //radius of inactive grab to avoid grabbing objects that are already in the atmosphere (extremely close to the player)
     public float inactiveGrabRadius = 2f;
-    public float pushForce = 10f;
+    public float pushForce = 50f;
 
     //allows player to move the arm after grabbing an object
     public bool canMoveAndGrab = true;
@@ -44,10 +44,10 @@ public class RobotArm : MonoBehaviour {
         pController = this.gameObject.GetComponentInParent<PlayerController>();
         robotArm = GetComponent<LineRenderer>();
 
-        goSpeed = 6f;
-        returnSpeed = 1.5f;
+        goSpeed = 9f;
+        returnSpeed = 3f;
         grabRadius = 1f;
-        pushRadius = 2f;
+        pushRadius = 1f;
 
 
 
@@ -61,12 +61,23 @@ public class RobotArm : MonoBehaviour {
 
     void Update() {
 
+        if (Input.GetAxis(pController.controller.rt) > 0)
+        {
+            grabMode = true;
+            pushMode = false;
+        }
+
+        if (Input.GetAxis(pController.controller.lt) > 0)
+        {
+            grabMode = false;
+            pushMode = true;
+        }
 
         GameObject.FindGameObjectWithTag("1_crosshair").transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
         Debug.Log(Input.GetButtonDown(pController.controller.rt));
 
         //to be replaced with controller
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) || Input.GetAxis(pController.controller.rt) > 0 )
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) || Input.GetAxis(pController.controller.rt) > 0  || Input.GetAxis(pController.controller.lt) > 0)
         {
 
             Debug.Log(Input.GetButtonDown(pController.controller.rt));
@@ -79,9 +90,7 @@ public class RobotArm : MonoBehaviour {
         
         if(isArmShooting)
         {
-
-           LaunchArm(destination);
-          
+           LaunchArm(destination); 
         }     
     }
 
@@ -93,11 +102,13 @@ public class RobotArm : MonoBehaviour {
     /// <param name="direction"></param>
     void PushRadius(Vector2 center, float radius, Vector2 direction)
     {
+
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(center, radius);
 
         for  (int a = 0; a < hitColliders.Length; a++)
         {
-            hitColliders[a].SendMessage("Push", direction.normalized * pushForce);
+            if (hitColliders[a].gameObject.tag.Equals("Item"))
+             hitColliders[a].SendMessage("Push", direction.normalized * pushForce);
         }
     }
     Vector3 staticDestination = Vector3.zero;
@@ -114,9 +125,6 @@ public class RobotArm : MonoBehaviour {
 
         Vector3 myLength = Vector3.zero;
         Vector3 pointA = Vector3.zero;
-    
-
-        
 
         //Launch the arm
         if (goForward)
@@ -126,7 +134,7 @@ public class RobotArm : MonoBehaviour {
             float x = Mathf.MoveTowards(0, dist, counter);
 
             pointA = origin.position;
-           
+
 
             //get the unit vector in the desired direction, multiply by the desired length and add the starting point.
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
@@ -134,6 +142,10 @@ public class RobotArm : MonoBehaviour {
          
             if(Vector3.Distance(origin.position,pointAlongLine) > inactiveGrabRadius && grabMode)
                 GrabObject(pointAlongLine, grabRadius);
+
+            //push as you move along...
+            if (pushMode)
+                PushRadius(pointAlongLine, pushRadius, destination - origin.position);
 
             myLength = pointAlongLine - pointA;
 
@@ -144,16 +156,12 @@ public class RobotArm : MonoBehaviour {
                 goForward = false;
             }
 
-            //push as you move along...
-
-            if(pushMode)
-             PushRadius(destination, pushRadius, destination - origin.position);
+         
 
         }
         //Return the arm
         else
-        {
-           
+        {    
             counter -= returnSpeed /10;
 
             float x = Mathf.MoveTowards(0, dist, counter);

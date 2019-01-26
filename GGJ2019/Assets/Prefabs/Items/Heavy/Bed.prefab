@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 114217735629116498}
   - component: {fileID: 50959488254454434}
   - component: {fileID: 61180781393521568}
+  - component: {fileID: 114366442252960086}
   m_Layer: 0
   m_Name: Bed
   m_TagString: Item
@@ -137,6 +138,17 @@ MonoBehaviour:
   itemState: 0
   rigidbody2d: {fileID: 0}
   itemTier: 3
+--- !u!114 &114366442252960086
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1815016828587668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 698c51757fe894e4b91fb7cc9fc516d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212728497725504814
 SpriteRenderer:
   m_ObjectHideFlags: 1

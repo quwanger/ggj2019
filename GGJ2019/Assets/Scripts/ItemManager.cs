@@ -14,8 +14,10 @@ public class ItemManager : MonoBehaviour {
     public float spawnTime;
 	public GameObject[] itemTypes;
 
-	void Start () {
-	}
+
+    void Start () {
+       
+    }
 
 	public void Setup () {
 		// Spawns items
@@ -69,4 +71,6 @@ public class ItemManager : MonoBehaviour {
 
 	void Update () {
 	}
+
+ 
 }
