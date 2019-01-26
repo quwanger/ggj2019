@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RobotArm : MonoBehaviour {
 
-    private LineRenderer lineRenderer;
+    private LineRenderer robotArm;
     private float counter;
     private float dist;
 
@@ -12,6 +12,9 @@ public class RobotArm : MonoBehaviour {
     private bool isArmShooting = false;
 
     private GameObject grabbedObject;
+
+    //speed modifier for heavier items
+    private float grabbedObjectWeight = 1f;
 
     public Transform origin;
     public Transform destination;
@@ -22,17 +25,20 @@ public class RobotArm : MonoBehaviour {
     public bool grabMode = true;
     public bool pushMode = false;
 
-    public float grabRadius = 0f;
-    public float pushRadius = 0f;
+    public float grabRadius = 0.5f;
+    public float pushRadius = 2f;
 
+    //radius of inactive grab to avoid grabbing objects that are already in the atmosphere (extremely close to the player)
+    public float inactiveGrabRadius = 2f;
     public float pushForce = 10f;
 
     //allows player to move the arm after grabbing an object
     public bool canMoveAndGrab = true;
 
+
 	void Start () {
 
-        lineRenderer = GetComponent<LineRenderer>();    
+        robotArm = GetComponent<LineRenderer>();    
 	}
 
     void Update() {
@@ -53,14 +59,11 @@ public class RobotArm : MonoBehaviour {
     /// <param name="direction"></param>
     void PushRadius(Vector2 center, float radius, Vector2 direction)
     {
-        
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(center, radius);
 
-        
         for  (int a = 0; a < hitColliders.Length; a++)
         {
             hitColliders[a].SendMessage("Push", direction.normalized * pushForce);
-          
         }
     }
 
@@ -70,8 +73,8 @@ public class RobotArm : MonoBehaviour {
     void LaunchArm()
     {
 
-        lineRenderer.SetPosition(0, origin.position);
-        lineRenderer.SetWidth(0.45f, 0.45f);
+        robotArm.SetPosition(0, origin.position);
+        robotArm.SetWidth(0.45f, 0.45f);
 
         dist = Vector3.Distance(origin.position, destination.position);
 
@@ -87,15 +90,14 @@ public class RobotArm : MonoBehaviour {
 
             float x = Mathf.MoveTowards(0, dist, counter);
 
-
             pointA = origin.position;
             pointB = destination.position;
 
             //get the unit vector in the desired direction, multiply by the desired length and add the starting point.
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
-            lineRenderer.SetPosition(1, pointAlongLine);
+            robotArm.SetPosition(1, pointAlongLine);
          
-            if(Vector3.Distance(origin.position,pointAlongLine) > 3f && grabMode)
+            if(Vector3.Distance(origin.position,pointAlongLine) > inactiveGrabRadius && grabMode)
                 GrabObject(pointAlongLine, grabRadius);
 
             myLength = pointAlongLine - pointA;
@@ -103,7 +105,7 @@ public class RobotArm : MonoBehaviour {
             //max distance
             if (goForward && myLength.magnitude == dist)
             {
-                Debug.Log("line complete");
+                //Debug.Log("line complete");
                 goForward = false;
             }
 
@@ -126,7 +128,7 @@ public class RobotArm : MonoBehaviour {
 
             //get the unit vector in the desired direction, multiply by the desired length and add the starting point.
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
-            lineRenderer.SetPosition(1, pointAlongLine);
+            robotArm.SetPosition(1, pointAlongLine);
 
 
             //grab the object
@@ -134,10 +136,10 @@ public class RobotArm : MonoBehaviour {
                 grabbedObject.transform.position = pointAlongLine;
 
              myLength = pointAlongLine - pointA;
-            Debug.Log("im returning my lenght is " + myLength.magnitude);
+             //Debug.Log("I am returning to the origin |||| my length is " + myLength.magnitude);
             if (myLength.magnitude < 0.1f)
             {
-                Debug.Log("Launch Complete");
+                //Debug.Log("Launch Complete");
                 goForward = true;
                 isArmShooting = false;
                 grabbedObject = null;
@@ -154,22 +156,22 @@ public class RobotArm : MonoBehaviour {
     /// <param name="radius"></param>
     void GrabObject(Vector2 center, float radius)
     {
-
-
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(center, radius);
 
-     
         Collider2D cMin = null;
         float minDist = Mathf.Infinity;
         foreach (Collider2D c in hitColliders)
         {
             float dist = Vector3.Distance(c.gameObject.transform.position, center);
+
             if (dist < minDist)
             {
                 cMin = c;
                 minDist = dist;
                 grabbedObject = cMin.gameObject;
                 hitColliders = new Collider2D[0];
+                
+                //return the arm once it's grabbed an object
                 goForward = false;
             }
         }

@@ -14,7 +14,6 @@ public class MoveToMousePosition : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-
         mousePosition = Input.mousePosition;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         this.transform.position = Vector2.Lerp(transform.position, mousePosition, moveSpeed);
