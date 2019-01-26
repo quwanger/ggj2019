@@ -192,16 +192,18 @@ public class RobotArm : MonoBehaviour {
             myLength = pointAlongLine - pointA;
 
             //max distance
-            if (goForward && myLength.magnitude >= dist)
+            if (Mathf.Ceil(  myLength.magnitude) >= Mathf.Floor(dist) )
             {
-                //Debug.Log("line complete");
-                goForward = false;
-                if(pushMode)
+                if (pushMode)
                 {
                     glove.GetComponent<SpriteRenderer>().enabled = false;
                     glove.GetComponent<BoxCollider2D>().enabled = false;
                     glove.transform.position = origin.position;
                 }
+
+                //Debug.Log("line complete");
+                goForward = false;
+                
             }
         }
         //Return the arm
