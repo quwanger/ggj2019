@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
     public XboxController controller;
     public int controllerId;
     public int speed = 5;
+    public int teamId = 0;
 
 	void Start ()
     {
@@ -25,8 +26,6 @@ public class PlayerController : MonoBehaviour {
 
     private void ControllerInput()
     {
-        Mathf.Clamp(this.transform.rotation.z, 0, 0);
-
-        transform.RotateAround(this.transform.position, Vector3.back, speed * Input.GetAxis(controller.joyLeftVert));
+        transform.Rotate(new Vector3(0f, 0f, -speed * Input.GetAxis(controller.joyLeftVert)));
     }
 }
