@@ -10,6 +10,9 @@ public class Planet : MonoBehaviour {
     public float atmosphereRadius = 2f;
     public Color teamColor;
 
+    public float maxGravDist = 10.0f;
+    public float maxGravity = 0.25f;
+
     [SerializeField]
     private SpriteRenderer spritePlanet;
     [SerializeField]

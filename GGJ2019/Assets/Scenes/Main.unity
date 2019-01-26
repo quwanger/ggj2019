@@ -113,6 +113,73 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &88288732
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4805415546032570, guid: 5f88dffc29042b74da615bfc2231a410, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: -2.46
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805415546032570, guid: 5f88dffc29042b74da615bfc2231a410, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 2.66
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805415546032570, guid: 5f88dffc29042b74da615bfc2231a410, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: -1.1462089
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805415546032570, guid: 5f88dffc29042b74da615bfc2231a410, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805415546032570, guid: 5f88dffc29042b74da615bfc2231a410, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805415546032570, guid: 5f88dffc29042b74da615bfc2231a410, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805415546032570, guid: 5f88dffc29042b74da615bfc2231a410, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4805415546032570, guid: 5f88dffc29042b74da615bfc2231a410, type: 2}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5f88dffc29042b74da615bfc2231a410, type: 2}
+  m_IsPrefabAsset: 0
+--- !u!1 &302340947 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1010534203407468, guid: f7dc216cdbde26b49a8f955943844a6c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1847592986}
+--- !u!50 &302340951
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 302340947}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 3
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,6 +257,31 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1303694504 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1010534203407468, guid: f7dc216cdbde26b49a8f955943844a6c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1319457162}
+--- !u!50 &1303694508
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1303694504}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 3
 --- !u!1001 &1319457162
 Prefab:
   m_ObjectHideFlags: 0
@@ -232,6 +324,11 @@ Prefab:
     - target: {fileID: 1290253937199386, guid: f7dc216cdbde26b49a8f955943844a6c, type: 2}
       propertyPath: m_Name
       value: Planet 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 58388800535986872, guid: f7dc216cdbde26b49a8f955943844a6c,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7dc216cdbde26b49a8f955943844a6c, type: 2}
@@ -278,6 +375,11 @@ Prefab:
     - target: {fileID: 1290253937199386, guid: f7dc216cdbde26b49a8f955943844a6c, type: 2}
       propertyPath: m_Name
       value: Planet 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 58388800535986872, guid: f7dc216cdbde26b49a8f955943844a6c,
+        type: 2}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f7dc216cdbde26b49a8f955943844a6c, type: 2}
