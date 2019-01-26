@@ -89,13 +89,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 790e1a280c7196948928161b52f3d44d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: {x: 0, y: 0}
-  speed: 0
-  teamId: 0
-  mass: 0
+  direction: {x: 3.2783704, y: 5}
+  speed: 9
+  teamId: 1
+  mass: 1
   rotationSpeed: 0
   itemState: 0
-  rigidbody2d: {fileID: 0}
+  rigidbody2d: {fileID: 50959488254454434}
 --- !u!212 &212728497725504814
 SpriteRenderer:
   m_ObjectHideFlags: 1

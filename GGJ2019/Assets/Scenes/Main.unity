@@ -641,6 +641,12 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.72, y: 6.7}
   m_EdgeRadius: 0
+--- !u!114 &1080302222 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114008971566011386, guid: f7dc216cdbde26b49a8f955943844a6c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1847592986}
+  m_Script: {fileID: 11500000, guid: 34a0502fed55e4f48a15e4828010d7bf, type: 3}
 --- !u!1 &1187796518 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1519600413001206, guid: f7dc216cdbde26b49a8f955943844a6c,
@@ -900,6 +906,22 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114201211847986174, guid: 30d3ffc6409d94997af40f99bf7dab52,
+        type: 2}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 114280194526037902, guid: fe4ba68704fd2d342ab4a674f965a61f,
+        type: 2}
+    - target: {fileID: 114201211847986174, guid: 30d3ffc6409d94997af40f99bf7dab52,
+        type: 2}
+      propertyPath: planet1
+      value: 
+      objectReference: {fileID: 1831653672}
+    - target: {fileID: 114201211847986174, guid: 30d3ffc6409d94997af40f99bf7dab52,
+        type: 2}
+      propertyPath: planet2
+      value: 
+      objectReference: {fileID: 1080302222}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30d3ffc6409d94997af40f99bf7dab52, type: 2}
   m_IsPrefabAsset: 0
@@ -933,6 +955,12 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 7.72, y: 6.7}
   m_EdgeRadius: 0
+--- !u!114 &1831653672 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114008971566011386, guid: f7dc216cdbde26b49a8f955943844a6c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1319457162}
+  m_Script: {fileID: 11500000, guid: 34a0502fed55e4f48a15e4828010d7bf, type: 3}
 --- !u!1001 &1847592986
 Prefab:
   m_ObjectHideFlags: 0

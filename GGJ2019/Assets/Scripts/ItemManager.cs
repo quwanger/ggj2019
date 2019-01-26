@@ -27,12 +27,6 @@ public class ItemManager : MonoBehaviour {
 	void Spawn () {
 		// Random item type
 		int randomIndex = Random.Range(0, itemTypes.Length);
-		ItemController item = itemTypes[randomIndex].GetComponent<ItemController>();
-
-		// Set items props
-		item.speed = Random.Range(5, 15);
-		item.mass = Random.Range(1, 5);
-		item.teamId = Random.Range(0, 2);
 
 		// Get 2d camera's position in world space
 		Camera camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -72,10 +66,11 @@ public class ItemManager : MonoBehaviour {
 		Vector3 spawnPosition = new Vector3(xPosition, yPosition, 0);
 
 		Vector2 direction = targetPosition - new Vector2(spawnPosition.x, spawnPosition.y);
-		item.direction = direction;
-
-		// Instantiate item with the random x and y parameters
-		Instantiate (item, spawnPosition, Quaternion.identity);
+        
+        // Instantiate item with the random x and y parameters
+        GameObject item = Instantiate (itemTypes[randomIndex], spawnPosition, Quaternion.identity);
+        ItemController itemController = item.GetComponent<ItemController>();
+        itemController.Setup(Random.Range(1, 3), direction, Random.Range(5f, 15f), Random.Range(1f, 5f));
 	}
 
 	void Update () {

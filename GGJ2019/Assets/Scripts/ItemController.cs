@@ -39,11 +39,10 @@ public class ItemController : MonoBehaviour {
             }
         }
     }
-	void Start ()
+	void Awake ()
     {
         planets = GameObject.FindGameObjectsWithTag("Planet");
         rigidbody2d = transform.GetComponent<Rigidbody2D>();
-        Setup(0, direction, speed, mass);
 	}
 
     void OnCollisionEnter2D(Collision2D col)
