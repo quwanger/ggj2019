@@ -9,6 +9,7 @@ public class Missile : MonoBehaviour {
     public float speed;
     public Rigidbody2D rigidbody2d;
     public float mass;
+    public float teamId;
 
     private float maxGravDist = 20f;
     private float maxGravity = 25f;
@@ -22,11 +23,12 @@ public class Missile : MonoBehaviour {
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
-    public void Setup(PlayerController _owner, Vector2 _direction, float _speed)
+    public void Setup(PlayerController _owner, Vector2 _direction, float _speed, int _teamId)
     {
         owner = _owner;
         direction = _direction;
         speed = _speed;
+        teamId = _teamId;
         rigidbody2d.AddForce(direction.normalized * speed);
     }
 
@@ -67,6 +69,55 @@ public class Missile : MonoBehaviour {
             float angle = Mathf.Atan2(moveDirection.y, moveDirection.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
         }
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        bool explode = true;
+
+        Collider2D[] hitColliders = Physics2D.OverlapCircleAll(new Vector2(transform.position.x, transform.position.y), 3f);
+        int i = 0;
+        while (i < hitColliders.Length)
+        {
+            if(hitColliders[i].CompareTag("Item") || hitColliders[i].CompareTag("Missile"))
+            {
+                hitColliders[i].GetComponent<Rigidbody2D>().AddForce((hitColliders[i].transform.position - transform.position) * 100f);
+            }
+            
+            i++;
+        }
+
+
+        if (col.gameObject.CompareTag("Item"))
+        {
+            if (col.gameObject.GetComponent<ItemController>().itemState != ItemManager.ItemState.Stuck)
+            {
+                col.gameObject.GetComponent<ItemController>().Explode(3);
+            }
+            else
+            {
+                if (col.gameObject.GetComponent<ItemController>().teamId != teamId)
+                {
+                    col.gameObject.GetComponent<ItemController>().Explode(3);
+                }
+                else
+                {
+                    explode = false;
+                }
+            }
+
+        }
+        else if (col.gameObject.CompareTag("Missile"))
+        {
+            col.gameObject.GetComponent<Missile>().Explode();
+        }
+
+        if (explode) Explode();
+    }
+
+    public void Explode()
+    {
+        Destroy(this.gameObject);
     }
 
 }

@@ -9,6 +9,7 @@ TagManager:
   - HouseBorder
   - Item
   - Missile
+  - House
   layers:
   - Default
   - TransparentFX

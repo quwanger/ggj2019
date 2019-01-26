@@ -5,6 +5,7 @@ using UnityEngine;
 public class House : MonoBehaviour {
 
     private Planet homePlanet;
+    public Planet HomePlanet { get { return homePlanet; } }
     void Start()
     {
         homePlanet = transform.parent.parent.GetComponent<Planet>();
@@ -26,6 +27,11 @@ public class House : MonoBehaviour {
                 item.Explode(3);
                 homePlanet.DestroyHouse(this);
             }
+        }
+        else if(col.CompareTag("Missile"))
+        {
+            col.GetComponent<Missile>().Explode();
+            homePlanet.DestroyHouse(this);
         }
     }
 }
