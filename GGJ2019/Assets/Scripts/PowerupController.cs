@@ -35,9 +35,6 @@ public class PowerupController : ItemController
             case ItemManager.Powerups.Asteroid:
                 TriggerAsteroid(col);
                 break;
-            case ItemManager.Powerups.Moon:
-                TriggerMoon(col);
-                break;
             case ItemManager.Powerups.Star:
                 TriggerStar(col);
                 break;
@@ -54,11 +51,6 @@ public class PowerupController : ItemController
         //Debug.Log("Powerup Triggered: Asteroid");
     }
 
-    private void TriggerMoon(Collision2D col)
-    {
-        //Debug.Log("Powerup Triggered: Moon");
-    }
-
     private void TriggerStar(Collision2D col)
     {
         //Debug.Log("Powerup Triggered: Star");
@@ -67,5 +59,10 @@ public class PowerupController : ItemController
     private void TriggerMissile(Collision2D col)
     {
         //Debug.Log("Powerup Triggered: Missile");
+        if(col.gameObject.CompareTag("HouseBorder"))
+        {
+            col.transform.parent.GetComponent<Planet>().GetMissiles(1);
+            Destroy(this.gameObject);
+        }
     }
 }

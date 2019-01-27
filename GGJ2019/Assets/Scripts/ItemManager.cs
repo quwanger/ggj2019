@@ -15,7 +15,6 @@ public class ItemManager : MonoBehaviour {
     {
         None,
         Missile,
-        Moon,
         Asteroid,
         Star
     }
@@ -31,6 +30,8 @@ public class ItemManager : MonoBehaviour {
     public GameObject star;
     public GameObject moon;
 
+    public GameObject itemExplosion;
+
 	void Start () {
 	}
 
@@ -42,7 +43,7 @@ public class ItemManager : MonoBehaviour {
         InvokeRepeating("SpawnPowerups", powerupSpawnTime, powerupSpawnTime);
     }
 
-    private float chanceOfSpawningPowerup = 0.5f;
+    private float chanceOfSpawningPowerup = 1f;
     void SpawnPowerups()
     {
         float powerupToSpawn = Random.Range(0f, 1f);
@@ -57,7 +58,7 @@ public class ItemManager : MonoBehaviour {
             float powerupMassMin = 0f;
             float powerupMassMax = 0f;
 
-            if (powerupToSpawn < 0.5f)
+            if (powerupToSpawn < 0.9f)
             {
                 // spawn missile
                 objectToSpawn = missile;
@@ -68,7 +69,7 @@ public class ItemManager : MonoBehaviour {
                 powerupMassMin = 1f;
                 powerupMassMax = 5f;
             }
-            else if (powerupToSpawn < 0.7f)
+            else if (powerupToSpawn < 0.85f)
             {
                 // spawn star
                 objectToSpawn = star;
@@ -79,7 +80,7 @@ public class ItemManager : MonoBehaviour {
                 powerupMassMin = 1f;
                 powerupMassMax = 5f;
             }
-            else if (powerupToSpawn < 0.9f)
+            else
             {
                 // spawn asteroid
                 objectToSpawn = asteroid;
@@ -90,17 +91,6 @@ public class ItemManager : MonoBehaviour {
                 powerupMassMin = 5f;
                 powerupMassMax = 15f;
             }
-            else
-            {
-                // spawn moon
-                objectToSpawn = moon;
-                powerupType = Powerups.Moon;
-
-                powerupSpeedMin = 1f;
-                powerupSpeedMax = 2f;
-                powerupMassMin = 40f;
-                powerupMassMax = 50f;
-            }
 
 
             // Instantiate item with the random x and y parameters
@@ -109,7 +99,6 @@ public class ItemManager : MonoBehaviour {
             PowerupController powerup = item.GetComponent<PowerupController>();
             powerup.Setup(0, GetSpawnDirection(spawnPosition), Random.Range(powerupSpeedMin, powerupSpeedMax), Random.Range(powerupMassMin, powerupMassMax));
             powerup.SetPowerupType(powerupType);
-            Debug.Log("Spawning a " + powerupType);
         }
     }
 

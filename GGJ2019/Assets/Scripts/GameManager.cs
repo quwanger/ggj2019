@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour {
     public Planet planet1;
     public Planet planet2;
 
+    public Sprite[] ships;
+
     public enum HouseState {
         Alive,
         Destroyed
@@ -145,6 +147,7 @@ public class GameManager : MonoBehaviour {
             team1.Add(player);
             player.teamId = 1;
             player.spriteRenderer.color = planet1.teamColor;
+            player.homePlanet = planet1;
 
             if(team1.Count == 1) {
                 team1ReadyChecks[0].GetComponent<Image>().color = planet1.teamColor;
@@ -158,6 +161,7 @@ public class GameManager : MonoBehaviour {
             team2.Add(player);
             player.teamId = 2;
             player.spriteRenderer.color = planet2.teamColor;
+            player.homePlanet = planet2;
 
             if(team1.Count == 1) {
                 team2ReadyChecks[0].GetComponent<Image>().color = planet2.teamColor;

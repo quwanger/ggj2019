@@ -64,7 +64,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1228264599331644}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.13, z: 0}
+  m_LocalPosition: {x: 0, y: 4.94, z: 0}
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children: []
   m_Father: {fileID: 4372708755088582}
@@ -84,6 +84,7 @@ MonoBehaviour:
   controllerId: 0
   speed: 5
   teamId: 0
+  homePlanet: {fileID: 0}
   isReady: 0
   missileCount: 5
   spriteRenderer: {fileID: 212806340168921528}
@@ -124,7 +125,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 629409eab215c944d9627455c2233b0c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: eafe1b08fe7603244b0f3d3dd9865502, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
