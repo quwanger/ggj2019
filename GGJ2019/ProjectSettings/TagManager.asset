@@ -8,7 +8,9 @@ TagManager:
   - Atmosphere
   - HouseBorder
   - Item
+  - 1_crosshair
   - Missile
+  - Glove
   - House
   - Powerup
   - Moon

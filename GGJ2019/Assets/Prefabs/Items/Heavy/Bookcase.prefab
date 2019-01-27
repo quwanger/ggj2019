@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 114217735629116498}
   - component: {fileID: 50959488254454434}
   - component: {fileID: 61180781393521568}
+  - component: {fileID: 114158765052346612}
   m_Layer: 0
   m_Name: Bookcase
   m_TagString: Item
@@ -118,6 +119,17 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.8, y: 1.26}
   m_EdgeRadius: 0
+--- !u!114 &114158765052346612
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1815016828587668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 698c51757fe894e4b91fb7cc9fc516d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114217735629116498
 MonoBehaviour:
   m_ObjectHideFlags: 1

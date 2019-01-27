@@ -44,9 +44,6 @@ public class Missile : MonoBehaviour {
             //do not use gravity for home planet
             if (owner.teamId != planet.GetComponent<Planet>().planetId)
             {
-
-                Debug.Log(owner.name + " is shooting a rocket at " + planet.name);
-
                 float dist = Vector3.Distance(planet.transform.position, transform.position);
                 Planet p = planet.GetComponent<Planet>();
                 if (dist <= maxGravDist)
