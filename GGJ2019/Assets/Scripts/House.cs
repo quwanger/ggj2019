@@ -19,6 +19,7 @@ public class House : MonoBehaviour {
         if (col.CompareTag("Item"))
         {
             ItemController item = col.transform.GetComponent<ItemController>();
+            if (item.itemState == ItemManager.ItemState.NoCollide) return;
             if (item.teamId == homePlanet.planetId)
             {
                 //it is a GOOD item
