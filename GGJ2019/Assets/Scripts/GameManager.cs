@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour {
 
     public Sprite[] ships;
 
+    public ShakeBehaviour shaker;
+
     public enum HouseState {
         Alive,
         Destroyed
@@ -50,6 +52,9 @@ public class GameManager : MonoBehaviour {
 
         //DontDestroyOnLoad(gameObject);
 
+        planet1.GetComponent<Animator>().enabled = false;
+        planet2.GetComponent<Animator>().enabled = false;
+
         itemManager = GetComponent<ItemManager>();
 	}
 
@@ -64,13 +69,23 @@ public class GameManager : MonoBehaviour {
 
     public void EndGame(Planet losingPlanet)
     {
-        Debug.Log(losingPlanet.name + " LOSES!");
+        planet1.GetComponent<Animator>().enabled = true;
+        planet2.GetComponent<Animator>().enabled = true;
+
+        losingPlanet.GetComponent<Animator>().SetTrigger("Lose");
+
+        if(losingPlanet != planet1)
+        {
+            planet1.GetComponent<Animator>().SetTrigger("Win");
+        }
+        else
+        {
+            planet2.GetComponent<Animator>().SetTrigger("Win");
+        }
+
         gameInProgress = false;
         gameEnded = true;
         end.SetActive(true);
-
-       
-   
     }
 
 	void Start () {

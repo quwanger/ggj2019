@@ -24,6 +24,9 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject missilePrefab;
 
+    public SpriteRenderer magnet;
+    public SpriteRenderer fist;
+
     void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -33,6 +36,9 @@ public class PlayerController : MonoBehaviour {
         gameManager = FindObjectOfType<GameManager>();
 
         SetupControls();
+
+        magnet.color = spriteRenderer.color;
+        fist.color = spriteRenderer.color;
     }
 	
 	void Update ()

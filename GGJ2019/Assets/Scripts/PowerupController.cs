@@ -105,6 +105,7 @@ public class PowerupController : ItemController
             }
         }
 
+        GameManager.instance.shaker.TriggerShake(0.5f, 0.8f);
         Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }

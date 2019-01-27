@@ -45,6 +45,7 @@ public class House : MonoBehaviour {
     }
 
     void DestroyHouse() {
+        GameManager.instance.shaker.TriggerShake(0.25f);
         houseState = GameManager.HouseState.Destroyed;
         SpriteRenderer spriteR = this.GetComponent<SpriteRenderer>();
         Object[] rubbleSprites = Resources.LoadAll("Rubble", typeof(Sprite));
