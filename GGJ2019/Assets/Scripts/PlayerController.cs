@@ -39,7 +39,8 @@ public class PlayerController : MonoBehaviour {
 
     private void ControllerInput()
     {
-        transform.Rotate(new Vector3(0f, 0f, -speed * Input.GetAxis(controller.joyLeftVert)));
+        float teamInputModifier = teamId == 1 ? -1 : 1;
+        transform.Rotate(new Vector3(0f, 0f, teamInputModifier * speed * Input.GetAxis(controller.joyLeftVert)));
 
         transform.GetChild(0).transform.Rotate(new Vector3(0f, 0f, -speed * Input.GetAxis(controller.joyRightHori)));
 
@@ -49,6 +50,10 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    public void SetPlayerSprite(Sprite ship)
+    {
+        transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = ship;
+    }
     private void SpawnMissile()
     {
         if (homePlanet.MissileCount > 0)
@@ -56,7 +61,7 @@ public class PlayerController : MonoBehaviour {
             GameObject missile = Instantiate(missilePrefab, transform.GetChild(0).transform.position, transform.GetChild(0).transform.rotation, null);
             //TODO: Set the proper direction of the missile based on the crosshair
             Vector2 facingDirection = transform.GetChild(0).right.normalized;
-            missile.GetComponent<Missile>().Setup(this, facingDirection, 400f, teamId);
+            missile.GetComponent<Missile>().Setup(this, facingDirection, 400f, teamId, spriteRenderer.color);
             Destroy(missile, 10f);
             homePlanet.ConsumeMissile();
         }

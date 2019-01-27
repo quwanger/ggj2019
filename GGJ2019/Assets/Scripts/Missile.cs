@@ -17,19 +17,22 @@ public class Missile : MonoBehaviour {
     private float maxGravDistItems = 10f;
     private float maxGravityItems = 2f;
 
+    public GameObject explosion;
+
     void Awake()
     {
         mass = 10f;
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
-    public void Setup(PlayerController _owner, Vector2 _direction, float _speed, int _teamId)
+    public void Setup(PlayerController _owner, Vector2 _direction, float _speed, int _teamId, Color _color)
     {
         owner = _owner;
         direction = _direction;
         speed = _speed;
         teamId = _teamId;
         rigidbody2d.AddForce(direction.normalized * speed);
+        GetComponent<SpriteRenderer>().color = _color;
     }
 
     void FixedUpdate()
@@ -39,15 +42,19 @@ public class Missile : MonoBehaviour {
         foreach (GameObject planet in planets)
         {
             //do not use gravity for home planet
-            if (owner.teamId == planet.GetComponent<Planet>().planetId) break;
-
-            float dist = Vector3.Distance(planet.transform.position, transform.position);
-            Planet p = planet.GetComponent<Planet>();
-            if (dist <= maxGravDist)
+            if (owner.teamId != planet.GetComponent<Planet>().planetId)
             {
-                Vector3 v = planet.transform.position - transform.position;
-                Vector2 gravForce = v.normalized * (1.0f - (dist / maxGravDist)) * maxGravity;
-                rigidbody2d.AddForce(gravForce);
+
+                Debug.Log(owner.name + " is shooting a rocket at " + planet.name);
+
+                float dist = Vector3.Distance(planet.transform.position, transform.position);
+                Planet p = planet.GetComponent<Planet>();
+                if (dist <= maxGravDist)
+                {
+                    Vector3 v = planet.transform.position - transform.position;
+                    Vector2 gravForce = v.normalized * (1.0f - (dist / maxGravDist)) * maxGravity;
+                    rigidbody2d.AddForce(gravForce);
+                }
             }
         }
 
@@ -117,6 +124,7 @@ public class Missile : MonoBehaviour {
 
     public void Explode()
     {
+        Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
 
