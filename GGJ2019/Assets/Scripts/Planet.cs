@@ -14,7 +14,7 @@ public class Planet : MonoBehaviour {
     public GameObject rocketHUD;
     public GameObject healthHUD;
 
-    private int missileCount = 5;
+    private int missileCount = 20;
     public int MissileCount { get { return missileCount; } }
 
     // this value is the distance from the planet center to the edge of the atmosphere
