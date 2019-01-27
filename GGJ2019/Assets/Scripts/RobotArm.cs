@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RobotArm : MonoBehaviour {
+public class RobotArm : MonoBehaviour
+{
+    public GameObject shipGlove;
+    public GameObject shipMagnet;
 
-    private GameObject[] planets;
-    private LineRenderer robotArm;
+    private LineRenderer lineRenderer;
     private float counter;
-    private float dist;
+    private float totalDistanceToTravel;
 
     private bool goForward = true;
     private bool isArmShooting = false;
@@ -17,13 +19,13 @@ public class RobotArm : MonoBehaviour {
     //speed modifier for heavier items
     private float grabbedObjectWeight = 1f;
 
-    public Transform origin;
+    public Transform shipCenter;
     public Vector3 destination;
 
     public float goSpeed;
     public float returnSpeed;
 
-    public bool grabMode = true;
+    public bool grabMode = false;
     public bool pushMode = false;
 
     public float grabRadius;
@@ -36,100 +38,88 @@ public class RobotArm : MonoBehaviour {
     //allows player to move the arm after grabbing an object
     public bool canMoveAndGrab = true;
 
-    PlayerController pController = null;
-    GameObject glove;
+    PlayerController playerController = null;    
 
-    void Start () {
+    void Start ()
+    {
+        playerController = gameObject.GetComponentInParent<PlayerController>();
+        lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.material.color = Color.white;
+        lineRenderer.SetWidth(0.02f, 0.02f);
 
-        planets = GameObject.FindGameObjectsWithTag("Planet");
+        shipMagnet.GetComponent<SpriteRenderer>().enabled = false;
+        shipGlove.GetComponent<SpriteRenderer>().enabled = false;
+        shipGlove.GetComponent<BoxCollider2D>().enabled = false;
 
-        pController = this.gameObject.GetComponentInParent<PlayerController>();
-        robotArm = GetComponent<LineRenderer>();
-
-        foreach (GameObject p in planets)
-        {
-            Planet planet = p.GetComponent<Planet>();
-            if (planet.planetId == pController.teamId)
-            {
-                robotArm.material.color = Color.white;
-                break;
-            }
-        }
-
-        goSpeed = 9f;
+        goSpeed = 5f;
         returnSpeed = 3f;
         grabRadius = 1f;
         pushRadius = 1f;
-
-        //get glove object
-        GameObject glove = null;
-
-        foreach (Transform child in this.transform)
-        {
-            if (child.tag == "Glove")
-                glove = child.gameObject;
-        }
-
-
-        glove.GetComponent<SpriteRenderer>().enabled = false;
-        glove.GetComponent<BoxCollider2D>().enabled = false;
 	}
 
-    private bool m_isAxisInUse = false;
+    private bool armActive = false;
+    private bool triggersRefreshed = true;
+    private float grabDistance = 11f;
+    private float pushDistance = 8.5f;
 
     void Update()
     {
-
-        //toggle the controls
-        if (Input.GetAxis(pController.controller.rt) != 0)
+        // check for new mode if the arm isn't active
+        if (!armActive && triggersRefreshed)
         {
-            grabMode = true;
-            pushMode = false;
-        }
-        else if (Input.GetAxis(pController.controller.lt) != 0)
-        {
-            grabMode = false;
-            pushMode = true;
-        }
-
-       //get target for the player
-        foreach (Transform child in this.gameObject.transform)
-        {
-            if (child.tag == "1_crosshair")
-                child.gameObject.transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
-        }
-
-        // previous method does not take in consideration player dependency
-        //GameObject.FindGameObjectWithTag("1_crosshair").transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
-
-        //to be replaced with controller
-        if (/*Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) ||*/
-            (Input.GetAxis(pController.controller.rt) > 0 && !m_isAxisInUse) || (Input.GetAxis(pController.controller.lt) > 0 && !m_isAxisInUse))
-        {
-            /*destination = GameObject.FindGameObjectWithTag("1_crosshair").transform;
-            Vector3 staticDestination = destination.position;*/
-            destination = GameObject.FindGameObjectWithTag("1_crosshair").transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
-            isArmShooting = true;
-            m_isAxisInUse = true;
-            if (pushMode)
+            //toggle the controls
+            if (Input.GetAxis(playerController.controller.rt) != 0)
             {
-
-                glove = GameObject.FindGameObjectWithTag("Glove");
-
-                glove.GetComponent<SpriteRenderer>().enabled = true;
-                glove.GetComponent<BoxCollider2D>().enabled = true;
+                StartGrab();
+            }
+            else if (Input.GetAxis(playerController.controller.lt) != 0)
+            {
+                StartPush();
+            }
+        }
+        else
+        {
+            if (Input.GetAxis(playerController.controller.rt) == 0 && Input.GetAxis(playerController.controller.lt) == 0)
+            {
+                triggersRefreshed = true;
             }
         }
 
-        if (isArmShooting)
+        if (armActive)
         {
             LaunchArm(destination);
         }
-        if (Input.GetAxis(pController.controller.rt) == 0 && Input.GetAxis(pController.controller.lt) == 0 && !isArmShooting)
-        {
+    }
 
-            m_isAxisInUse = false;
-        }
+    private void StartGrab()
+    {
+        armActive = true;
+        grabMode = true;
+        pushMode = false;
+        triggersRefreshed = false;
+
+        counter = 0;
+
+        shipMagnet.GetComponent<SpriteRenderer>().enabled = true;
+
+        destination = shipCenter.position - (-playerController.transform.GetChild(0).transform.right * grabDistance);
+        //LaunchArm(destination);
+    }
+
+    private void StartPush()
+    {
+        armActive = true;
+        grabMode = false;
+        pushMode = true;
+        triggersRefreshed = false;
+
+        counter = 0;
+
+        shipGlove.GetComponent<SpriteRenderer>().enabled = true;
+        shipGlove.GetComponent<BoxCollider2D>().enabled = true;
+
+        destination = shipCenter.position - (-playerController.transform.GetChild(0).transform.right * pushDistance);
+        //LaunchArm(destination);
     }
 
     /// <summary>
@@ -138,79 +128,67 @@ public class RobotArm : MonoBehaviour {
     /// <param name="center"></param>
     /// <param name="radius"></param>
     /// <param name="direction"></param>
-    void PushRadius(Vector2 currentPosition, float radius, Vector2 direction)
+    void PushRadius(Vector2 currentPosition, float radius)
     {
-
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(currentPosition, radius);
 
         for  (int a = 0; a < hitColliders.Length; a++)
         {
-            if (hitColliders[a].gameObject.tag.Equals("Item"))
-             hitColliders[a].SendMessage("Push", direction.normalized * pushForce);
-            //set the glove to the position of the end of the line
+            if (hitColliders[a].gameObject.tag.Equals("Item") || hitColliders[a].gameObject.tag.Equals("Powerup") )
+            {
+                Vector2 itemDirection = new Vector2(hitColliders[a].transform.position.x - shipGlove.transform.position.x, hitColliders[a].transform.position.y - shipGlove.transform.position.y);
+                hitColliders[a].GetComponent<Rigidbody2D>().AddForce(itemDirection.normalized * pushForce);
+            }
         }
-
-
     }
-    Vector3 staticDestination = Vector3.zero;
+
+    
+
     /// <summary>
     /// function launches arm and returns it to it's origin.
     /// </summary>
-    void LaunchArm(Vector3 pointB)
+    void LaunchArm(Vector3 finalDestination)
     {
-        robotArm.SetPosition(0, origin.position);
-        robotArm.SetWidth(0.05f, 0.05f);
-
-        dist = Vector3.Distance(origin.position, pointB);
-
-        Vector3 myLength = Vector3.zero;
-        Vector3 pointA = Vector3.zero;
-
-        if (pushMode)
-            dist = dist * 0.65f;
+        lineRenderer.SetPosition(0, shipCenter.position);
+        totalDistanceToTravel = Vector3.Distance(shipCenter.position, finalDestination);
 
         //Launch the arm
         if (goForward)
         {
             counter += goSpeed / 10;
 
-            float x = Mathf.MoveTowards(0, dist, counter);
-
-            pointA = origin.position;
-
-
+            float x = Mathf.MoveTowards(0, totalDistanceToTravel, counter);
             
             //get the unit vector in the desired direction, multiply by the desired length and add the starting point.
-            Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
-            robotArm.SetPosition(1, pointAlongLine);
-         
-            if(Vector3.Distance(origin.position,pointAlongLine) > inactiveGrabRadius && grabMode)
+            Vector3 pointAlongLine = x * Vector3.Normalize(finalDestination - shipCenter.position) + shipCenter.position;
+            lineRenderer.SetPosition(1, pointAlongLine);
+
+            if (Vector3.Distance(shipCenter.position, pointAlongLine) > inactiveGrabRadius && grabMode)
+            {
                 GrabObject(pointAlongLine, grabRadius);
+                shipMagnet.transform.position = pointAlongLine;
+            }
 
             //push as you move along...
             if (pushMode)
             {
-                PushRadius(pointAlongLine, pushRadius, destination - origin.position);
-                glove.transform.position = pointAlongLine;
+                PushRadius(pointAlongLine, pushRadius);
+                shipGlove.transform.position = pointAlongLine;
             }
 
-          
 
-            myLength = pointAlongLine - pointA;
+            Vector3 myLength = Vector3.zero;
+            myLength = pointAlongLine - shipCenter.position;
 
             //max distance
-            if (Mathf.Ceil(  myLength.magnitude) >= Mathf.Floor(dist) )
+            if (Mathf.Ceil(myLength.magnitude) >= Mathf.Floor(totalDistanceToTravel) )
             {
                 if (pushMode)
                 {
-                   
-                    glove.GetComponent<BoxCollider2D>().enabled = false;
-                    
+                    shipGlove.GetComponent<BoxCollider2D>().enabled = false;
                 }
 
-                //Debug.Log("line complete");
                 goForward = false;
-                
             }
         }
         //Return the arm
@@ -218,34 +196,40 @@ public class RobotArm : MonoBehaviour {
         {    
             counter -= returnSpeed /10;
 
-            float x = Mathf.MoveTowards(0, dist, counter);
-
-            pointA = origin.position;
-
+            float x = Mathf.MoveTowards(0, totalDistanceToTravel, counter);
           
             //get the unit vector in the desired direction, multiply by the desired length and add the starting point.
-            Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
-            robotArm.SetPosition(1, pointAlongLine);
+            Vector3 pointAlongLine = x * Vector3.Normalize(finalDestination - shipCenter.position) + shipCenter.position;
+            lineRenderer.SetPosition(1, pointAlongLine);
 
-            if(glove)
+            if (pushMode)
             {
-                glove.transform.position = pointAlongLine;
+                shipGlove.transform.position = pointAlongLine;
+            }
+            else
+            {
+                shipMagnet.transform.position = pointAlongLine;
+
+                if (grabbedObject)
+                {
+                    grabbedObject.transform.position = pointAlongLine;
+                }
             }
 
-            //grab the object
-            if(grabbedObject != null)
-                grabbedObject.transform.position = pointAlongLine;
-
-             myLength = pointAlongLine - pointA;
-             //Debug.Log("I am returning to the origin |||| my length is " + myLength.magnitude);
-            if (myLength.magnitude < 0.1f)
+            Vector3 myLength = pointAlongLine - shipCenter.position;
+            if (counter < 0.1f)
             {
-                //Debug.Log("Launch Complete");
                 goForward = true;
-                isArmShooting = false;
                 grabbedObject = null;
-                if(glove)
-                    glove.GetComponent<SpriteRenderer>().enabled = false;
+                armActive = false;
+                if (pushMode)
+                {
+                    shipGlove.GetComponent<SpriteRenderer>().enabled = false;
+                }
+                else
+                {
+                    shipMagnet.GetComponent<SpriteRenderer>().enabled = false;
+                }
             }
 
         }
@@ -260,29 +244,26 @@ public class RobotArm : MonoBehaviour {
     {
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(center, radius);
 
-        Collider2D cMin = null;
+        Collider2D closestItem = null;
         float minDist = Mathf.Infinity;
         foreach (Collider2D c in hitColliders)
         {
-
-
             float dist = Vector3.Distance(c.gameObject.transform.position, center);
 
-            if (dist < minDist && c.gameObject.tag.Equals("Item"))
+            if (dist < minDist && (c.gameObject.tag.Equals("Item") || c.gameObject.tag.Equals("Powerup")))
             {
-                cMin = c;
+                closestItem = c;
                 minDist = dist;
-                grabbedObject = cMin.gameObject;
-                hitColliders = new Collider2D[0];
+                grabbedObject = closestItem.gameObject;
+                //hitColliders = new Collider2D[0];
                 //return the arm once it's grabbed an object
-                goForward = false;
-
-
             }
         }
 
         if (grabbedObject)
         {
+            goForward = false;
+
             if (grabbedObject.GetComponent<ItemController>().itemState == ItemManager.ItemState.Stuck)
             {
                 grabbedObject.GetComponent<ItemController>().GrabOffPlanet(grabbedObject.GetComponent<ItemController>().HomePlanet);
