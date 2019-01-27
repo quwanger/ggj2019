@@ -70,16 +70,9 @@ public class RobotArm : MonoBehaviour {
                 glove = child.gameObject;
         }
 
-
         glove.GetComponent<SpriteRenderer>().enabled = false;
         glove.GetComponent<BoxCollider2D>().enabled = false;
 
-        if (destination == null)
-        {
-            //  destination = GameObject.FindGameObjectWithTag("1_crosshair").transform;
-
-            //destination = pController.transform.GetChild(0).transform;
-        }
 	}
 
     private bool m_isAxisInUse = false;
@@ -92,15 +85,21 @@ public class RobotArm : MonoBehaviour {
         {
             grabMode = true;
             pushMode = false;
+
+            Debug.Log("I am detecting RIGHT TRIGGER");
+
         }
 
         if (Input.GetAxis(pController.controller.lt) != 0)
         {
             grabMode = false;
             pushMode = true;
+
+            Debug.Log("I am detecting LEFT TRIGGER");
+
         }
 
-       //get target for the player
+        //get target for the player
         foreach (Transform child in this.gameObject.transform)
         {
             if (child.tag == "1_crosshair")
@@ -179,7 +178,7 @@ public class RobotArm : MonoBehaviour {
         Vector3 pointA = Vector3.zero;
 
         if (pushMode)
-            dist = dist * 0.65f;
+            dist = dist * 0.55f;
 
         //Launch the arm
         if (goForward)
@@ -190,8 +189,6 @@ public class RobotArm : MonoBehaviour {
 
             pointA = origin.position;
 
-
-            
             //get the unit vector in the desired direction, multiply by the desired length and add the starting point.
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
             robotArm.SetPosition(1, pointAlongLine);
