@@ -11,6 +11,9 @@ TagManager:
   - 1_crosshair
   - Missile
   - Glove
+  - House
+  - Powerup
+  - Moon
   layers:
   - Default
   - TransparentFX

@@ -10,19 +10,19 @@ public class ItemController : MonoBehaviour {
 
     public float rotationSpeed;
 
-    private GameObject[] planets;
+    protected GameObject[] planets;
 
     public ItemManager.ItemState itemState = ItemManager.ItemState.Idle;
 
     [SerializeField]
-    private Rigidbody2D rigidbody2d;
+    protected Rigidbody2D rigidbody2d;
 
     [SerializeField]
     private int itemTier;
 
     private Planet homePlanet = null;
 
-    IEnumerator removeIfOutOBounds() {
+    protected IEnumerator removeIfOutOBounds() {
         while(true) {
             if (homePlanet) {
                 yield return new WaitForSeconds(3f);
@@ -38,14 +38,14 @@ public class ItemController : MonoBehaviour {
                 itemPosition.y < bottomLeftOfScreen.y - 2||
                 itemPosition.x > topRightOfScreen.x + 2||
                 itemPosition.x < bottomLeftOfScreen.x - 2) {
-                Destroy(this.gameObject);
+                DestroyItem();
             } 
 
             yield return new WaitForSeconds(3f);
         }
     }
 
-    public void Setup(int _id, Vector2 _direction, float _speed, float _mass)
+    public virtual void Setup(int _id, Vector2 _direction, float _speed, float _mass)
     {
         teamId = _id;
         direction = _direction;
@@ -73,7 +73,7 @@ public class ItemController : MonoBehaviour {
         rigidbody2d = transform.GetComponent<Rigidbody2D>();
 	}
 
-    void OnCollisionEnter2D(Collision2D col)
+    protected virtual void OnCollisionEnter2D(Collision2D col)
     {
         //if the current item is exploding or stuck, we don't care what it hits
         if(itemState == ItemManager.ItemState.Exploding || itemState == ItemManager.ItemState.Stuck)
@@ -120,15 +120,21 @@ public class ItemController : MonoBehaviour {
         }
     }
 
-    public void Explode(int targetLevel)
+    public virtual void Explode(int targetLevel)
     {
         itemTier -= targetLevel;
 
         if (itemTier <= 0)
         {
             if (homePlanet) homePlanet.RemoveItemFromPlanet(this);
-            Destroy(this.gameObject);
+            DestroyItem();
+            Instantiate(GameManager.instance.ItemManager.itemExplosion, transform.position, Quaternion.identity);
         }
+    }
+
+    public void DestroyItem() {
+        GameManager.instance.ItemManager.items.Remove(this.gameObject);
+        Destroy(this.gameObject);
     }
 
     private void Stick(Planet planet)
@@ -153,7 +159,20 @@ public class ItemController : MonoBehaviour {
             if (dist <= p.MaxGravDist)
             {
                 Vector3 v = planet.transform.position - transform.position;
-                Vector2 gravForce = v.normalized * (1.0f - (dist / p.MaxGravDist)) * (p.MaxGravity/mass);
+                Vector2 gravForce = v.normalized * (1.0f - (dist / p.MaxGravDist)) * (p.MaxGravity*mass);
+                rigidbody2d.AddForce(gravForce);
+            }
+        }
+
+        GameObject[] moons = GameObject.FindGameObjectsWithTag("Moon");
+        foreach (GameObject moon in moons)
+        {
+            float dist = Vector3.Distance(moon.transform.position, transform.position);
+            Moon m = moon.GetComponent<Moon>();
+            if (dist <= m.maxGravDist)
+            {
+                Vector3 v = moon.transform.position - transform.position;
+                Vector2 gravForce = v.normalized * (1.0f - (dist / m.maxGravDist)) * (m.maxGravity * mass);
                 rigidbody2d.AddForce(gravForce);
             }
         }

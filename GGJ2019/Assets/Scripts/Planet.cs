@@ -11,10 +11,13 @@ public class Planet : MonoBehaviour {
     public float atmosphereRadius = 2f;
     public Color teamColor;
 
+    private int missileCount = 5;
+    public int MissileCount { get { return missileCount; } }
+
     // this value is the distance from the planet center to the edge of the atmosphere
-    private float maxGravDist = 14.5f;
+    private float maxGravDist = 8f;
     public float MaxGravDist { get { return maxGravDist; } }
-    private float maxGravity = 1.25f;
+    private float maxGravity = 0.75f;
     public float MaxGravity { get { return maxGravity; } }
 
     [SerializeField]
@@ -40,7 +43,7 @@ public class Planet : MonoBehaviour {
         // add random rotation direction
         rotationSpeed = Random.Range(0f, 1f) > 0.5f ? rotationSpeed : rotationSpeed * -1f;
         //assign new values to world objects
-        atmosphere.transform.localScale = new Vector3(atmosphereRadius, atmosphereRadius, atmosphereRadius);
+        //atmosphere.transform.localScale = new Vector3(atmosphereRadius, atmosphereRadius, atmosphereRadius);
         spritePlanet.color = teamColor;
         spriteAtmosphere.color = new Color(teamColor.r, teamColor.g, teamColor.b, 0.35f);
     }
@@ -58,6 +61,17 @@ public class Planet : MonoBehaviour {
         }
     }
 
+    public void ConsumeMissile()
+    {
+        missileCount--;
+    }
+
+    public void GetMissiles(int missiles)
+    {
+        missileCount += missiles;
+        Debug.Log("Total Missiles: " + missileCount);
+    }
+
     public void RegisterHouse(House h)
     {
         houses.Add(h);
@@ -65,8 +79,13 @@ public class Planet : MonoBehaviour {
 
     public void DestroyHouse(House h)
     {
-        houses.Remove(h);
-        Destroy(h.gameObject);
+        foreach(House House in houses) {
+            if(House.houseState == GameManager.HouseState.Alive) {
+                return;
+            }
+        }
+
+        GameManager.instance.EndGame(this);
     }
 
     void FixedUpdate()
@@ -76,13 +95,5 @@ public class Planet : MonoBehaviour {
 
     void Update()
     {
-        if(GameManager.instance.gameInProgress)
-        {
-            if(houses.Count <= 0)
-            {
-                //GAME OVER, THIS TEAM LOSES
-                GameManager.instance.EndGame(this);
-            }
-        }
     }
 }
