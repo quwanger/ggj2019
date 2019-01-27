@@ -59,7 +59,7 @@ public class Missile : MonoBehaviour {
         foreach (GameObject item in items)
         {
             float dist = Vector3.Distance(item.transform.position, transform.position);
-            if (dist <= maxGravDistItems)
+            if (dist <= maxGravDistItems && item.GetComponent<ItemController>().itemState != ItemManager.ItemState.Stuck)
             {
                 Vector3 v = item.transform.position - transform.position;
                 Vector2 gravForce = v.normalized * (1.0f - (dist / maxGravDistItems)) * (maxGravityItems * item.GetComponent<ItemController>().mass);

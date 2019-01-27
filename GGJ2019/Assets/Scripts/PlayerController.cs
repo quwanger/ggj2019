@@ -10,7 +10,10 @@ public class PlayerController : MonoBehaviour {
     public int teamId = 0;
     public Planet homePlanet;
 
-    public GameObject readyCheckObject;
+    public GameObject readyCheckText;
+    public GameObject readyCheckImage;
+
+    public GameManager gameManager;
 
     public bool isReady = false;
 
@@ -26,6 +29,8 @@ public class PlayerController : MonoBehaviour {
     }
 	void Start ()
     {
+        gameManager = FindObjectOfType<GameManager>();
+
         SetupControls();
     }
 	
@@ -74,7 +79,6 @@ public class PlayerController : MonoBehaviour {
 
             //transform.Rotate(new Vector3(0f, 0f, teamInputModifier * speed * Input.GetAxis(controller.joyLeftVert)));
 
-
         Vector3 rotation = new Vector3(0, 0, -Mathf.Atan2(Input.GetAxis(controller.joyRightVert), Input.GetAxis(controller.joyRightHori)) * 180 / Mathf.PI);
         
         if(rotation.magnitude > 0.01f)
@@ -85,7 +89,11 @@ public class PlayerController : MonoBehaviour {
 
         if(Input.GetButtonDown(controller.rb) || Input.GetButtonDown(controller.lb))
         {
-            SpawnMissile();
+            if (gameManager.CheckAllPlayersReady() == true)
+            {
+                SpawnMissile();
+            }
+            
         }
     }
 

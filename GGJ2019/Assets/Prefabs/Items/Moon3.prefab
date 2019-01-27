@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212302312173180430}
   m_Layer: 0
   m_Name: Moon3
-  m_TagString: Untagged
+  m_TagString: Moon
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

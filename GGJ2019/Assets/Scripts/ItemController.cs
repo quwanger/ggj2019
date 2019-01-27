@@ -21,6 +21,7 @@ public class ItemController : MonoBehaviour {
     private int itemTier;
 
     private Planet homePlanet = null;
+    public Planet HomePlanet { get { return homePlanet; } }
 
     protected IEnumerator removeIfOutOBounds() {
         while(true) {
@@ -142,9 +143,23 @@ public class ItemController : MonoBehaviour {
         homePlanet = planet;
         planet.AcceptItem(this);
         transform.SetParent(planet.transform);
-        //rigidbody2d.simulated = false;
         rigidbody2d.bodyType = RigidbodyType2D.Static;
         itemState = ItemManager.ItemState.Stuck;
+    }
+
+    public void GrabOffPlanet(Planet planet)
+    {
+        itemState = ItemManager.ItemState.Hooked;
+        homePlanet = null;
+        planet.RemoveItemFromPlanet(this);
+        transform.SetParent(null);
+        StartCoroutine(ReenableCollisions());
+    }
+
+    IEnumerator ReenableCollisions()
+    {
+        yield return new WaitForSeconds(0.5f);
+        rigidbody2d.bodyType = RigidbodyType2D.Dynamic;
     }
 
     void FixedUpdate()

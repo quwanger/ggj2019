@@ -52,12 +52,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03050f9e70600ec4cb796dbd4f473797, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ui: {fileID: 0}
   playerPrefab: {fileID: 114280194526037902, guid: fe4ba68704fd2d342ab4a674f965a61f,
     type: 2}
   team1: []
   team2: []
+  team1ReadyImageChecks:
+  - {fileID: 0}
+  - {fileID: 0}
+  team2ReadyImageChecks:
+  - {fileID: 0}
+  - {fileID: 0}
+  team1ReadyTextChecks:
+  - {fileID: 0}
+  - {fileID: 0}
+  team2ReadyTextChecks:
+  - {fileID: 0}
+  - {fileID: 0}
   planet1: {fileID: 0}
   planet2: {fileID: 0}
+  ships:
+  - {fileID: 21300000, guid: 6c9f33472e35e864f969a350e2f4b6b2, type: 3}
+  - {fileID: 21300000, guid: eafe1b08fe7603244b0f3d3dd9865502, type: 3}
   gameInProgress: 0
   time: 0
 --- !u!114 &114485237156804784
@@ -71,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acfda053137bb654986992697c3b3eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTime: 1
+  spawnTime: 0.1
   itemTypes:
   - {fileID: 1815016828587668, guid: 157b6728d83a4dd4482902177e7ace13, type: 2}
   - {fileID: 1815016828587668, guid: dba008ebd1f6c8f46871b31c4caa553d, type: 2}
@@ -95,3 +111,10 @@ MonoBehaviour:
   - {fileID: 1147181808604390, guid: 8cc09e1c8a4ceb1409e1813ee09a9a87, type: 2}
   - {fileID: 1147181808604390, guid: c4bd46da5ad8eeb40a07813a6ddb54a1, type: 2}
   - {fileID: 1147181808604390, guid: 0500baac05194cb4f9c07bf40a68f9e4, type: 2}
+  items: []
+  missile: {fileID: 1893291002855184, guid: e90221b7839f29844908d7e63262338d, type: 2}
+  asteroid: {fileID: 1815016828587668, guid: 06f66f615d664584abbbff33c71a56dc, type: 2}
+  star: {fileID: 1147181808604390, guid: 7b01dbd59cf592e478628245cc3536c5, type: 2}
+  moon: {fileID: 1147181808604390, guid: 7b01dbd59cf592e478628245cc3536c5, type: 2}
+  itemExplosion: {fileID: 1890408729338072, guid: bf5da26dd3685f54988c896e99c8c6c1,
+    type: 2}

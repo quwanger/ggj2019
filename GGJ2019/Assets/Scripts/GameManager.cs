@@ -18,8 +18,10 @@ public class GameManager : MonoBehaviour {
     public List<PlayerController> team1 = new List<PlayerController>();
     public List<PlayerController> team2 = new List<PlayerController>();
 
-    public GameObject[] team1ReadyChecks;
-    public GameObject[] team2ReadyChecks;
+    public GameObject[] team1ReadyImageChecks;
+    public GameObject[] team2ReadyImageChecks;
+    public GameObject[] team1ReadyTextChecks;
+    public GameObject[] team2ReadyTextChecks;
 
     public Planet planet1;
     public Planet planet2;
@@ -41,7 +43,7 @@ public class GameManager : MonoBehaviour {
         else if (instance != this)
             Destroy(gameObject);
 
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
 
         itemManager = GetComponent<ItemManager>();
 	}
@@ -96,15 +98,21 @@ public class GameManager : MonoBehaviour {
     private void ReadyUpPlayer(PlayerController p)
     {
         p.isReady = true;
-        p.readyCheckObject.GetComponent<Image>().color = Color.green;
+        p.readyCheckImage.GetComponent<Image>().color = Color.green;
         if(CheckAllPlayersReady())
         {
-            //start game
-            StartGame();
+            StartCoroutine(Wait());
         }
     }
 
-    private bool CheckAllPlayersReady()
+    IEnumerator Wait()
+    {
+        //Wait for 1 second
+        yield return new WaitForSeconds(1);
+        StartGame();
+    }
+
+    public bool CheckAllPlayersReady()
     {
         foreach (PlayerController p in team1)
         {
@@ -150,11 +158,17 @@ public class GameManager : MonoBehaviour {
             player.homePlanet = planet1;
 
             if(team1.Count == 1) {
-                team1ReadyChecks[0].GetComponent<Image>().color = planet1.teamColor;
-                player.readyCheckObject = team1ReadyChecks[0];
+                team1ReadyImageChecks[0].GetComponent<Image>().color = planet1.teamColor;
+                team1ReadyTextChecks[0].GetComponent<Text>().text = "PRESS 'START'\n TO READY UP";
+
+                player.readyCheckText = team1ReadyTextChecks[0];
+                player.readyCheckImage = team1ReadyImageChecks[0];
             } else {
-                team1ReadyChecks[1].GetComponent<Image>().color = planet1.teamColor;
-                player.readyCheckObject = team1ReadyChecks[1];
+                team1ReadyImageChecks[1].GetComponent<Image>().color = planet1.teamColor;
+                team1ReadyTextChecks[1].GetComponent<Text>().text = "PRESS 'START'\n TO READY UP";
+
+                player.readyCheckText = team1ReadyTextChecks[1];
+                player.readyCheckImage = team1ReadyImageChecks[1];
             }
 
         } else {
@@ -164,11 +178,16 @@ public class GameManager : MonoBehaviour {
             player.homePlanet = planet2;
 
             if(team1.Count == 1) {
-                team2ReadyChecks[0].GetComponent<Image>().color = planet2.teamColor;
-                player.readyCheckObject = team2ReadyChecks[0];
+                team2ReadyImageChecks[0].GetComponent<Image>().color = planet2.teamColor;
+                team2ReadyTextChecks[0].GetComponent<Text>().text = "PRESS 'START'\n TO READY UP";
+
+                player.readyCheckText = team2ReadyTextChecks[0];
+                player.readyCheckImage = team2ReadyImageChecks[0];
             } else {
-                team2ReadyChecks[1].GetComponent<Image>().color = planet2.teamColor;
-                player.readyCheckObject = team2ReadyChecks[1];
+                team2ReadyImageChecks[1].GetComponent<Image>().color = planet2.teamColor;
+                team2ReadyTextChecks[1].GetComponent<Text>().text = "PRESS 'START'\n TO READY UP";
+                player.readyCheckText = team2ReadyTextChecks[1];
+                player.readyCheckImage = team2ReadyImageChecks[1];
             }
         }
     }
