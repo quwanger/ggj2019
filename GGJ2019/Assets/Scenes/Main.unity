@@ -145,7 +145,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 326.1, y: -188}
+  m_AnchoredPosition: {x: 326.1, y: -204}
   m_SizeDelta: {x: 169.99, y: 76.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &99411529
@@ -180,9 +180,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'P2
-
-    PRESS ''START''
+  m_Text: 'PRESS ''START''
 
     TO JOIN'
 --- !u!222 &99411530
@@ -400,7 +398,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -146.50006, y: -188.00003}
+  m_AnchoredPosition: {x: -146.50006, y: -204.00003}
   m_SizeDelta: {x: 169.99, y: 76.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &404065772
@@ -435,9 +433,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'P4
-
-    PRESS ''START''
+  m_Text: 'PRESS ''START''
 
     TO JOIN'
 --- !u!222 &404065773
@@ -1028,7 +1024,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 149.6, y: -187.99997}
+  m_AnchoredPosition: {x: 149.6, y: -203.99997}
   m_SizeDelta: {x: 169.99, y: 76.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2004149368
@@ -1063,9 +1059,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'P1
-
-    PRESS ''START''
+  m_Text: 'PRESS ''START''
 
     TO JOIN'
 --- !u!222 &2004149369
@@ -1180,7 +1174,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -323, y: -188}
+  m_AnchoredPosition: {x: -323, y: -204}
   m_SizeDelta: {x: 169.99, y: 76.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2144848885
@@ -1215,9 +1209,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'P3
-
-    PRESS ''START''
+  m_Text: 'PRESS ''START''
 
     TO JOIN'
 --- !u!222 &2144848886
@@ -1324,7 +1316,7 @@ Prefab:
     - target: {fileID: 114485237156804784, guid: 30d3ffc6409d94997af40f99bf7dab52,
         type: 2}
       propertyPath: spawnTime
-      value: 10
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30d3ffc6409d94997af40f99bf7dab52, type: 2}
