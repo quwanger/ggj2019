@@ -139,6 +139,7 @@ public class Missile : MonoBehaviour {
 
     public void Explode()
     {
+        GameManager.instance.shaker.TriggerShake(0.1f, 0.1f);
         Instantiate(explosion, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
