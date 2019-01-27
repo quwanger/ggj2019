@@ -36,7 +36,24 @@ public class Planet : MonoBehaviour {
 
     void Awake()
     {
-        Setup(2f, new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)));
+
+        int randomID = Random.Range(0, 1);
+
+        if(randomID > 0.5)
+        {
+            if (planetId == 1)
+                Setup(2f, new Color(Random.Range(0.5f, 1f), Random.Range(0f, 0.5f), Random.Range(0f, 0.5f)));
+            if (planetId == 2)
+                Setup(2f, new Color(Random.Range(0f, 0.35f), Random.Range(0.6f, 1f), Random.Range(0.6f, 1f)));
+        }
+        else
+        {
+            if (planetId == 1)
+                Setup(2f, new Color(Random.Range(0f, 0.35f), Random.Range(0.6f, 1f), Random.Range(0.6f, 1f)));
+            if (planetId == 2)
+                Setup(2f, new Color(Random.Range(0.5f, 1f), Random.Range(0f, 0.5f), Random.Range(0f, 0.4f)));
+
+        }
     }
     public void Setup(float _atmosphereRadius, Color _teamColor)
     {
