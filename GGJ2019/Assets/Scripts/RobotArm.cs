@@ -70,16 +70,9 @@ public class RobotArm : MonoBehaviour {
                 glove = child.gameObject;
         }
 
-
         glove.GetComponent<SpriteRenderer>().enabled = false;
         glove.GetComponent<BoxCollider2D>().enabled = false;
 
-        if (destination == null)
-        {
-            //  destination = GameObject.FindGameObjectWithTag("1_crosshair").transform;
-
-            //destination = pController.transform.GetChild(0).transform;
-        }
 	}
 
     private bool m_isAxisInUse = false;
@@ -88,19 +81,25 @@ public class RobotArm : MonoBehaviour {
     {
 
         //toggle the controls
-        if (Input.GetAxis(pController.controller.rt) != 0)
+        if (Input.GetAxis(pController.controller.lt) != 0)
         {
             grabMode = true;
             pushMode = false;
+
+            Debug.Log("I am detecting left TRIGGER");
+
         }
 
-        if (Input.GetAxis(pController.controller.lt) != 0)
+        if (Input.GetAxis(pController.controller.rt) != 0)
         {
             grabMode = false;
             pushMode = true;
+
+            Debug.Log("I am detecting right TRIGGER");
+
         }
 
-       //get target for the player
+        //get target for the player
         foreach (Transform child in this.gameObject.transform)
         {
             if (child.tag == "1_crosshair")
@@ -155,7 +154,7 @@ public class RobotArm : MonoBehaviour {
 
         for  (int a = 0; a < hitColliders.Length; a++)
         {
-            if (hitColliders[a].gameObject.tag.Equals("Item"))
+            if (hitColliders[a].gameObject.tag.Equals("Item") || hitColliders[a].gameObject.tag.Equals("Powerup"))
              hitColliders[a].SendMessage("Push", direction.normalized * pushForce);
             //set the glove to the position of the end of the line
             glove.transform.position = currentPosition;
@@ -179,7 +178,7 @@ public class RobotArm : MonoBehaviour {
         Vector3 pointA = Vector3.zero;
 
         if (pushMode)
-            dist = dist * 0.65f;
+            dist = dist * 0.55f;
 
         //Launch the arm
         if (goForward)
@@ -190,8 +189,6 @@ public class RobotArm : MonoBehaviour {
 
             pointA = origin.position;
 
-
-            
             //get the unit vector in the desired direction, multiply by the desired length and add the starting point.
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
             robotArm.SetPosition(1, pointAlongLine);
@@ -270,7 +267,7 @@ public class RobotArm : MonoBehaviour {
            
             float dist = Vector3.Distance(c.gameObject.transform.position, center);
 
-            if (dist < minDist && c.gameObject.tag.Equals("Item"))
+            if (dist < minDist && c.gameObject.tag.Equals("Item") || c.gameObject.tag.Equals("Powerup"))
             {
                 cMin = c;
                 minDist = dist;
