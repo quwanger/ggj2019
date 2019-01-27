@@ -20,7 +20,7 @@ public class Planet : MonoBehaviour {
     // this value is the distance from the planet center to the edge of the atmosphere
     private float maxGravDist = 8f;
     public float MaxGravDist { get { return maxGravDist; } }
-    private float maxGravity = 0.75f;
+    private float maxGravity = 0.8f;
     public float MaxGravity { get { return maxGravity; } }
 
     [SerializeField]
@@ -87,12 +87,14 @@ public class Planet : MonoBehaviour {
     {
         missileCount--;
         rocketHUD.transform.GetChild(1).GetComponent<UnityEngine.UI.Text>().text = missileCount.ToString();
+        rocketHUD.transform.GetComponent<Animator>().SetTrigger("Shake");
     }
 
     public void GetMissiles(int missiles)
     {
         missileCount += missiles;
         rocketHUD.transform.GetChild(1).GetComponent<UnityEngine.UI.Text>().text = missileCount.ToString();
+        rocketHUD.transform.GetComponent<Animator>().SetTrigger("Shake");
     }
 
     public void RegisterHouse(House h)
@@ -111,8 +113,9 @@ public class Planet : MonoBehaviour {
         }
 
         healthHUD.transform.GetChild(1).GetComponent<UnityEngine.UI.Text>().text = houseCount.ToString() + "/10";
+        healthHUD.transform.GetComponent<Animator>().SetTrigger("Shake");
 
-        foreach(House House in houses) {
+        foreach (House House in houses) {
             if(House.houseState == GameManager.HouseState.Alive) {
                 return;
             }

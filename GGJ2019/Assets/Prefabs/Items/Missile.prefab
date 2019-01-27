@@ -128,6 +128,7 @@ MonoBehaviour:
   rigidbody2d: {fileID: 50993377678164840}
   itemTier: 0
   powerup: 0
+  explosion: {fileID: 0}
 --- !u!212 &212617172268982430
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -163,15 +164,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 6b8d3276eff8fe54e8b672b8d371bada, type: 3}
+  m_Color: {r: 1, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 5.12, y: 5.12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!212 &212914619917685302

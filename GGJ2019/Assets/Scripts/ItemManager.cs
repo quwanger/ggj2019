@@ -79,7 +79,7 @@ public class ItemManager : MonoBehaviour {
         InvokeRepeating("SpawnPowerups", powerupSpawnTime, powerupSpawnTime);
     }
 
-    private float chanceOfSpawningPowerup = 0.5f;
+    private float chanceOfSpawningPowerup = 0.75f;
     void SpawnPowerups()
     {
         float powerupToSpawn = Random.Range(0f, 1f);
@@ -94,7 +94,7 @@ public class ItemManager : MonoBehaviour {
             float powerupMassMin = 0f;
             float powerupMassMax = 0f;
 
-            if (powerupToSpawn < 0.8f)
+            if (powerupToSpawn < 0.9f)
             {
                 // spawn missile
                 objectToSpawn = missile;
@@ -102,10 +102,10 @@ public class ItemManager : MonoBehaviour {
 
                 powerupSpeedMin = 1f;
                 powerupSpeedMax = 5f;
-                powerupMassMin = 1f;
-                powerupMassMax = 5f;
+                powerupMassMin = 50f;
+                powerupMassMax = 100f;
             }
-            else if (powerupToSpawn < 0.95f)
+            /*else if (powerupToSpawn < 0.8f)
             {
                 // spawn star
                 objectToSpawn = star;
@@ -115,7 +115,7 @@ public class ItemManager : MonoBehaviour {
                 powerupSpeedMax = 5f;
                 powerupMassMin = 1f;
                 powerupMassMax = 5f;
-            }
+            }*/
             else
             {
                 // spawn asteroid
@@ -124,8 +124,8 @@ public class ItemManager : MonoBehaviour {
 
                 powerupSpeedMin = 5f;
                 powerupSpeedMax = 15f;
-                powerupMassMin = 5f;
-                powerupMassMax = 15f;
+                powerupMassMin = 20f;
+                powerupMassMax = 40f;
             }
 
 
