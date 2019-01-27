@@ -67,6 +67,19 @@ public class Missile : MonoBehaviour {
             }
         }
 
+        GameObject[] moons = GameObject.FindGameObjectsWithTag("Moon");
+        foreach (GameObject moon in moons)
+        {
+            float dist = Vector3.Distance(moon.transform.position, transform.position);
+            Moon m = moon.GetComponent<Moon>();
+            if (dist <= m.maxGravDist)
+            {
+                Vector3 v = moon.transform.position - transform.position;
+                Vector2 gravForce = v.normalized * (1.0f - (dist / m.maxGravDist)) * (m.maxGravity * mass);
+                rigidbody2d.AddForce(gravForce);
+            }
+        }
+
         Vector2 moveDirection = rigidbody2d.velocity;
         if (moveDirection != Vector2.zero)
         {
