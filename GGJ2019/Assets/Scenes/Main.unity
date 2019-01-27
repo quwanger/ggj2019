@@ -213,6 +213,11 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ac18752a874c84bfeb2c48c6ff8e9f99, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &249518766 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1942757625880720, guid: ac18752a874c84bfeb2c48c6ff8e9f99,
+    type: 2}
+  m_PrefabInternal: {fileID: 151928448}
 --- !u!1001 &906097113
 Prefab:
   m_ObjectHideFlags: 0
@@ -680,6 +685,11 @@ Prefab:
       propertyPath: team2ReadyChecks.Array.data[1]
       value: 
       objectReference: {fileID: 1762737852}
+    - target: {fileID: 114201211847986174, guid: 30d3ffc6409d94997af40f99bf7dab52,
+        type: 2}
+      propertyPath: ui
+      value: 
+      objectReference: {fileID: 249518766}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30d3ffc6409d94997af40f99bf7dab52, type: 2}
   m_IsPrefabAsset: 0
