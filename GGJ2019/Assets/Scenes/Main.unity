@@ -133,7 +133,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1932712665302432, guid: 7b762349afe7b4253b0501e2c79340b7,
     type: 2}
   m_PrefabInternal: {fileID: 982710816}
---- !u!95 &245727201
+--- !u!95 &245727204
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -166,7 +166,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1939294890579792, guid: 7b762349afe7b4253b0501e2c79340b7,
     type: 2}
   m_PrefabInternal: {fileID: 982710816}
---- !u!95 &487856509
+--- !u!95 &487856512
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
@@ -1467,6 +1467,16 @@ Prefab:
       propertyPath: planet2
       value: 
       objectReference: {fileID: 1080302222}
+    - target: {fileID: 114485237156804784, guid: 30d3ffc6409d94997af40f99bf7dab52,
+        type: 2}
+      propertyPath: minSpeed
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114485237156804784, guid: 30d3ffc6409d94997af40f99bf7dab52,
+        type: 2}
+      propertyPath: maxSpeed
+      value: 150
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30d3ffc6409d94997af40f99bf7dab52, type: 2}
   m_IsPrefabAsset: 0

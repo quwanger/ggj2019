@@ -33,7 +33,7 @@ public class RobotArm : MonoBehaviour
 
     //radius of inactive grab to avoid grabbing objects that are already in the atmosphere (extremely close to the player)
     public float inactiveGrabRadius = 2f;
-    public float pushForce = 200f;
+    private float pushForce = 500f;
 
     //allows player to move the arm after grabbing an object
     public bool canMoveAndGrab = true;
@@ -54,7 +54,7 @@ public class RobotArm : MonoBehaviour
         goSpeed = 6f;
         returnSpeed = 4f;
         grabRadius = 0.5f;
-        pushRadius = 0.5f;
+        pushRadius = 0.75f;
 	}
 
     private bool armActive = false;
@@ -98,6 +98,8 @@ public class RobotArm : MonoBehaviour
         pushMode = false;
         triggersRefreshed = false;
 
+        gameObjectsPunched.Clear();
+
         counter = 0;
 
         shipMagnet.GetComponent<SpriteRenderer>().enabled = true;
@@ -113,14 +115,18 @@ public class RobotArm : MonoBehaviour
         pushMode = true;
         triggersRefreshed = false;
 
+        gameObjectsPunched.Clear();
+
         counter = 0;
 
         shipGlove.GetComponent<SpriteRenderer>().enabled = true;
-        shipGlove.GetComponent<BoxCollider2D>().enabled = true;
+        //shipGlove.GetComponent<BoxCollider2D>().enabled = true;
 
         destination = shipCenter.position - (-playerController.transform.GetChild(0).transform.right * pushDistance);
         //LaunchArm(destination);
     }
+
+    private List<GameObject> gameObjectsPunched = new List<GameObject>();
 
     /// <summary>
     /// Create a shockwave that pushes rigidbodies away (direction dependent)
@@ -136,8 +142,12 @@ public class RobotArm : MonoBehaviour
         {
             if (hitColliders[a].gameObject.tag.Equals("Item") || hitColliders[a].gameObject.tag.Equals("Powerup") )
             {
-                Vector2 itemDirection = new Vector2(hitColliders[a].transform.position.x - shipGlove.transform.position.x, hitColliders[a].transform.position.y - shipGlove.transform.position.y);
-                hitColliders[a].GetComponent<Rigidbody2D>().AddForce(itemDirection.normalized * pushForce);
+                if (!gameObjectsPunched.Contains(hitColliders[a].gameObject))
+                {
+                    gameObjectsPunched.Add(hitColliders[a].gameObject);
+                    Vector2 itemDirection = new Vector2(hitColliders[a].transform.position.x - shipGlove.transform.position.x, hitColliders[a].transform.position.y - shipGlove.transform.position.y);
+                    hitColliders[a].GetComponent<Rigidbody2D>().AddForce(itemDirection.normalized * pushForce);
+                }
             }
         }
     }
@@ -222,7 +232,8 @@ public class RobotArm : MonoBehaviour
                 goForward = true;
                 if (grabbedObject)
                 {
-                    grabbedObject.GetComponent<Rigidbody2D>().AddForce((new Vector2(playerController.homePlanet.transform.position.x, playerController.homePlanet.transform.position.y) - new Vector2(grabbedObject.transform.position.x, grabbedObject.transform.position.y)) * 100f);
+                    //grabbedObject.GetComponent<Rigidbody2D>().AddForce((new Vector2(playerController.homePlanet.transform.position.x, playerController.homePlanet.transform.position.y) - new Vector2(grabbedObject.transform.position.x, grabbedObject.transform.position.y)) * 100f);
+                    grabbedObject.GetComponent<Rigidbody2D>().AddForce(playerController.transform.GetChild(0).transform.right * 250f * -1f);
                     grabbedObject = null;
                 }
                 armActive = false;

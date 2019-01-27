@@ -69,8 +69,8 @@ public class ItemManager : MonoBehaviour {
 
                 powerupSpeedMin = 1f;
                 powerupSpeedMax = 5f;
-                powerupMassMin = 1f;
-                powerupMassMax = 5f;
+                powerupMassMin = 50f;
+                powerupMassMax = 100f;
             }
             /*else if (powerupToSpawn < 0.8f)
             {
@@ -91,8 +91,8 @@ public class ItemManager : MonoBehaviour {
 
                 powerupSpeedMin = 5f;
                 powerupSpeedMax = 15f;
-                powerupMassMin = 5f;
-                powerupMassMax = 15f;
+                powerupMassMin = 20f;
+                powerupMassMax = 40f;
             }
 
 

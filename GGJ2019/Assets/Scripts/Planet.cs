@@ -18,9 +18,9 @@ public class Planet : MonoBehaviour {
     public int MissileCount { get { return missileCount; } }
 
     // this value is the distance from the planet center to the edge of the atmosphere
-    private float maxGravDist = 8.5f;
+    private float maxGravDist = 8f;
     public float MaxGravDist { get { return maxGravDist; } }
-    private float maxGravity = 1f;
+    private float maxGravity = 0.8f;
     public float MaxGravity { get { return maxGravity; } }
 
     [SerializeField]
