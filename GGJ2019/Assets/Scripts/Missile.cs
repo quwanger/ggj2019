@@ -21,14 +21,23 @@ public class Missile : MonoBehaviour {
 
     public GameObject explosion;
 
+    //private AudioManager audioManager;
+
     void Awake()
     {
         mass = 10f;
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
+    void Start()
+    {
+        //audioManager = FindObjectOfType<AudioManager>();
+        owner.AudioManager.PlaySound("missiles");
+    }
+
     public void Setup(PlayerController _owner, Vector2 _direction, float _speed, int _teamId, Color _color)
     {
+        //audioManager.PlaySound("missiles");
         owner = _owner;
         direction = _direction;
         speed = _speed;
@@ -76,7 +85,7 @@ public class Missile : MonoBehaviour {
         foreach (GameObject moon in moons)
         {
             float dist = Vector3.Distance(moon.transform.position, transform.position);
-            Moon m = moon.GetComponent<Moon>();
+            Moon m = moon.GetComponentInChildren<Moon>();
             if (dist <= m.maxGravDist)
             {
                 Vector3 v = moon.transform.position - transform.position;

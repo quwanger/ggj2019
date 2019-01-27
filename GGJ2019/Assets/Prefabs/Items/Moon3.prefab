@@ -20,6 +20,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4885599178656238}
   - component: {fileID: 212302312173180430}
+  - component: {fileID: 50984876543123842}
+  - component: {fileID: 58491616787506646}
   m_Layer: 0
   m_Name: Moon3
   m_TagString: Moon
@@ -37,10 +39,9 @@ GameObject:
   - component: {fileID: 4254502498460698}
   - component: {fileID: 212793836281513928}
   - component: {fileID: 114247277123264638}
-  - component: {fileID: 58013956247783878}
   m_Layer: 0
   m_Name: Moon
-  m_TagString: Moon
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -52,7 +53,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1971999449901550}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -5.05}
   m_LocalScale: {x: 2.9456675, y: 2.9456675, z: 2.9456675}
   m_Children: []
   m_Father: {fileID: 4885599178656238}
@@ -72,12 +73,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &58013956247783878
+--- !u!50 &50984876543123842
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1646881953742928}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
+--- !u!58 &58491616787506646
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1971999449901550}
+  m_GameObject: {fileID: 1646881953742928}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -86,7 +107,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.89
+  m_Radius: 2.88
 --- !u!114 &114247277123264638
 MonoBehaviour:
   m_ObjectHideFlags: 1

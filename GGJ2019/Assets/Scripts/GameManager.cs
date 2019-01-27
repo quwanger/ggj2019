@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour {
     public Sprite[] ships;
 
     public ShakeBehaviour shaker;
+    private AudioManager audioManager;
 
     public enum HouseState {
         Alive,
@@ -60,6 +61,8 @@ public class GameManager : MonoBehaviour {
 
     void StartGame()
     {
+        
+
         gameInProgress = true;
         ui.SetActive(false);
         end.SetActive(false);
@@ -90,18 +93,20 @@ public class GameManager : MonoBehaviour {
 
 	void Start () {
 		time = 0.0f;
-	}
+        audioManager = FindObjectOfType<AudioManager>();
+    }
 	
 	void Update () {
-        if (!gameInProgress)
+        if (!gameInProgress && !startingGame)
         {
             SetupPlayers();
         }
 
         if (gameEnded)
         {
-            if (Input.GetButtonDown("Start_1") || Input.GetButtonDown("Start_2") || Input.GetButtonDown("Start_3") || Input.GetButtonDown("Start_4"))
+            if (Input.GetButtonDown("Back_1") || Input.GetButtonDown("Back_2") || Input.GetButtonDown("Back_3") || Input.GetButtonDown("Back_4"))
             {
+                audioManager.PlaySound("gets");
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 gameEnded = false;
             }
@@ -132,7 +137,9 @@ public class GameManager : MonoBehaviour {
     private void ReadyUpPlayer(PlayerController p)
     {
         p.isReady = true;
-        
+
+        audioManager.PlaySound("gets");
+
         if (p.playerId == 1)
         {
             playerCheckmarks[0].SetActive(true);
@@ -152,9 +159,12 @@ public class GameManager : MonoBehaviour {
 
         if (CheckAllPlayersReady())
         {
+            startingGame = true;
             StartCoroutine(Wait());
         }
     }
+
+    private bool startingGame = false;
 
     IEnumerator Wait()
     {
@@ -201,7 +211,9 @@ public class GameManager : MonoBehaviour {
         PlayerController player = Instantiate(playerPrefab, onTeam1 ? planet1.transform.position : planet2.transform.position, Quaternion.identity, onTeam1 ? planet1.transform : planet2.transform);
         player.transform.SetParent(null);
         player.controllerId = controllerId;
-        
+
+        audioManager.PlaySound("gets");
+
         if (onTeam1) {
             player.SetPlayerSprite(ships[team1.Count]);
             team1.Add(player);

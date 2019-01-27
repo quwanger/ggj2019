@@ -21,10 +21,9 @@ GameObject:
   - component: {fileID: 4674203991075688}
   - component: {fileID: 212348005403276502}
   - component: {fileID: 114563788436240634}
-  - component: {fileID: 58358625806302232}
   m_Layer: 0
   m_Name: Moon
-  m_TagString: Moon
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -38,6 +37,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4427906675311500}
   - component: {fileID: 212682576913268636}
+  - component: {fileID: 50430681870034752}
+  - component: {fileID: 58265853059220792}
   m_Layer: 0
   m_Name: Moon2
   m_TagString: Moon
@@ -66,18 +67,38 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1347371539383908}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -7.82}
   m_LocalScale: {x: 3.1796584, y: 3.1796584, z: 3.1796584}
   m_Children: []
   m_Father: {fileID: 4427906675311500}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!58 &58358625806302232
+--- !u!50 &50430681870034752
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1962221206259114}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 1
+  m_Constraints: 0
+--- !u!58 &58265853059220792
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1347371539383908}
+  m_GameObject: {fileID: 1962221206259114}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
@@ -86,7 +107,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.89
+  m_Radius: 2.91
 --- !u!114 &114563788436240634
 MonoBehaviour:
   m_ObjectHideFlags: 1

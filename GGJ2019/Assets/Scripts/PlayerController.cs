@@ -26,6 +26,8 @@ public class PlayerController : MonoBehaviour {
 
     public SpriteRenderer magnet;
     public SpriteRenderer fist;
+    private AudioManager audioManager;
+    public AudioManager AudioManager { get { return audioManager; } }
 
     void Awake()
     {
@@ -34,7 +36,7 @@ public class PlayerController : MonoBehaviour {
 	void Start ()
     {
         gameManager = FindObjectOfType<GameManager>();
-
+        audioManager = FindObjectOfType<AudioManager>();
         SetupControls();
 
         magnet.color = spriteRenderer.color;
@@ -94,7 +96,7 @@ public class PlayerController : MonoBehaviour {
         //transform.GetChild(0).transform.Rotate(new Vector3(0f, 0f, -speed * Input.GetAxis(controller.joyRightHori)));
 
 
-        if(Input.GetButtonDown(controller.rb) || Input.GetButtonDown(controller.lb))
+        if (Input.GetButtonDown(controller.joyRightClick) || Input.GetButtonDown(controller.joyLeftClick) || Input.GetButtonDown(controller.a) || Input.GetButtonDown(controller.x))
         {
             if (gameManager.CheckAllPlayersReady() == true)
             {

@@ -6,6 +6,8 @@ public class House : MonoBehaviour {
 
     private Planet homePlanet;
 
+    private AudioManager audioManager;
+
     public GameManager.HouseState houseState = GameManager.HouseState.Alive;
 
     public Planet HomePlanet { get { return homePlanet; } }
@@ -13,6 +15,8 @@ public class House : MonoBehaviour {
     {
         homePlanet = transform.parent.parent.GetComponent<Planet>();
         homePlanet.RegisterHouse(this);
+
+        audioManager = FindObjectOfType<AudioManager>();
     }
     void OnTriggerEnter2D(Collider2D col)
     {
@@ -44,12 +48,14 @@ public class House : MonoBehaviour {
         }
     }
 
-    void DestroyHouse() {
+    public void DestroyHouse() {
         GameManager.instance.shaker.TriggerShake(0.25f);
         houseState = GameManager.HouseState.Destroyed;
         SpriteRenderer spriteR = this.GetComponent<SpriteRenderer>();
         Object[] rubbleSprites = Resources.LoadAll("Rubble", typeof(Sprite));
         int randomIndex = Random.Range(0, rubbleSprites.Length);
+
+        audioManager.PlaySound("explosions");
 
         spriteR.color = homePlanet.teamColor;
 

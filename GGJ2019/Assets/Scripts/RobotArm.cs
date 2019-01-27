@@ -38,7 +38,9 @@ public class RobotArm : MonoBehaviour
     //allows player to move the arm after grabbing an object
     public bool canMoveAndGrab = true;
 
-    PlayerController playerController = null;    
+    PlayerController playerController = null;
+
+    private AudioManager audioManager;
 
     void Start ()
     {
@@ -55,6 +57,8 @@ public class RobotArm : MonoBehaviour
         returnSpeed = 4f;
         grabRadius = 0.5f;
         pushRadius = 0.75f;
+
+        audioManager = FindObjectOfType<AudioManager>();
 	}
 
     private bool armActive = false;
@@ -68,18 +72,18 @@ public class RobotArm : MonoBehaviour
         if (!armActive && triggersRefreshed)
         {
             //toggle the controls
-            if (Input.GetAxis(playerController.controller.lt) != 0)
+            if (Input.GetButtonDown(playerController.controller.lb))
             {
                 StartGrab();
             }
-            else if (Input.GetAxis(playerController.controller.rt) != 0)
+            else if (Input.GetButtonDown(playerController.controller.rb))
             {
                 StartPush();
             }
         }
         else
         {
-            if (Input.GetAxis(playerController.controller.rt) == 0 && Input.GetAxis(playerController.controller.lt) == 0)
+            if (!Input.GetButton(playerController.controller.lb) && !Input.GetButton(playerController.controller.rb))
             {
                 triggersRefreshed = true;
             }
@@ -144,6 +148,7 @@ public class RobotArm : MonoBehaviour
             {
                 if (!gameObjectsPunched.Contains(hitColliders[a].gameObject))
                 {
+                    audioManager.PlaySound("pushes");
                     gameObjectsPunched.Add(hitColliders[a].gameObject);
                     Vector2 itemDirection = new Vector2(hitColliders[a].transform.position.x - shipGlove.transform.position.x, hitColliders[a].transform.position.y - shipGlove.transform.position.y);
                     hitColliders[a].GetComponent<Rigidbody2D>().AddForce(itemDirection.normalized * pushForce);
@@ -257,6 +262,8 @@ public class RobotArm : MonoBehaviour
     /// <param name="radius"></param>
     void GrabObject(Vector2 center, float radius)
     {
+        audioManager.PlaySound("pulls");
+
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(center, radius);
 
         Collider2D closestItem = null;

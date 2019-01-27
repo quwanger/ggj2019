@@ -51,6 +51,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: EndBack
+    uniqueID: 3519589501
+    locked: 0
+  - name: Planet
+    uniqueID: 1812007739
+    locked: 0
   - name: Player
     uniqueID: 3129972823
+    locked: 0
+  - name: EndFront
+    uniqueID: 1151677205
     locked: 0

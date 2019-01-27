@@ -115,8 +115,10 @@ public class ItemController : MonoBehaviour {
                 {
                     // destroy item and item it hits
                     int currentItemTier = itemTier;
-                    Explode(item.itemTier);
-                    item.Explode(currentItemTier);
+                    //Explode(item.itemTier);
+                    //item.Explode(currentItemTier);
+                    Explode(3);
+                    item.Explode(3);
                 }
             }
         }
@@ -206,7 +208,7 @@ public class ItemController : MonoBehaviour {
         foreach (GameObject moon in moons)
         {
             float dist = Vector3.Distance(moon.transform.position, transform.position);
-            Moon m = moon.GetComponent<Moon>();
+            Moon m = moon.GetComponentInChildren<Moon>();
             if (dist <= m.maxGravDist)
             {
                 Vector3 v = moon.transform.position - transform.position;

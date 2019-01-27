@@ -34,7 +34,7 @@ public class ItemManager : MonoBehaviour {
     public GameObject missile;
     public GameObject asteroid;
     public GameObject star;
-    public GameObject moon;
+    public GameObject[] moons;
 
     public GameObject itemExplosion;
 
@@ -46,7 +46,7 @@ public class ItemManager : MonoBehaviour {
 
         if(randomNumber < 20 && isSpewing == false && items.Count < 20) {
             isSpewing = true;
-            spawnTime = 0.2f;
+            spawnTime = 0.5f;
             return;
         } else {
             isSpewing = false;
@@ -77,11 +77,31 @@ public class ItemManager : MonoBehaviour {
 
         // Spawns powerups
         InvokeRepeating("SpawnPowerups", powerupSpawnTime, powerupSpawnTime);
+
+        InvokeRepeating("SpawnMoon", 10f, 30f);
     }
 
-    private float chanceOfSpawningPowerup = 0.75f;
+    private float chanceOfSpawningMoon = 0.75f;
+    void SpawnMoon()
+    {
+        float spawnMoon = Random.Range(0f, 1f);
+        int powerupToSpawn = Random.Range(0, moons.Length);
+        if (spawnMoon <= chanceOfSpawningMoon)
+        {
+            GameObject objectToSpawn = moons[powerupToSpawn];
+            Vector2 spawnPos = GetSpawnPosition();
+            GameObject item = Instantiate(objectToSpawn, spawnPos, Quaternion.identity);
+            item.transform.GetComponent<Rigidbody2D>().velocity = GetSpawnDirection(spawnPos) * Random.Range(0.05f, 0.25f);
+            Destroy(item, 60f);
+        }
+    }
+
+    private float chanceOfSpawningPowerup = 0.5f;
     void SpawnPowerups()
     {
+        chanceOfSpawningPowerup += Time.deltaTime / 100f;
+        chanceOfSpawningPowerup = Mathf.Clamp(chanceOfSpawningPowerup, 0, 1f);
+
         float powerupToSpawn = Random.Range(0f, 1f);
         if(powerupToSpawn <= chanceOfSpawningPowerup)
         {
@@ -100,8 +120,8 @@ public class ItemManager : MonoBehaviour {
                 objectToSpawn = missile;
                 powerupType = Powerups.Missile;
 
-                powerupSpeedMin = 1f;
-                powerupSpeedMax = 5f;
+                powerupSpeedMin = 100f;
+                powerupSpeedMax = 120f;
                 powerupMassMin = 50f;
                 powerupMassMax = 100f;
             }
@@ -122,8 +142,8 @@ public class ItemManager : MonoBehaviour {
                 objectToSpawn = asteroid;
                 powerupType = Powerups.Asteroid;
 
-                powerupSpeedMin = 5f;
-                powerupSpeedMax = 15f;
+                powerupSpeedMin = 50f;
+                powerupSpeedMax = 100f;
                 powerupMassMin = 20f;
                 powerupMassMax = 40f;
             }
@@ -131,7 +151,7 @@ public class ItemManager : MonoBehaviour {
 
             // Instantiate item with the random x and y parameters
             Vector3 spawnPosition = GetSpawnPosition();
-            GameObject item = Instantiate(objectToSpawn, GetSpawnPosition(), Quaternion.identity);
+            GameObject item = Instantiate(objectToSpawn, spawnPosition, Quaternion.identity);
             PowerupController powerup = item.GetComponent<PowerupController>();
             powerup.Setup(0, GetSpawnDirection(spawnPosition), Random.Range(powerupSpeedMin, powerupSpeedMax), Random.Range(powerupMassMin, powerupMassMax));
             powerup.SetPowerupType(powerupType);
@@ -181,8 +201,11 @@ public class ItemManager : MonoBehaviour {
         float targetPositionX = Random.Range(GetBounds().y + 1, GetBounds().x - 1);
 
         Vector2 targetPosition = new Vector2(targetPositionX, 0f);
+       
 
         Vector2 direction = targetPosition - new Vector2(spawnPosition.x, spawnPosition.y);
+        Debug.DrawLine(spawnPosition, targetPosition, Color.green, 2);
+
         return direction;
     }
 
