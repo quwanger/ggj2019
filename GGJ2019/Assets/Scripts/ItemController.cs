@@ -28,10 +28,6 @@ public class ItemController : MonoBehaviour {
 
     protected IEnumerator removeIfOutOBounds() {
         while(true) {
-            if (itemState == ItemManager.ItemState.Stuck) {
-                yield return new WaitForSeconds(3f);
-            }
-
             Vector3 itemPosition = transform.position;
 
             Camera camera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
@@ -42,7 +38,9 @@ public class ItemController : MonoBehaviour {
                 itemPosition.y < bottomLeftOfScreen.y - 2||
                 itemPosition.x > topRightOfScreen.x + 2||
                 itemPosition.x < bottomLeftOfScreen.x - 2) {
-                DestroyItem();
+                    if(itemState != ItemManager.ItemState.Stuck) {
+                        DestroyItem();
+                    }
             } 
 
             yield return new WaitForSeconds(3f);

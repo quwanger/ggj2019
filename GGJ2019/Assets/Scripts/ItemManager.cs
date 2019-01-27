@@ -21,12 +21,15 @@ public class ItemManager : MonoBehaviour {
         Star
     }
 
-    public float spawnTime;
+    [SerializeField]
+    public float spawnTime = 1;
     private float powerupSpawnTime = 1f;
 	public GameObject[] itemTypes;
 
     public List<GameObject> items = new List<GameObject>();
     public float minSpeed;
+
+    public bool isSpewing;
     public float maxSpeed;
     public GameObject missile;
     public GameObject asteroid;
@@ -38,9 +41,39 @@ public class ItemManager : MonoBehaviour {
 	void Start () {
 	}
 
+    void EvaluateSpawningMechanics() {
+        int randomNumber = Random.Range(0, 101);
+
+        if(randomNumber < 20 && isSpewing == false && items.Count < 20) {
+            isSpewing = true;
+            spawnTime = 0.2f;
+            return;
+        } else {
+            isSpewing = false;
+        }
+
+
+        if(items.Count < 15) {
+            spawnTime = 0.7f;
+        } else if(items.Count < 25) {
+            spawnTime = 1;
+        } else {
+            spawnTime = 2;
+        }
+    }
+
+    IEnumerator StartSpawner() {
+         while(true) {
+            yield return new WaitForSeconds(spawnTime);
+            Spawn();
+        }
+    }
+
 	public void Setup () {
 		// Spawns items
-		InvokeRepeating ("Spawn", spawnTime, spawnTime);
+        InvokeRepeating ("EvaluateSpawningMechanics", 10.0f, 3.0f);
+
+        StartCoroutine(StartSpawner());
 
         // Spawns powerups
         InvokeRepeating("SpawnPowerups", powerupSpawnTime, powerupSpawnTime);
@@ -190,7 +223,7 @@ public class ItemManager : MonoBehaviour {
 
 		Vector2 direction = targetPosition - new Vector2(spawnPositionX, spawnPositionY);
 
-		Debug.DrawLine(spawnPosition, targetPosition, Color.green, 2);
+		// Debug.DrawLine(spawnPosition, targetPosition, Color.green, 2);
         
         // Instantiate item with the random x and y parameters
         GameObject item = Instantiate (itemTypes[randomItemIndex], spawnPosition, Quaternion.identity);
