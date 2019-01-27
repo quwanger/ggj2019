@@ -23,12 +23,6 @@ public class ItemManager : MonoBehaviour {
     private float powerupSpawnTime = 4f;
 	public GameObject[] itemTypes;
 
-<<<<<<< HEAD
-
-    void Start () {
-       
-    }
-=======
     public List<GameObject> items = new List<GameObject>();
 
     public GameObject missile;
@@ -40,7 +34,6 @@ public class ItemManager : MonoBehaviour {
 
 	void Start () {
 	}
->>>>>>> master
 
 	public void Setup () {
 		// Spawns items
