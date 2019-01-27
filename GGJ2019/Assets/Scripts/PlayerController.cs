@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour {
         float teamInputModifier = teamId == 1 ? -1 : 1;
         transform.Rotate(new Vector3(0f, 0f, teamInputModifier * speed * Input.GetAxis(controller.joyLeftVert)));
 
-
         Vector3 rotation = new Vector3(0, 0, -Mathf.Atan2(Input.GetAxis(controller.joyRightVert), Input.GetAxis(controller.joyRightHori)) * 180 / Mathf.PI);
         
         if(rotation.magnitude > 0.01f)
