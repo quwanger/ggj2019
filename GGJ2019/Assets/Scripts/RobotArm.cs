@@ -68,11 +68,11 @@ public class RobotArm : MonoBehaviour
         if (!armActive && triggersRefreshed)
         {
             //toggle the controls
-            if (Input.GetAxis(playerController.controller.rt) != 0)
+            if (Input.GetAxis(playerController.controller.lt) != 0)
             {
                 StartGrab();
             }
-            else if (Input.GetAxis(playerController.controller.lt) != 0)
+            else if (Input.GetAxis(playerController.controller.rt) != 0)
             {
                 StartPush();
             }

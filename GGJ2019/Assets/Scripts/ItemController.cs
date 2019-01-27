@@ -10,6 +10,9 @@ public class ItemController : MonoBehaviour {
 
     public float rotationSpeed;
 
+    private int noCollideFrames = 30;
+    private int noCollideFrameCounter = 0;
+
     protected GameObject[] planets;
 
     public ItemManager.ItemState itemState = ItemManager.ItemState.Idle;
@@ -77,7 +80,7 @@ public class ItemController : MonoBehaviour {
     protected virtual void OnCollisionEnter2D(Collision2D col)
     {
         //if the current item is exploding or stuck, we don't care what it hits
-        if(itemState == ItemManager.ItemState.Exploding || itemState == ItemManager.ItemState.Stuck)
+        if(itemState == ItemManager.ItemState.Exploding || itemState == ItemManager.ItemState.Stuck || itemState == ItemManager.ItemState.NoCollide)
         {
             return;
         }
@@ -156,6 +159,15 @@ public class ItemController : MonoBehaviour {
         StartCoroutine(ReenableCollisions());
     }
 
+    public void ExplodeOffPlanet(Planet planet)
+    {
+        itemState = ItemManager.ItemState.NoCollide;
+        homePlanet = null;
+        planet.RemoveItemFromPlanet(this);
+        transform.SetParent(null);
+        rigidbody2d.bodyType = RigidbodyType2D.Dynamic;
+    }
+
     IEnumerator ReenableCollisions()
     {
         yield return new WaitForSeconds(0.5f);
@@ -164,6 +176,19 @@ public class ItemController : MonoBehaviour {
 
     void FixedUpdate()
     {
+        if(itemState == ItemManager.ItemState.NoCollide)
+        {
+            if(noCollideFrameCounter >= noCollideFrames)
+            {
+                itemState = ItemManager.ItemState.Idle;
+                noCollideFrameCounter = 0;
+            }
+            else
+            {
+                noCollideFrameCounter++;
+            }
+        }
+
         // only rotate is flying through space
         if(rigidbody2d.bodyType != RigidbodyType2D.Static) transform.Rotate(0, 0, Time.deltaTime * rotationSpeed);
 
