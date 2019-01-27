@@ -37,12 +37,9 @@ public class RobotArm : MonoBehaviour {
     public bool canMoveAndGrab = true;
 
     PlayerController pController = null;
-
     GameObject glove;
 
     void Start () {
-
-
 
         planets = GameObject.FindGameObjectsWithTag("Planet");
 
@@ -90,6 +87,7 @@ public class RobotArm : MonoBehaviour {
     void Update()
     {
 
+        //toggle the controls
         if (Input.GetAxis(pController.controller.rt) != 0)
         {
             grabMode = true;
@@ -102,23 +100,19 @@ public class RobotArm : MonoBehaviour {
             pushMode = true;
         }
 
-
-
-       //get target.
+       //get target for the player
         foreach (Transform child in this.gameObject.transform)
         {
             if (child.tag == "1_crosshair")
                 child.gameObject.transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
         }
 
+        // previous method does not take in consideration player dependency
         //GameObject.FindGameObjectWithTag("1_crosshair").transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
-        Debug.Log(Input.GetButtonDown(pController.controller.rt));
-
-
-        Debug.Log(Input.GetButtonDown(pController.controller.rt));
 
         //to be replaced with controller
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) || (Input.GetAxis(pController.controller.rt) > 0 && !m_isAxisInUse) || (Input.GetAxis(pController.controller.lt) > 0 && !m_isAxisInUse))
+        if (/*Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) ||*/
+            (Input.GetAxis(pController.controller.rt) > 0 && !m_isAxisInUse) || (Input.GetAxis(pController.controller.lt) > 0 && !m_isAxisInUse))
         {
 
             Debug.Log(Input.GetButtonDown(pController.controller.rt));
