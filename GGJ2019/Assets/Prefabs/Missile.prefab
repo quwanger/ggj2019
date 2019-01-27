@@ -225,6 +225,8 @@ MonoBehaviour:
   speed: 0
   rigidbody2d: {fileID: 50831986106865800}
   mass: 0
+  teamId: 0
+  explosion: {fileID: 1717085709687740, guid: c589a6962810c5b41b9740d653de73b2, type: 2}
 --- !u!212 &212623085416050520
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -260,7 +262,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 464dd82f52237804ba83d5c467023d8a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 607b8f042e0ab304f9717874e062fa7f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
