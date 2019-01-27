@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 
     public GameObject ui;
     public GameObject hud;
+    public GameObject end;
 
     private ItemManager itemManager;
 
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour {
     }
 
     public bool gameInProgress = false;
+    public bool gameEnded = false;
 
     public float time;
 
@@ -53,6 +55,7 @@ public class GameManager : MonoBehaviour {
     {
         gameInProgress = true;
         ui.SetActive(false);
+        end.SetActive(false);
         hud.SetActive(true);
 		itemManager.Setup();
     }
@@ -61,7 +64,11 @@ public class GameManager : MonoBehaviour {
     {
         Debug.Log(losingPlanet.name + " LOSES!");
         gameInProgress = false;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        gameEnded = true;
+        end.SetActive(true);
+
+       
+   
     }
 
 	void Start () {
@@ -72,6 +79,15 @@ public class GameManager : MonoBehaviour {
         if (!gameInProgress)
         {
             SetupPlayers();
+        }
+
+        if (gameEnded)
+        {
+            if (Input.GetButtonDown("Start_1") || Input.GetButtonDown("Start_2") || Input.GetButtonDown("Start_3") || Input.GetButtonDown("Start_4"))
+            {
+                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+                gameEnded = false;
+            }
         }
 
 		time += Time.deltaTime;
