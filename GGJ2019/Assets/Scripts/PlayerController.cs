@@ -49,7 +49,14 @@ public class PlayerController : MonoBehaviour {
         float teamInputModifier = teamId == 1 ? -1 : 1;
         transform.Rotate(new Vector3(0f, 0f, teamInputModifier * speed * Input.GetAxis(controller.joyLeftVert)));
 
-        transform.GetChild(0).transform.Rotate(new Vector3(0f, 0f, -speed * Input.GetAxis(controller.joyRightHori)));
+
+        Vector3 rotation = new Vector3(0, 0, -Mathf.Atan2(Input.GetAxis(controller.joyRightVert), Input.GetAxis(controller.joyRightHori)) * 180 / Mathf.PI);
+        
+        if(rotation.magnitude > 0.01f)
+            transform.GetChild(0).transform.eulerAngles = new Vector3(0, 0, -Mathf.Atan2(Input.GetAxis(controller.joyRightVert), Input.GetAxis(controller.joyRightHori)) * 180 / Mathf.PI);
+
+        //transform.GetChild(0).transform.Rotate(new Vector3(0f, 0f, -speed * Input.GetAxis(controller.joyRightHori)));
+
 
         if(Input.GetButtonDown(controller.rb) || Input.GetButtonDown(controller.lb))
         {

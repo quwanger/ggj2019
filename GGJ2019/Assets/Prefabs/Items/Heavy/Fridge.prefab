@@ -39,6 +39,7 @@ GameObject:
   - component: {fileID: 114546633378468744}
   - component: {fileID: 50252357479427268}
   - component: {fileID: 61637689936926060}
+  - component: {fileID: 114633488657889304}
   m_Layer: 0
   m_Name: Fridge
   m_TagString: Item
@@ -137,6 +138,17 @@ MonoBehaviour:
   itemState: 0
   rigidbody2d: {fileID: 0}
   itemTier: 3
+--- !u!114 &114633488657889304
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1253566063277896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 698c51757fe894e4b91fb7cc9fc516d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &212112525424155738
 SpriteRenderer:
   m_ObjectHideFlags: 1

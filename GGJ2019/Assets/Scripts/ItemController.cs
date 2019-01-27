@@ -177,4 +177,9 @@ public class ItemController : MonoBehaviour {
             }
         }
     }
+
+    public void Push(Vector2 direction)
+    {
+        rigidbody2d.AddForce(direction);
+    }
 }
