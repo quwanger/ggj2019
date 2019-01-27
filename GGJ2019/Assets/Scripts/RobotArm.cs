@@ -33,7 +33,7 @@ public class RobotArm : MonoBehaviour
 
     //radius of inactive grab to avoid grabbing objects that are already in the atmosphere (extremely close to the player)
     public float inactiveGrabRadius = 2f;
-    public float pushForce = 100f;
+    public float pushForce = 200f;
 
     //allows player to move the arm after grabbing an object
     public bool canMoveAndGrab = true;
@@ -51,10 +51,10 @@ public class RobotArm : MonoBehaviour
         shipGlove.GetComponent<SpriteRenderer>().enabled = false;
         shipGlove.GetComponent<BoxCollider2D>().enabled = false;
 
-        goSpeed = 5f;
-        returnSpeed = 3f;
-        grabRadius = 1f;
-        pushRadius = 1f;
+        goSpeed = 6f;
+        returnSpeed = 4f;
+        grabRadius = 0.5f;
+        pushRadius = 0.5f;
 	}
 
     private bool armActive = false;
@@ -220,7 +220,11 @@ public class RobotArm : MonoBehaviour
             if (counter < 0.1f)
             {
                 goForward = true;
-                grabbedObject = null;
+                if (grabbedObject)
+                {
+                    grabbedObject.GetComponent<Rigidbody2D>().AddForce((new Vector2(playerController.homePlanet.transform.position.x, playerController.homePlanet.transform.position.y) - new Vector2(grabbedObject.transform.position.x, grabbedObject.transform.position.y)) * 100f);
+                    grabbedObject = null;
+                }
                 armActive = false;
                 if (pushMode)
                 {
