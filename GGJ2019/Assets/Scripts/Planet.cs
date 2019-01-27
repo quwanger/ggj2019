@@ -11,6 +11,9 @@ public class Planet : MonoBehaviour {
     public float atmosphereRadius = 2f;
     public Color teamColor;
 
+    public GameObject rocketHUD;
+    public GameObject healthHUD;
+
     private int missileCount = 5;
     public int MissileCount { get { return missileCount; } }
 
@@ -46,6 +49,8 @@ public class Planet : MonoBehaviour {
         //atmosphere.transform.localScale = new Vector3(atmosphereRadius, atmosphereRadius, atmosphereRadius);
         spritePlanet.color = teamColor;
         spriteAtmosphere.color = new Color(teamColor.r, teamColor.g, teamColor.b, 0.35f);
+        rocketHUD.transform.GetChild(1).GetComponent<UnityEngine.UI.Text>().text = missileCount.ToString();
+        healthHUD.transform.GetChild(1).GetComponent<UnityEngine.UI.Text>().text = "10/10";
     }
 
     public void AcceptItem(ItemController item)
@@ -64,11 +69,13 @@ public class Planet : MonoBehaviour {
     public void ConsumeMissile()
     {
         missileCount--;
+        rocketHUD.transform.GetChild(1).GetComponent<UnityEngine.UI.Text>().text = missileCount.ToString();
     }
 
     public void GetMissiles(int missiles)
     {
         missileCount += missiles;
+        rocketHUD.transform.GetChild(1).GetComponent<UnityEngine.UI.Text>().text = missileCount.ToString();
     }
 
     public void RegisterHouse(House h)
@@ -78,6 +85,15 @@ public class Planet : MonoBehaviour {
 
     public void DestroyHouse(House h)
     {
+        int houseCount = 0;
+        foreach (House House in houses) {
+            if(House.houseState == GameManager.HouseState.Alive) {
+                houseCount += 1;
+            }
+        }
+
+        healthHUD.transform.GetChild(1).GetComponent<UnityEngine.UI.Text>().text = houseCount.ToString() + "/10";
+
         foreach(House House in houses) {
             if(House.houseState == GameManager.HouseState.Alive) {
                 return;
