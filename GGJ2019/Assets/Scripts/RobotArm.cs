@@ -44,6 +44,9 @@ public class RobotArm : MonoBehaviour {
         planets = GameObject.FindGameObjectsWithTag("Planet");
 
         pController = this.gameObject.GetComponentInParent<PlayerController>();
+
+        Debug.Log(pController.controllerId);
+
         robotArm = GetComponent<LineRenderer>();
 
         foreach (GameObject p in planets)
