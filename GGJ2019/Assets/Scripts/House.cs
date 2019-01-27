@@ -49,6 +49,8 @@ public class House : MonoBehaviour {
         Object[] rubbleSprites = Resources.LoadAll("Rubble", typeof(Sprite));
         int randomIndex = Random.Range(0, rubbleSprites.Length);
 
+        spriteR.color = homePlanet.teamColor;
+
         spriteR.sprite = (Sprite)rubbleSprites[randomIndex];
 
         homePlanet.DestroyHouse(this);
