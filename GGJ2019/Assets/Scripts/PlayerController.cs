@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
     public XboxController controller;
     public int controllerId;
+    public int playerId;
     public int speed = 5;
     public int teamId = 0;
     public Planet homePlanet;
@@ -65,7 +66,7 @@ public class PlayerController : MonoBehaviour {
         if (boom.magnitude > 0.01f)
             transform.rotation = Quaternion.RotateTowards(currRot, Quaternion.Euler(angles.x, angles.y, angles.z), 2f);
 
-        Debug.Log(angles.magnitude);
+        //Debug.Log(angles.magnitude);
         /*if (angles.magnitude > 0.01f)
             angles = prevJoyStick;*/
         

@@ -98,7 +98,6 @@ GameObject:
   - component: {fileID: 58388800535986872}
   - component: {fileID: 114464245062483498}
   - component: {fileID: 50633590559590138}
-  - component: {fileID: 114977618252838970}
   m_Layer: 0
   m_Name: Atmosphere
   m_TagString: Atmosphere
@@ -327,7 +326,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1296062878620046}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 6.0699997}
+  m_LocalPosition: {x: 0, y: 0, z: 3.56}
   m_LocalScale: {x: 2.4296, y: 2.4296, z: 2.4296}
   m_Children: []
   m_Father: {fileID: 4589662646802616}
@@ -392,8 +391,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1290253937199386}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.9, y: 0, z: -2.7889}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
+  m_LocalPosition: {x: -8.19, y: 0, z: -2.7889}
+  m_LocalScale: {x: 0.8174401, y: 0.8174401, z: 0.8174401}
   m_Children:
   - {fileID: 4049599180981742}
   - {fileID: 4266230070076772}
@@ -1055,10 +1054,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34a0502fed55e4f48a15e4828010d7bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetId: 2
+  planetId: 1
   rotationSpeed: 5
   atmosphereRadius: 2
   teamColor: {r: 0, g: 0, b: 0, a: 0}
+  rocketHUD: {fileID: 0}
+  healthHUD: {fileID: 0}
   spritePlanet: {fileID: 212831168628719066}
   spriteAtmosphere: {fileID: 212969971937894750}
   atmosphere: {fileID: 4266230070076772}
@@ -1193,17 +1194,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   houseState: 0
---- !u!114 &114977618252838970
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1296062878620046}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4101c042b7bafb6488142c07a2cc22b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212006603412401356
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -1561,15 +1551,15 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.09803922}
+  m_Sprite: {fileID: 21300000, guid: b2bf6efb274a6ff4d8eb862343aad7fe, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.05882353}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 5.12, y: 5.12}
+  m_Size: {x: 7.2, y: 7.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!212 &212671820662552820

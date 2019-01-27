@@ -54,6 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ui: {fileID: 0}
   hud: {fileID: 0}
+  end: {fileID: 0}
   playerPrefab: {fileID: 114280194526037902, guid: fe4ba68704fd2d342ab4a674f965a61f,
     type: 2}
   team1: []
@@ -61,13 +62,18 @@ MonoBehaviour:
   team1ReadyImageChecks:
   - {fileID: 0}
   - {fileID: 0}
-  team2ReadyImageChecks:
-  - {fileID: 0}
-  - {fileID: 0}
   team1ReadyTextChecks:
   - {fileID: 0}
   - {fileID: 0}
+  team2ReadyImageChecks:
+  - {fileID: 0}
+  - {fileID: 0}
   team2ReadyTextChecks:
+  - {fileID: 0}
+  - {fileID: 0}
+  playerCheckmarks:
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   planet1: {fileID: 0}
@@ -76,6 +82,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6c9f33472e35e864f969a350e2f4b6b2, type: 3}
   - {fileID: 21300000, guid: eafe1b08fe7603244b0f3d3dd9865502, type: 3}
   gameInProgress: 0
+  gameEnded: 0
   time: 0
 --- !u!114 &114485237156804784
 MonoBehaviour:
