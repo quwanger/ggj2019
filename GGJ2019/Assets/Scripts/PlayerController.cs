@@ -24,6 +24,8 @@ public class PlayerController : MonoBehaviour {
 
     public GameObject missilePrefab;
 
+    private AudioManager audioManager;
+
     void Awake()
     {
         spriteRenderer = GetComponentInChildren<SpriteRenderer>();
@@ -31,7 +33,7 @@ public class PlayerController : MonoBehaviour {
 	void Start ()
     {
         gameManager = FindObjectOfType<GameManager>();
-
+        audioManager = FindObjectOfType<AudioManager>();
         SetupControls();
     }
 	
@@ -92,6 +94,7 @@ public class PlayerController : MonoBehaviour {
         {
             if (gameManager.CheckAllPlayersReady() == true)
             {
+                audioManager.PlaySound("missiles");
                 SpawnMissile();
             }
             

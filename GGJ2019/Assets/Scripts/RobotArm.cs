@@ -38,7 +38,9 @@ public class RobotArm : MonoBehaviour
     //allows player to move the arm after grabbing an object
     public bool canMoveAndGrab = true;
 
-    PlayerController playerController = null;    
+    PlayerController playerController = null;
+
+    private AudioManager audioManager;
 
     void Start ()
     {
@@ -55,6 +57,8 @@ public class RobotArm : MonoBehaviour
         returnSpeed = 4f;
         grabRadius = 0.5f;
         pushRadius = 0.75f;
+
+        audioManager = FindObjectOfType<AudioManager>();
 	}
 
     private bool armActive = false;
@@ -142,6 +146,8 @@ public class RobotArm : MonoBehaviour
         {
             if (hitColliders[a].gameObject.tag.Equals("Item") || hitColliders[a].gameObject.tag.Equals("Powerup") )
             {
+                audioManager.PlaySound("pushes");
+
                 if (!gameObjectsPunched.Contains(hitColliders[a].gameObject))
                 {
                     gameObjectsPunched.Add(hitColliders[a].gameObject);
@@ -257,6 +263,8 @@ public class RobotArm : MonoBehaviour
     /// <param name="radius"></param>
     void GrabObject(Vector2 center, float radius)
     {
+        audioManager.PlaySound("pulls");
+
         Collider2D[] hitColliders = Physics2D.OverlapCircleAll(center, radius);
 
         Collider2D closestItem = null;

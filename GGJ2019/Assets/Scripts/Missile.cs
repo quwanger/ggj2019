@@ -21,14 +21,22 @@ public class Missile : MonoBehaviour {
 
     public GameObject explosion;
 
+    //private AudioManager audioManager;
+
     void Awake()
     {
         mass = 10f;
         rigidbody2d = GetComponent<Rigidbody2D>();
     }
 
+    void Start()
+    {
+        //audioManager = FindObjectOfType<AudioManager>();
+    }
+
     public void Setup(PlayerController _owner, Vector2 _direction, float _speed, int _teamId, Color _color)
     {
+        //audioManager.PlaySound("missiles");
         owner = _owner;
         direction = _direction;
         speed = _speed;

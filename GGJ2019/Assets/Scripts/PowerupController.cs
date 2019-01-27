@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class PowerupController : ItemController
 {
+    private AudioManager audioManager;
     public ItemManager.Powerups powerup;
 
     public GameObject explosion;
+
+    void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
 
     public override void Setup(int _id, Vector2 _direction, float _speed, float _mass)
     {
@@ -119,6 +125,7 @@ public class PowerupController : ItemController
         //Debug.Log("Powerup Triggered: Missile");
         if(col.gameObject.CompareTag("HouseBorder"))
         {
+            audioManager.PlaySound("gets");
             col.transform.parent.GetComponent<Planet>().GetMissiles(1);
             Destroy(this.gameObject);
         }

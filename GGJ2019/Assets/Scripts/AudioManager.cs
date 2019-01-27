@@ -8,6 +8,8 @@ public class AudioManager : MonoBehaviour {
     public AudioClip[] pulls;
     public AudioClip[] explosions;
     public AudioClip[] missiles;
+    public AudioClip[] gets;
+    public AudioClip[] magnets;
 
     public AudioSource[] sources;
 
@@ -40,6 +42,9 @@ public class AudioManager : MonoBehaviour {
                 break;
             case "missiles":
                 sfx.PlayOneShot(missiles[Random.Range(0, missiles.Length)]);
+                break;
+            case "gets":
+                sfx.PlayOneShot(gets[Random.Range(0, gets.Length)]);
                 break;
         }
     }

@@ -32,6 +32,8 @@ public class GameManager : MonoBehaviour {
 
     public Sprite[] ships;
 
+    private AudioManager audioManager;
+
     public enum HouseState {
         Alive,
         Destroyed
@@ -55,6 +57,8 @@ public class GameManager : MonoBehaviour {
 
     void StartGame()
     {
+        
+
         gameInProgress = true;
         ui.SetActive(false);
         end.SetActive(false);
@@ -75,7 +79,8 @@ public class GameManager : MonoBehaviour {
 
 	void Start () {
 		time = 0.0f;
-	}
+        audioManager = FindObjectOfType<AudioManager>();
+    }
 	
 	void Update () {
         if (!gameInProgress)
@@ -87,6 +92,7 @@ public class GameManager : MonoBehaviour {
         {
             if (Input.GetButtonDown("Start_1") || Input.GetButtonDown("Start_2") || Input.GetButtonDown("Start_3") || Input.GetButtonDown("Start_4"))
             {
+                audioManager.PlaySound("gets");
                 SceneManager.LoadScene(SceneManager.GetActiveScene().name);
                 gameEnded = false;
             }
@@ -117,7 +123,9 @@ public class GameManager : MonoBehaviour {
     private void ReadyUpPlayer(PlayerController p)
     {
         p.isReady = true;
-        
+
+        audioManager.PlaySound("gets");
+
         if (p.playerId == 1)
         {
             playerCheckmarks[0].SetActive(true);
@@ -186,7 +194,9 @@ public class GameManager : MonoBehaviour {
         PlayerController player = Instantiate(playerPrefab, onTeam1 ? planet1.transform.position : planet2.transform.position, Quaternion.identity, onTeam1 ? planet1.transform : planet2.transform);
         player.transform.SetParent(null);
         player.controllerId = controllerId;
-        
+
+        audioManager.PlaySound("gets");
+
         if (onTeam1) {
             player.SetPlayerSprite(ships[team1.Count]);
             team1.Add(player);
