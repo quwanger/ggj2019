@@ -8,7 +8,8 @@ public class ItemManager : MonoBehaviour {
         Atmosphere_Friendly,
         Atmosphere_Enemy,
         Stuck,
-        Exploding
+        Exploding,
+        Hooked
     }
 
     public enum Powerups

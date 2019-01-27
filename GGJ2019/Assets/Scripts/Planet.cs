@@ -69,7 +69,6 @@ public class Planet : MonoBehaviour {
     public void GetMissiles(int missiles)
     {
         missileCount += missiles;
-        Debug.Log("Total Missiles: " + missileCount);
     }
 
     public void RegisterHouse(House h)

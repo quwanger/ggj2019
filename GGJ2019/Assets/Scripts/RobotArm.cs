@@ -51,7 +51,7 @@ public class RobotArm : MonoBehaviour {
             Planet planet = p.GetComponent<Planet>();
             if (planet.planetId == pController.teamId)
             {
-                robotArm.material.color = planet.teamColor;
+                robotArm.material.color = Color.white;
                 break;
             }
         }
@@ -73,13 +73,6 @@ public class RobotArm : MonoBehaviour {
 
         glove.GetComponent<SpriteRenderer>().enabled = false;
         glove.GetComponent<BoxCollider2D>().enabled = false;
-
-        if (destination == null)
-        {
-            //  destination = GameObject.FindGameObjectWithTag("1_crosshair").transform;
-
-            //destination = pController.transform.GetChild(0).transform;
-        }
 	}
 
     private bool m_isAxisInUse = false;
@@ -93,8 +86,7 @@ public class RobotArm : MonoBehaviour {
             grabMode = true;
             pushMode = false;
         }
-
-        if (Input.GetAxis(pController.controller.lt) != 0)
+        else if (Input.GetAxis(pController.controller.lt) != 0)
         {
             grabMode = false;
             pushMode = true;
@@ -114,8 +106,6 @@ public class RobotArm : MonoBehaviour {
         if (/*Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButton(0) ||*/
             (Input.GetAxis(pController.controller.rt) > 0 && !m_isAxisInUse) || (Input.GetAxis(pController.controller.lt) > 0 && !m_isAxisInUse))
         {
-
-            Debug.Log(Input.GetButtonDown(pController.controller.rt));
             /*destination = GameObject.FindGameObjectWithTag("1_crosshair").transform;
             Vector3 staticDestination = destination.position;*/
             destination = GameObject.FindGameObjectWithTag("1_crosshair").transform.position = origin.position - (-pController.transform.GetChild(0).transform.right * 18);
@@ -158,7 +148,6 @@ public class RobotArm : MonoBehaviour {
             if (hitColliders[a].gameObject.tag.Equals("Item"))
              hitColliders[a].SendMessage("Push", direction.normalized * pushForce);
             //set the glove to the position of the end of the line
-            glove.transform.position = currentPosition;
         }
 
 
@@ -169,9 +158,8 @@ public class RobotArm : MonoBehaviour {
     /// </summary>
     void LaunchArm(Vector3 pointB)
     {
-
         robotArm.SetPosition(0, origin.position);
-        robotArm.SetWidth(0.3f, 0.3f);
+        robotArm.SetWidth(0.05f, 0.05f);
 
         dist = Vector3.Distance(origin.position, pointB);
 
@@ -200,8 +188,13 @@ public class RobotArm : MonoBehaviour {
                 GrabObject(pointAlongLine, grabRadius);
 
             //push as you move along...
-           if (pushMode)
+            if (pushMode)
+            {
                 PushRadius(pointAlongLine, pushRadius, destination - origin.position);
+                glove.transform.position = pointAlongLine;
+            }
+
+          
 
             myLength = pointAlongLine - pointA;
 
@@ -210,9 +203,9 @@ public class RobotArm : MonoBehaviour {
             {
                 if (pushMode)
                 {
-                    glove.GetComponent<SpriteRenderer>().enabled = false;
+                   
                     glove.GetComponent<BoxCollider2D>().enabled = false;
-                    glove.transform.position = origin.position;
+                    
                 }
 
                 //Debug.Log("line complete");
@@ -234,6 +227,10 @@ public class RobotArm : MonoBehaviour {
             Vector3 pointAlongLine = x * Vector3.Normalize(pointB - pointA) + pointA;
             robotArm.SetPosition(1, pointAlongLine);
 
+            if(glove)
+            {
+                glove.transform.position = pointAlongLine;
+            }
 
             //grab the object
             if(grabbedObject != null)
@@ -247,7 +244,8 @@ public class RobotArm : MonoBehaviour {
                 goForward = true;
                 isArmShooting = false;
                 grabbedObject = null;
- 
+                if(glove)
+                    glove.GetComponent<SpriteRenderer>().enabled = false;
             }
 
         }
@@ -267,7 +265,7 @@ public class RobotArm : MonoBehaviour {
         foreach (Collider2D c in hitColliders)
         {
 
-           
+
             float dist = Vector3.Distance(c.gameObject.transform.position, center);
 
             if (dist < minDist && c.gameObject.tag.Equals("Item"))
@@ -280,6 +278,18 @@ public class RobotArm : MonoBehaviour {
                 goForward = false;
 
 
+            }
+        }
+
+        if (grabbedObject)
+        {
+            if (grabbedObject.GetComponent<ItemController>().itemState == ItemManager.ItemState.Stuck)
+            {
+                grabbedObject.GetComponent<ItemController>().GrabOffPlanet(grabbedObject.GetComponent<ItemController>().HomePlanet);
+            }
+            else
+            {
+                grabbedObject.GetComponent<ItemController>().itemState = ItemManager.ItemState.Hooked;
             }
         }
     }
