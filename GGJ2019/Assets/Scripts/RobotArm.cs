@@ -81,21 +81,21 @@ public class RobotArm : MonoBehaviour {
     {
 
         //toggle the controls
-        if (Input.GetAxis(pController.controller.rt) != 0)
+        if (Input.GetAxis(pController.controller.lt) != 0)
         {
             grabMode = true;
             pushMode = false;
 
-            Debug.Log("I am detecting RIGHT TRIGGER");
+            Debug.Log("I am detecting left TRIGGER");
 
         }
 
-        if (Input.GetAxis(pController.controller.lt) != 0)
+        if (Input.GetAxis(pController.controller.rt) != 0)
         {
             grabMode = false;
             pushMode = true;
 
-            Debug.Log("I am detecting LEFT TRIGGER");
+            Debug.Log("I am detecting right TRIGGER");
 
         }
 
@@ -154,7 +154,7 @@ public class RobotArm : MonoBehaviour {
 
         for  (int a = 0; a < hitColliders.Length; a++)
         {
-            if (hitColliders[a].gameObject.tag.Equals("Item"))
+            if (hitColliders[a].gameObject.tag.Equals("Item") || hitColliders[a].gameObject.tag.Equals("Powerup"))
              hitColliders[a].SendMessage("Push", direction.normalized * pushForce);
             //set the glove to the position of the end of the line
             glove.transform.position = currentPosition;
@@ -267,7 +267,7 @@ public class RobotArm : MonoBehaviour {
            
             float dist = Vector3.Distance(c.gameObject.transform.position, center);
 
-            if (dist < minDist && c.gameObject.tag.Equals("Item"))
+            if (dist < minDist && c.gameObject.tag.Equals("Item") || c.gameObject.tag.Equals("Powerup"))
             {
                 cMin = c;
                 minDist = dist;

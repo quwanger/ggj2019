@@ -41,8 +41,24 @@ public class PlayerController : MonoBehaviour {
 
     private void ControllerInput()
     {
+
+        Quaternion currRot = this.transform.rotation;
         float teamInputModifier = teamId == 1 ? -1 : 1;
-        transform.Rotate(new Vector3(0f, 0f, teamInputModifier * speed * Input.GetAxis(controller.joyLeftVert)));
+
+        float timeCount = 0.0f;
+        Vector3 angles = new Vector3(0, 0, Mathf.Atan2(Input.GetAxis(controller.joyLeftVert), Input.GetAxis(controller.joyLeftHori)) * 180 / Mathf.PI);
+        angles = angles + new Vector3(0, 0, -90f);
+        Quaternion _targetRotation = Quaternion.Euler(angles);
+
+        _targetRotation = Quaternion.EulerAngles(_targetRotation.eulerAngles + new Vector3(90f, 90f, 90f));
+
+
+        transform.rotation = Quaternion.Euler(angles.x, angles.y, angles.z);
+  
+        //transform.Rotate(new Vector3(0f, 0f, teamInputModifier * speed * Input.GetAxis(controller.joyLeftVert)));
+
+
+        //transform.Rotate(new Vector3(0f, 0f, teamInputModifier * speed * Input.GetAxis(controller.joyLeftVert)));
 
 
         Vector3 rotation = new Vector3(0, 0, -Mathf.Atan2(Input.GetAxis(controller.joyRightVert), Input.GetAxis(controller.joyRightHori)) * 180 / Mathf.PI);
