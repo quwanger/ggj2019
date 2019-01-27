@@ -37,8 +37,8 @@ GameObject:
   - component: {fileID: 4805415546032570}
   - component: {fileID: 212728497725504814}
   - component: {fileID: 50959488254454434}
-  - component: {fileID: 61180781393521568}
   - component: {fileID: 114401088826593620}
+  - component: {fileID: 58879119260765510}
   m_Layer: 0
   m_Name: Meteor
   m_TagString: Powerup
@@ -93,8 +93,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61180781393521568
-BoxCollider2D:
+--- !u!58 &58879119260765510
+CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
@@ -106,18 +106,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.35, y: 1.27}
-    newSize: {x: 5.12, y: 5.12}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.77, y: 0.74}
-  m_EdgeRadius: 0
+  m_Radius: 0.42
 --- !u!114 &114401088826593620
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -138,6 +128,7 @@ MonoBehaviour:
   rigidbody2d: {fileID: 0}
   itemTier: 0
   powerup: 0
+  explosion: {fileID: 1894033053834786, guid: ad5fbbf34286ce348abe3cb123476316, type: 2}
 --- !u!212 &212728497725504814
 SpriteRenderer:
   m_ObjectHideFlags: 1

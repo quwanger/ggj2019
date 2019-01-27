@@ -9,7 +9,8 @@ public class ItemManager : MonoBehaviour {
         Atmosphere_Enemy,
         Stuck,
         Exploding,
-        Hooked
+        Hooked,
+        NoCollide
     }
 
     public enum Powerups
@@ -21,11 +22,12 @@ public class ItemManager : MonoBehaviour {
     }
 
     public float spawnTime;
-    private float powerupSpawnTime = 4f;
+    private float powerupSpawnTime = 1f;
 	public GameObject[] itemTypes;
 
     public List<GameObject> items = new List<GameObject>();
-
+    public float minSpeed;
+    public float maxSpeed;
     public GameObject missile;
     public GameObject asteroid;
     public GameObject star;
@@ -44,7 +46,7 @@ public class ItemManager : MonoBehaviour {
         InvokeRepeating("SpawnPowerups", powerupSpawnTime, powerupSpawnTime);
     }
 
-    private float chanceOfSpawningPowerup = 1f;
+    private float chanceOfSpawningPowerup = 0.5f;
     void SpawnPowerups()
     {
         float powerupToSpawn = Random.Range(0f, 1f);
@@ -59,7 +61,7 @@ public class ItemManager : MonoBehaviour {
             float powerupMassMin = 0f;
             float powerupMassMax = 0f;
 
-            if (powerupToSpawn < 0.9f)
+            if (powerupToSpawn < 0.8f)
             {
                 // spawn missile
                 objectToSpawn = missile;
@@ -70,7 +72,7 @@ public class ItemManager : MonoBehaviour {
                 powerupMassMin = 1f;
                 powerupMassMax = 5f;
             }
-            else if (powerupToSpawn < 0.85f)
+            else if (powerupToSpawn < 0.95f)
             {
                 // spawn star
                 objectToSpawn = star;
@@ -194,11 +196,10 @@ public class ItemManager : MonoBehaviour {
         GameObject item = Instantiate (itemTypes[randomItemIndex], spawnPosition, Quaternion.identity);
         items.Add(item);
         ItemController itemController = item.GetComponent<ItemController>();
-        itemController.Setup(Random.Range(1, 3), direction, Random.Range(5f, 15f), Random.Range(1f, 5f));
+        itemController.Setup(Random.Range(1, 3), direction, Random.Range(minSpeed, maxSpeed), Random.Range(1f, 5f));
 	}
 
 	void Update () {
 	}
-
  
 }
