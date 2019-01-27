@@ -25,7 +25,7 @@ public class ItemController : MonoBehaviour {
 
     protected IEnumerator removeIfOutOBounds() {
         while(true) {
-            if (homePlanet) {
+            if (itemState == ItemManager.ItemState.Stuck) {
                 yield return new WaitForSeconds(3f);
             }
 
