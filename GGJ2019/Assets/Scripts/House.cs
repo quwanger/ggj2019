@@ -11,8 +11,7 @@ public class House : MonoBehaviour {
     public Planet HomePlanet { get { return homePlanet; } }
     void Start()
     {
-        homePlanet = transform.parent.parent.parent.GetComponent<Planet>();
-        GetComponent<SpriteRenderer>().color = homePlanet.teamColor;
+        homePlanet = transform.parent.parent.GetComponent<Planet>();
         homePlanet.RegisterHouse(this);
     }
     void OnTriggerEnter2D(Collider2D col)
