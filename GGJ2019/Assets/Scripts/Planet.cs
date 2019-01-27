@@ -102,6 +102,7 @@ public class Planet : MonoBehaviour {
 
     public void DestroyHouse(House h)
     {
+        rotationSpeed += 3;
         int houseCount = 0;
         foreach (House House in houses) {
             if(House.houseState == GameManager.HouseState.Alive) {
