@@ -53,6 +53,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ui: {fileID: 0}
+  hud: {fileID: 0}
   playerPrefab: {fileID: 114280194526037902, guid: fe4ba68704fd2d342ab4a674f965a61f,
     type: 2}
   team1: []
@@ -87,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acfda053137bb654986992697c3b3eb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnTime: 0.1
+  spawnTime: 1
   itemTypes:
   - {fileID: 1815016828587668, guid: 157b6728d83a4dd4482902177e7ace13, type: 2}
   - {fileID: 1815016828587668, guid: dba008ebd1f6c8f46871b31c4caa553d, type: 2}

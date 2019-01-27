@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
     public ItemManager ItemManager { get { return itemManager; } }
 
     public GameObject ui;
+    public GameObject hud;
 
     private ItemManager itemManager;
 
@@ -52,6 +53,7 @@ public class GameManager : MonoBehaviour {
     {
         gameInProgress = true;
         ui.SetActive(false);
+        hud.SetActive(true);
 		itemManager.Setup();
     }
 
@@ -75,8 +77,7 @@ public class GameManager : MonoBehaviour {
 		time += Time.deltaTime;
 	}
 
-    private void SetupPlayers()
-    {
+    private void SetupPlayers() {
         if(Input.GetButtonDown("Start_1"))
         {
             SpawnPlayer(1);
