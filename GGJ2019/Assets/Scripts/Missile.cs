@@ -11,6 +11,8 @@ public class Missile : MonoBehaviour {
     public float mass;
     public float teamId;
 
+    public bool useItemGravity = false;
+
     private float maxGravDist = 15f;
     private float maxGravity = 50f;
 
@@ -55,15 +57,18 @@ public class Missile : MonoBehaviour {
             }
         }
 
-        GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
-        foreach (GameObject item in items)
+        if (useItemGravity)
         {
-            float dist = Vector3.Distance(item.transform.position, transform.position);
-            if (dist <= maxGravDistItems && item.GetComponent<ItemController>().itemState != ItemManager.ItemState.Stuck)
+            GameObject[] items = GameObject.FindGameObjectsWithTag("Item");
+            foreach (GameObject item in items)
             {
-                Vector3 v = item.transform.position - transform.position;
-                Vector2 gravForce = v.normalized * (1.0f - (dist / maxGravDistItems)) * (maxGravityItems * item.GetComponent<ItemController>().mass);
-                rigidbody2d.AddForce(gravForce);
+                float dist = Vector3.Distance(item.transform.position, transform.position);
+                if (dist <= maxGravDistItems && item.GetComponent<ItemController>().itemState != ItemManager.ItemState.Stuck)
+                {
+                    Vector3 v = item.transform.position - transform.position;
+                    Vector2 gravForce = v.normalized * (1.0f - (dist / maxGravDistItems)) * (maxGravityItems * item.GetComponent<ItemController>().mass);
+                    rigidbody2d.AddForce(gravForce);
+                }
             }
         }
 
