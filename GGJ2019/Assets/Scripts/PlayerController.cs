@@ -10,7 +10,10 @@ public class PlayerController : MonoBehaviour {
     public int teamId = 0;
     public Planet homePlanet;
 
-    public GameObject readyCheckObject;
+    public GameObject readyCheckText;
+    public GameObject readyCheckImage;
+
+    public GameManager gameManager;
 
     public bool isReady = false;
 
@@ -26,6 +29,8 @@ public class PlayerController : MonoBehaviour {
     }
 	void Start ()
     {
+        gameManager = FindObjectOfType<GameManager>();
+
         SetupControls();
     }
 	
@@ -54,7 +59,11 @@ public class PlayerController : MonoBehaviour {
 
         if(Input.GetButtonDown(controller.rb) || Input.GetButtonDown(controller.lb))
         {
-            SpawnMissile();
+            if (gameManager.CheckAllPlayersReady() == true)
+            {
+                SpawnMissile();
+            }
+            
         }
     }
 
