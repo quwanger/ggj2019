@@ -73,13 +73,6 @@ public class RobotArm : MonoBehaviour {
 
         glove.GetComponent<SpriteRenderer>().enabled = false;
         glove.GetComponent<BoxCollider2D>().enabled = false;
-
-        if (destination == null)
-        {
-            //  destination = GameObject.FindGameObjectWithTag("1_crosshair").transform;
-
-            //destination = pController.transform.GetChild(0).transform;
-        }
 	}
 
     private bool m_isAxisInUse = false;
@@ -93,8 +86,7 @@ public class RobotArm : MonoBehaviour {
             grabMode = true;
             pushMode = false;
         }
-
-        if (Input.GetAxis(pController.controller.lt) != 0)
+        else if (Input.GetAxis(pController.controller.lt) != 0)
         {
             grabMode = false;
             pushMode = true;
@@ -252,7 +244,8 @@ public class RobotArm : MonoBehaviour {
                 goForward = true;
                 isArmShooting = false;
                 grabbedObject = null;
-                glove.GetComponent<SpriteRenderer>().enabled = false;
+                if(glove)
+                    glove.GetComponent<SpriteRenderer>().enabled = false;
             }
 
         }
